@@ -13,9 +13,7 @@ public class Console {
 
         try {
             return reader.readLine();
-
         }catch (IOException e ){
-
         return null;
         }
     }

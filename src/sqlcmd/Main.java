@@ -8,8 +8,8 @@ public class Main {
         Command command = new Command();
 
         System.out.println("Welcome!");
-        System.out.println("Enter command or 'help' for command list:");
 
         command.getCommand();
+
     }
 }

@@ -1,10 +1,19 @@
 package sqlcmd.command;
 
-public class Exit {
+import sqlcmd.databasemanager.DatabaseManager;
+import sqlcmd.databasemanager.JDBCDatabaseManager;
 
-    public void doExit() {
+public class Exit implements Commands {
 
-        System.out.println("Goodbye");
-        System.exit(0);
+    DatabaseManager manager = new JDBCDatabaseManager();
+
+    @Override
+    public boolean canProcess(String command) {
+        return command.equals("exit");
+    }
+
+    @Override
+    public void process(String command) {
+        manager.exit();
     }
 }

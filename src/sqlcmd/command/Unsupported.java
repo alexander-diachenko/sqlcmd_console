@@ -1,9 +1,19 @@
 package sqlcmd.command;
 
-public class Unsupported {
+import sqlcmd.databasemanager.DatabaseManager;
+import sqlcmd.databasemanager.JDBCDatabaseManager;
 
-    public void doUnsupported(){
+public class Unsupported implements Commands{
 
-        System.out.println("Please enter existing command or type 'help' for command list:");
+    DatabaseManager manager = new JDBCDatabaseManager();
+
+    @Override
+    public boolean canProcess(String command) {
+        return true;
+    }
+
+    @Override
+    public void process(String command) {
+    manager.unsupported(command);
     }
 }

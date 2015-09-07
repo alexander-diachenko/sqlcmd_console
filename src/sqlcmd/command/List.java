@@ -1,32 +1,23 @@
 package sqlcmd.command;
 
-import java.sql.*;
 
-public class List {
+import sqlcmd.databasemanager.DatabaseManager;
+import sqlcmd.databasemanager.JDBCDatabaseManager;
 
-    public String doList(Connection connection){
 
-        if (connection != null) {
-            try {
-                DatabaseMetaData metaData = connection.getMetaData();
-                ResultSet resultSet1 = metaData.getTables(null, "public", "%", new String[]{"TABLE"});
-                String tables = "[";
-                while (resultSet1.next()) {
-                    tables += resultSet1.getString(3) + ", ";
-                }
-                String result;
-                result = tables.substring(0, tables.length() - 2);
-                result += "]";
+public class List implements Commands {
 
-                System.out.println(result);
+    DatabaseManager manager = new JDBCDatabaseManager();
 
-                resultSet1.close();
-                return result;
 
-            } catch (SQLException e) {
-e.printStackTrace();
-            }
-        }
-        return null;
+    @Override
+    public boolean canProcess(String command) {
+        return command.equals("list");
+    }
+
+    @Override
+    public void process(String command) {
+        manager.list(command);
     }
 }
+

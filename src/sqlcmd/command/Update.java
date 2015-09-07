@@ -1,30 +1,19 @@
 package sqlcmd.command;
 
-import java.sql.*;
+import sqlcmd.databasemanager.DatabaseManager;
+import sqlcmd.databasemanager.JDBCDatabaseManager;
 
-public class Update {
+public class Update implements Commands {
 
-    public void doUpdate(Connection connection, String command) {
+    DatabaseManager manager = new JDBCDatabaseManager();
 
-        String[] data = command.split("\\|");
+    @Override
+    public boolean canProcess(String command) {
+        return command.startsWith("update|");
+    }
 
-        if (data.length < 6 || data.length % 2 == 1) {
-            System.out.println(String.format("Incorrect command '%s'. " +
-                    "Must be 'update|tableName|primaryKeyColumnName|primaryKeyValue|column1Name|column1NewValue|column2Name|column2NewValue|...|columnNName|columnNNewValue'", command));
-            return;
-        }
-
-        String tableName = data[1];
-
-        try (Statement stmt = connection.createStatement()){
-            for (int index = 5; index < data.length; index += 2) {
-                stmt.executeUpdate("UPDATE public." + tableName + " SET " + data[index - 1] + "='" + data[index] + "' WHERE " + data[2] + " =" + data[3]);
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Incorrect data");
-            return;
-        }
-        System.out.println("Successfully updated");
+    @Override
+    public void process(String command) {
+        manager.update(command);
     }
 }
