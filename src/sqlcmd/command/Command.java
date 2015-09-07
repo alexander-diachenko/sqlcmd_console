@@ -58,35 +58,4 @@ public class Command {
         return null;
     }
 }
-//    public String getCommand() {
-//        Console console = new Console();
-//        String command = console.read();
 
-
-//        try {
-//            boolean flag = true;
-//            while (flag) {
-//                if (command.equals("help")) {
-//                    manager.help(command);
-//                    getCommand();
-//                    flag = false;
-//
-//                } else if (command.equals("exit")) {
-//                   manager.exit();
-//                    break;
-//
-//                } else if (command.startsWith("connect|")) {
-//                    manager.connect(command);
-//                    break;
-//
-
-//                } else {
-//                    System.out.println("Please enter existing command or type 'help' for command list:");
-//                    getCommand();
-//                }
-//            }
-//        } catch (NullPointerException e) {
-//            System.out.println("Goodbye");
-//        }
-//        return null;
-//    }
