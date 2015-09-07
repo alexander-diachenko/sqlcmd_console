@@ -2,29 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da96dbaf-a716-408b-92f8-05ec0062ae0f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Commands.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/databasemanager/DatabaseManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/databasemanager/JDBCDatabaseManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Clear.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Clear.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/List.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/List.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/command/Clear.java" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Clear.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/command/Command.java" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Command.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/command/Connect.java" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Connect.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/Console.java" afterPath="$PROJECT_DIR$/src/sqlcmd/Console.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/command/Create.java" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Create.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/command/Delete.java" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Delete.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/command/Drop.java" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Drop.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/command/Exit.java" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Exit.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/command/Find.java" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Find.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/command/Help.java" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Help.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/command/List.java" afterPath="$PROJECT_DIR$/src/sqlcmd/command/List.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/Main.java" afterPath="$PROJECT_DIR$/src/sqlcmd/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/command/Unsupported.java" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Unsupported.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/command/Update.java" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Update.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Command.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Command.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Commands.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Commands.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Connect.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Connect.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/Console.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/Console.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Create.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Create.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Delete.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Delete.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Drop.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Drop.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Exit.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Exit.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Find.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Find.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Help.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Help.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/Main.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Unsupported.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Unsupported.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Update.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/Update.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
-    <list id="0c4ba648-2605-4433-b9ae-6a213229c85e" name="sqlcmd project" comment="" />
     <ignored path="postgres.iws" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -129,13 +121,30 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JDBCDatabaseManager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="JDBCDatabaseManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sqlcmd/databasemanager/JDBCDatabaseManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="6.181818">
-              <caret line="244" column="43" selection-start-line="244" selection-start-column="43" selection-end-line="244" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="297" column="0" selection-start-line="297" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#exit#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#list#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#help#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#unsupported#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#update#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#drop#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#create#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#clear#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#delete#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#connect#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#find#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#allTableData#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#limitOffsetTableData#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#printTableData#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#printSeparator#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#getMaxSize#0;class#JDBCDatabaseManager#0" expanded="false" />
+                <element signature="method#getColumnsCount#0;class#JDBCDatabaseManager#0" expanded="false" />
                 <marker date="1441652480973" expanded="true" signature="3034:3139" placeholder="UPDATE publi..." />
                 <marker date="1441652480973" expanded="true" signature="4074:4092" placeholder="DROP TABLE p..." />
                 <marker date="1441652480973" expanded="true" signature="5110:5155" placeholder="INSERT INTO ..." />
@@ -171,11 +180,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Command.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Command.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/sqlcmd/command/Command.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.82265276">
+              <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -249,11 +258,11 @@
         <option value="$PROJECT_DIR$/src/sqlcmd/command/List.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/command/Update.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/databasemanager/DatabaseManager.java" />
-        <option value="$PROJECT_DIR$/src/sqlcmd/command/Command.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/command/Unsupported.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/command/Exit.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/databasemanager/JDBCDatabaseManager.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/Main.java" />
+        <option value="$PROJECT_DIR$/src/sqlcmd/command/Command.java" />
       </list>
     </option>
   </component>
@@ -825,7 +834,7 @@
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="da96dbaf-a716-408b-92f8-05ec0062ae0f" name="Default" comment="" />
-      <changelist id="0c4ba648-2605-4433-b9ae-6a213229c85e" name="sqlcmd project" comment="" />
+      <changelist id="" name="sqlcmd project" comment="" />
       <created>1440682404523</created>
       <option name="number" value="Default" />
       <updated>1440682404523</updated>
@@ -845,7 +854,7 @@
       <workItem from="1441621600211" duration="1554000" />
       <workItem from="1441625725012" duration="331000" />
       <workItem from="1441630038309" duration="5760000" />
-      <workItem from="1441639775923" duration="9244000" />
+      <workItem from="1441639775923" duration="10122000" />
     </task>
     <task id="LOCAL-00001" summary="поменял сканер на баферед ридер">
       <created>1441625389932</created>
@@ -865,11 +874,23 @@
       <option name="project" value="LOCAL" />
       <updated>1441625596706</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="добавил интерфейсы и убрал логику с команд">
+      <created>1441652547907</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1441652547907</updated>
+    </task>
+    <task id="LOCAL-00005" summary="sqlcmd project">
+      <created>1441653333431</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1441653333431</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93129000" />
+    <option name="totallyTimeSpent" value="94007000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -923,7 +944,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="поменял сканер на баферед ридер" />
-    <option name="LAST_COMMIT_MESSAGE" value="поменял сканер на баферед ридер" />
+    <MESSAGE value="добавил интерфейсы и убрал логику с команд" />
+    <MESSAGE value="sqlcmd project" />
+    <option name="LAST_COMMIT_MESSAGE" value="sqlcmd project" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -935,7 +958,7 @@
           <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="27" />
+      <option name="time" value="28" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1355,16 +1378,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sqlcmd/command/Clear.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sqlcmd/Console.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1383,22 +1396,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sqlcmd/command/Command.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sqlcmd/databasemanager/JDBCDatabaseManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="6.181818">
-          <caret line="244" column="43" selection-start-line="244" selection-start-column="43" selection-end-line="244" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="297" column="0" selection-start-line="297" selection-start-column="0" selection-end-line="297" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="method#exit#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#list#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#help#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#unsupported#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#update#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#drop#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#create#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#clear#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#delete#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#connect#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#find#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#allTableData#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#limitOffsetTableData#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#printTableData#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#printSeparator#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#getMaxSize#0;class#JDBCDatabaseManager#0" expanded="false" />
+            <element signature="method#getColumnsCount#0;class#JDBCDatabaseManager#0" expanded="false" />
             <marker date="1441652480973" expanded="true" signature="3034:3139" placeholder="UPDATE publi..." />
             <marker date="1441652480973" expanded="true" signature="4074:4092" placeholder="DROP TABLE p..." />
             <marker date="1441652480973" expanded="true" signature="5110:5155" placeholder="INSERT INTO ..." />
@@ -1407,6 +1427,26 @@
             <marker date="1441652480973" expanded="true" signature="9540:9561" placeholder="SELECT * FRO..missingValue..." />
             <marker date="1441652480973" expanded="true" signature="10034:10100" placeholder="SELECT * FRO..missingValue..." />
             <marker date="1441652480973" expanded="true" signature="12674:12695" placeholder="SELECT * FRO..missingValue..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sqlcmd/command/Clear.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="2" selection-start-line="7" selection-start-column="2" selection-end-line="7" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sqlcmd/command/Command.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.82265276">
+          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
