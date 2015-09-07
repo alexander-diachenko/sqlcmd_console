@@ -2,20 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da96dbaf-a716-408b-92f8-05ec0062ae0f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Clear.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Command.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Connect.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/Console.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Create.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Delete.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Drop.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Exit.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Find.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Help.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/command/List.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/Main.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Unsupported.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/sqlcmd/command/Update.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/Main.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/Main.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="postgres.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -45,11 +33,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Find.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Find.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/sqlcmd/command/Find.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.6180723">
-              <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="95" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
               <folding>
                 <marker date="1441450291375" expanded="true" signature="1109:1130" placeholder="SELECT * FRO..missingValue..." />
                 <marker date="1441450291375" expanded="true" signature="1596:1662" placeholder="SELECT * FRO..missingValue..." />
@@ -75,7 +63,7 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <marker date="1441443981539" expanded="true" signature="32:133" placeholder="..." />
                 <marker date="1441443981539" expanded="true" signature="837:856" placeholder="DELETE FROM ..." />
               </folding>
             </state>
@@ -112,7 +100,7 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <marker date="1441450489445" expanded="true" signature="32:67" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -124,7 +112,7 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="46" column="27" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <marker date="1441448147026" expanded="true" signature="32:113" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -134,8 +122,20 @@
         <entry file="file://$PROJECT_DIR$/src/sqlcmd/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
+              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.class" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/out/production/postgres/sqlcmd/Main.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.1588785">
+              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#441#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -144,7 +144,7 @@
         <entry file="file://$PROJECT_DIR$/src/sqlcmd/Console.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -187,16 +187,16 @@
         <option value="$PROJECT_DIR$/src/sqlcmd/command/Unsupported.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/manager/JDBCDatabaseManager.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/command/Clear.java" />
-        <option value="$PROJECT_DIR$/src/sqlcmd/Console.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/command/List.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/command/Update.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/command/Delete.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/command/Help.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/command/Connect.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/manager/PostgresConnection.java" />
-        <option value="$PROJECT_DIR$/src/sqlcmd/Main.java" />
-        <option value="$PROJECT_DIR$/src/sqlcmd/command/Find.java" />
         <option value="$PROJECT_DIR$/src/sqlcmd/command/Command.java" />
+        <option value="$PROJECT_DIR$/src/sqlcmd/command/Find.java" />
+        <option value="$PROJECT_DIR$/src/sqlcmd/Main.java" />
+        <option value="$PROJECT_DIR$/src/sqlcmd/Console.java" />
       </list>
     </option>
   </component>
@@ -242,7 +242,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -261,8 +260,49 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="postgres" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="postgres" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sqlcmd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="postgres" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="postgres" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sqlcmd" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="command" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
@@ -278,7 +318,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="FullScreen" value="false" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.appearance" />
+    <property name="settings.editor.selected.configurable" value="File.Encoding" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
@@ -694,12 +734,20 @@
       <workItem from="1440847798870" duration="2840000" />
       <workItem from="1441434181614" duration="15958000" />
       <workItem from="1441473006003" duration="335000" />
-      <workItem from="1441474988390" duration="319000" />
+      <workItem from="1441474988390" duration="916000" />
+      <workItem from="1441621600211" duration="1321000" />
     </task>
+    <task id="LOCAL-00001" summary="поменял сканер на баферед ридер">
+      <created>1441625389932</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1441625389932</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75643000" />
+    <option name="totallyTimeSpent" value="77561000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -721,11 +769,11 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3246124" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16860466" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3246124" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16860466" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1416309" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1416309" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -751,6 +799,10 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="поменял сканер на баферед ридер" />
+    <option name="LAST_COMMIT_MESSAGE" value="поменял сканер на баферед ридер" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="19" />
@@ -762,16 +814,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/sqlcmd/Console.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/sqlcmd/command/Find.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -797,7 +839,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1441443981539" expanded="true" signature="32:133" placeholder="..." />
             <marker date="1441443981539" expanded="true" signature="837:856" placeholder="DELETE FROM ..." />
           </folding>
         </state>
@@ -828,7 +870,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1441450489445" expanded="true" signature="32:67" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -838,7 +880,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="46" column="27" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1441448147026" expanded="true" signature="32:113" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -897,7 +939,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="41" column="5" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1441450489445" expanded="true" signature="32:67" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -907,7 +949,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1441448147026" expanded="true" signature="32:113" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -985,7 +1027,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="46" column="47" selection-start-line="46" selection-start-column="47" selection-end-line="46" selection-end-column="47" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1441450489445" expanded="true" signature="32:67" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1163,26 +1205,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="46" column="27" selection-start-line="46" selection-start-column="27" selection-end-line="46" selection-end-column="27" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1441448147026" expanded="true" signature="32:113" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sqlcmd/Console.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/sqlcmd/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="21" selection-start-line="13" selection-start-column="21" selection-end-line="13" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1191,7 +1215,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1441450489445" expanded="true" signature="32:67" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1201,7 +1225,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <marker date="1441443981539" expanded="true" signature="32:133" placeholder="..." />
             <marker date="1441443981539" expanded="true" signature="837:856" placeholder="DELETE FROM ..." />
           </folding>
         </state>
@@ -1209,12 +1233,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/sqlcmd/command/Find.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.6180723">
-          <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="95" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
           <folding>
             <marker date="1441450291375" expanded="true" signature="1109:1130" placeholder="SELECT * FRO..missingValue..." />
             <marker date="1441450291375" expanded="true" signature="1596:1662" placeholder="SELECT * FRO..missingValue..." />
             <marker date="1441450291375" expanded="true" signature="4228:4249" placeholder="SELECT * FRO..missingValue..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sqlcmd/Console.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/sqlcmd/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out/production/postgres/sqlcmd/Main.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1588785">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#441#0" expanded="true" />
           </folding>
         </state>
       </provider>
