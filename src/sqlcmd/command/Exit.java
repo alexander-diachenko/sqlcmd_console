@@ -1,11 +1,15 @@
 package sqlcmd.command;
 
+import sqlcmd.Console;
 import sqlcmd.databasemanager.DatabaseManager;
-import sqlcmd.databasemanager.JDBCDatabaseManager;
 
-public class Exit implements Commands {
+public class Exit implements Command {
 
-    DatabaseManager manager = new JDBCDatabaseManager();
+    private DatabaseManager manager;
+
+    public Exit(DatabaseManager manager) {
+        this.manager = manager;
+    }
 
     @Override
     public boolean canProcess(String command) {

@@ -1,14 +1,14 @@
 package sqlcmd.command;
 
-
 import sqlcmd.databasemanager.DatabaseManager;
-import sqlcmd.databasemanager.JDBCDatabaseManager;
 
+public class List implements Command {
 
-public class List implements Commands {
+    private DatabaseManager manager;
 
-    DatabaseManager manager = new JDBCDatabaseManager();
-
+    public List(DatabaseManager manager) {
+        this.manager = manager;
+    }
 
     @Override
     public boolean canProcess(String command) {

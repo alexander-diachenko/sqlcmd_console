@@ -6,11 +6,11 @@ import java.sql.*;
 
 public class JDBCDatabaseManager implements DatabaseManager {
 
-   private  Connection connection;
+    private Connection connection;
 
     @Override
     public void exit() {
-        System.out.println("");
+        System.out.println("До свидания!");
         System.exit(0);
     }
 
@@ -304,7 +304,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
             System.out.print("|");
             for (int index = 1; index <= columnsCount; index++) {
                 System.out.format("%-" + maxSize + "s", " " + resultSet.getMetaData().getColumnName(index));
-                System.out.print("| ");
+                System.out.print("|");
             }
             System.out.println("");
             printSeparator(columnsCount, maxSize);
@@ -314,7 +314,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
                 System.out.print("|");
                 for (int i = 1; i <= columnsCount; i++) {
                     System.out.format("%-" + maxSize + "s", " " + resultSet.getString(i));
-                    System.out.print("| ");
+                    System.out.print("|");
                 }
                 System.out.println("");
             }
@@ -327,32 +327,36 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     private void printSeparator(int columnsCount, int maxSize) {
         int separatorLength = columnsCount * maxSize + columnsCount;
-        System.out.print("+");
-        for (int i = 0; i <= separatorLength; i++) {
-            System.out.print("-");
-        }
-        System.out.println("+");
+            System.out.print("+");
+            for (int i = 0; i <= separatorLength - 2; i++) {
+                System.out.print("-");
+            }
+            System.out.println("+");
     }
 
-    private int getMaxSize(int columnsCount, ResultSet resultSet) throws SQLException {
-        int longestColumnName = 0;
-        for (int index = 1; index <= columnsCount; index++) {
-            int columnNameLength = resultSet.getMetaData().getColumnName(index).length();
-            if (longestColumnName < columnNameLength) {
-                longestColumnName = columnNameLength;
-            }
-        }
-
-        int longestColumnValue = 0;
-        while (resultSet.next()) {
+    private int getMaxSize(int columnsCount, ResultSet resultSet) {
+        try {
+            int longestColumnName = 0;
             for (int index = 1; index <= columnsCount; index++) {
-                int columnValueLength = resultSet.getString(index).length();
-                if (longestColumnValue < columnValueLength) {
-                    longestColumnValue = columnValueLength;
+                int columnNameLength = resultSet.getMetaData().getColumnName(index).length();
+                if (longestColumnName < columnNameLength) {
+                    longestColumnName = columnNameLength;
                 }
             }
+
+            int longestColumnValue = 0;
+            while (resultSet.next()) {
+                for (int index = 1; index <= columnsCount; index++) {
+                    int columnValueLength = resultSet.getString(index).length();
+                    if (longestColumnValue < columnValueLength) {
+                        longestColumnValue = columnValueLength;
+                    }
+                }
+            }
+            return Math.max(longestColumnName, longestColumnValue) + 2;
+        } catch (SQLException e) {
+            return -1;
         }
-        return Math.max(longestColumnName, longestColumnValue) + 2;
     }
 
     private int getColumnsCount(String tableName, Statement stmt) {

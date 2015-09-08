@@ -1,11 +1,14 @@
 package sqlcmd.command;
 
 import sqlcmd.databasemanager.DatabaseManager;
-import sqlcmd.databasemanager.JDBCDatabaseManager;
 
-public class Find implements Commands {
+public class Find implements Command {
 
-    DatabaseManager manager = new JDBCDatabaseManager();
+    private DatabaseManager manager;
+
+    public Find(DatabaseManager manager) {
+        this.manager = manager;
+    }
 
     @Override
     public boolean canProcess(String command) {
@@ -14,6 +17,7 @@ public class Find implements Commands {
 
     @Override
     public void process(String command) {
+
         manager.find(command);
     }
 }

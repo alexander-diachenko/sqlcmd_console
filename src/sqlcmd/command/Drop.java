@@ -1,11 +1,14 @@
 package sqlcmd.command;
 
 import sqlcmd.databasemanager.DatabaseManager;
-import sqlcmd.databasemanager.JDBCDatabaseManager;
 
-public class Drop implements Commands {
+public class Drop implements Command {
 
-    DatabaseManager manager = new JDBCDatabaseManager();
+    private DatabaseManager manager;
+
+    public Drop(DatabaseManager manager) {
+        this.manager = manager;
+    }
 
     @Override
     public boolean canProcess(String command) {
