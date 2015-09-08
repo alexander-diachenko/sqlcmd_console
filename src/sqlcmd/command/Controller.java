@@ -5,9 +5,9 @@ import sqlcmd.databasemanager.DatabaseManager;
 
 public class Controller {
 
-    private  Command[] commands;
+    private Command[] commands;
     private DatabaseManager manager;
-    private  Console console;
+    private Console console;
 
     public Controller(Console console, DatabaseManager manager) {
         this.manager = manager;
@@ -34,8 +34,8 @@ public class Controller {
                 System.out.println("Введите команду или 'help' для помощи:");
                 String command = console.read();
 
-                for(Command comm : commands){
-                    if(comm.canProcess(command)) {
+                for (Command comm : commands) {
+                    if (comm.canProcess(command)) {
                         comm.process(command);
                         break;
                     }
