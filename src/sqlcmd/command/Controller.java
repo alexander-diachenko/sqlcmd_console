@@ -27,51 +27,22 @@ public class Controller {
     }
 
 
-    public String getCommand() {
+    public String run() {
 
         try {
             while (true) {
                 System.out.println("Введите команду или 'help' для помощи:");
                 String command = console.read();
-                manager.connect(command);
 
-                if (commands[1].canProcess(command)) {
-                    commands[1].process(command);
-
-                } else if (commands[0].canProcess(command)) {
-                    commands[0].process(command);
-                    break;
-
-                } else if (commands[5].canProcess(command)) {
-                    commands[5].process(command);
-
-                } else if (commands[7].canProcess(command)) {
-                    commands[7].process(command);
-
-                } else if (commands[4].canProcess(command)) {
-                    commands[4].process(command);
-
-                } else if (commands[3].canProcess(command)) {
-                    commands[3].process(command);
-
-                } else if (commands[6].canProcess(command)) {
-                    commands[6].process(command);
-
-                } else if (commands[10].canProcess(command)) {
-                    commands[10].process(command);
-
-                } else if (commands[2].canProcess(command)) {
-                    commands[2].process(command);
-
-                } else if (commands[8].canProcess(command)) {
-                    commands[8].process(command);
-
-                } else {
-                    commands[10].process(command);
+                for(Command comm : commands){
+                    if(comm.canProcess(command)) {
+                        comm.process(command);
+                        break;
+                    }
                 }
             }
         } catch (NullPointerException e) {
-
+            System.out.println("До свидания");
         }
         return null;
     }

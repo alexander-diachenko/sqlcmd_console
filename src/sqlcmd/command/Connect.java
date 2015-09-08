@@ -12,7 +12,7 @@ public class Connect implements Command {
 
     @Override
     public boolean canProcess(String command) {
-        return command.equals("connect");
+        return command.startsWith("connect|");
     }
 
     @Override

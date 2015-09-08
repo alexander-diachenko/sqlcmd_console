@@ -34,7 +34,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
                 return result;
 
             } catch (SQLException e) {
-
+                e.printStackTrace();
             }
         }
         return null;
@@ -147,13 +147,14 @@ public class JDBCDatabaseManager implements DatabaseManager {
             for (int index = 2; index < data.length; index++) {
                 string += data[index] + "', '";
             }
-            String result = string.substring(0, string.length() - 5);
+            String result = string.substring(0, string.length() - 4);
             result += "')";
             stmt.executeUpdate(result);
 
             System.out.println("Запись успешно создана");
 
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println(String.format("Таблицы '%s' не существует", tableName));
         }
     }
@@ -327,11 +328,11 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     private void printSeparator(int columnsCount, int maxSize) {
         int separatorLength = columnsCount * maxSize + columnsCount;
-            System.out.print("+");
-            for (int i = 0; i <= separatorLength - 2; i++) {
-                System.out.print("-");
-            }
-            System.out.println("+");
+        System.out.print("+");
+        for (int i = 0; i <= separatorLength - 2; i++) {
+            System.out.print("-");
+        }
+        System.out.println("+");
     }
 
     private int getMaxSize(int columnsCount, ResultSet resultSet) {
