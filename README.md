@@ -1,2 +1,1 @@
 # juja
-juja homework
