@@ -7,7 +7,7 @@ import java.io.OutputStream;
 public class ByteFilter {
 
     public static void filter(InputStream src, OutputStream dst, int bufferSize, byte filterCriteria) throws IOException {
-<<<<<<< HEAD
+
         /*BODY*/
         // 1, 0, 0, 2, 34, 5, 6, 7, 78, 8, 9, 0, 2, 3, 5, 6, 7, 7
 
@@ -15,8 +15,7 @@ public class ByteFilter {
 
 //[read(b[4]), write(b[4],0,1), write(b[4],3,1), read(b[4]), write(b[4],0,1), write(b[4],1,1), write(b[4],2,1), write(b[4],3,1), read(b[4]), write(b[4],0,1), write(b[4],1,1), write(b[4],2,1), read(b[4]), write(b[4],0,1), write(b[4],1,1), write(b[4],2,1), write(b[4],3,1), read(b[4]), write(b[4],0,1), write(b[4],1,1), read(b[4])]
 
-=======
->>>>>>> 64015ea19dc9e555812765a337a42108c7467347
+
 
         byte[] buffer = new byte[bufferSize];
         int len = src.read(buffer);

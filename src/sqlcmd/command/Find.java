@@ -18,6 +18,6 @@ public class Find implements Command {
     @Override
     public void process(String command) {
 
-        manager.find(command);
+        System.out.println(manager.getTableData(command));
     }
 }

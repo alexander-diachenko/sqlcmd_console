@@ -1,9 +1,5 @@
 package sqlcmd.command;
 
-<<<<<<< HEAD
-import sqlcmd.Console;
-=======
->>>>>>> 64015ea19dc9e555812765a337a42108c7467347
 import sqlcmd.databasemanager.DatabaseManager;
 
 public class Exit implements Command {

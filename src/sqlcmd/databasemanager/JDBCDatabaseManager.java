@@ -28,8 +28,6 @@ public class JDBCDatabaseManager implements DatabaseManager {
                 result = tables.substring(0, tables.length() - 2);
                 result += "]";
 
-                System.out.println(result);
-
                 resultSet1.close();
                 return result;
 
@@ -46,9 +44,9 @@ public class JDBCDatabaseManager implements DatabaseManager {
                 "\t подключение к базе");
         System.out.println("'list'\n" +
                 "\t вывод списка всех таблиц");
-        System.out.println("'find|tableName'\n" +
+        System.out.println("'getTableData|tableName'\n" +
                 "\t вывод всей таблицы");
-        System.out.println("'find|tableName|limit|offset'\n" +
+        System.out.println("'getTableData|tableName|limit|offset'\n" +
                 "\t вывод части таблицы");
         System.out.println("'create|tableName|column1Value|column2Value|...|columnNValue'\n" +
                 "\t создание поля");
@@ -229,7 +227,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
             Class.forName("org.postgresql.Driver");
 
         } catch (ClassNotFoundException e) {
-            System.out.println("Cant find jdbc jar");
+            System.out.println("Cant getTableData jdbc jar");
         }
 
         try {
@@ -243,17 +241,19 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
         }
         if (connection != null) {
-            System.out.println("Подключение OK");
+            System.out.println(String.format("Подключение к базе '%s' прошло успешно", database));
         }
     }
 
     @Override
-    public void find(String command) {
+    public String getTableData(String command) {
+
+        String tableData = "";
         String[] data = command.split("\\|");
 
         if (data.length != 2 && data.length != 4) {
-            System.out.println(String.format("Неправильная команда '%s'. Должно быть 'find|tableName' или 'find|tableName|limit|offset'", command));
-            return;
+            return String.format("Неправильная команда '%s'. Должно быть 'getTableData|tableName' или 'getTableData|tableName|limit|offset'", command);
+
         }
 
         String tableName = data[1];
@@ -263,79 +263,51 @@ public class JDBCDatabaseManager implements DatabaseManager {
             int columnsCount = getColumnsCount(tableName, stmt);
 
             if (data.length == 2) {
-                allTableData(stmt, columnsCount, tableName);
+                ResultSet resultSet = stmt.executeQuery("SELECT * FROM public." + tableName);
+                tableData = tableData(tableData, columnsCount, resultSet);
             } else {
-                limitOffsetTableData(stmt, columnsCount, tableName, data);
+                int limit = Integer.parseInt(data[2]);
+                int offset = Integer.parseInt(data[3]) - 1;
+                ResultSet resultSet = stmt.executeQuery("SELECT * FROM public." + tableName + " LIMIT " + limit + " OFFSET " + offset);
+                tableData = tableData(tableData, columnsCount, resultSet);
             }
 
         } catch (SQLException e) {
-            System.out.format(String.format("Таблицы '%s' не существует", tableName));
+            System.out.format(String.format("Таблицы '%s' не существует\n", tableName));
         }
+        return tableData;
     }
 
-    private void allTableData(Statement stmt, int columnsCount, String tableName) {
-        try (ResultSet resultSet = stmt.executeQuery("SELECT * FROM public." + tableName)) {
-
-            printTableData(columnsCount, resultSet);
-
-        } catch (SQLException e) {
-            System.out.format(String.format("Таблицы '%s' не существует", tableName));
-        }
-    }
-
-    private void limitOffsetTableData(Statement stmt, int columnsCount, String tableName, String[] data) {
-        int limit = Integer.parseInt(data[2]);
-        int offset = Integer.parseInt(data[3]) - 1;
-
-        try (ResultSet resultSet = stmt.executeQuery("SELECT * FROM public." + tableName + " LIMIT " + limit + " OFFSET " + offset)) {
-
-            printTableData(columnsCount, resultSet);
-
-        } catch (SQLException e) {
-            System.out.format(String.format("Таблицы '%s' не существует", tableName));
-        }
-    }
-
-    private void printTableData(int columnsCount, ResultSet resultSet) {
+    private String tableData(String tableData, int columnsCount, ResultSet resultSet) {
         try {
-
             int maxSize = getMaxSize(columnsCount, resultSet);
-
-            printSeparator(columnsCount, maxSize);
-            System.out.print("|");
+            tableData = addSeparator(tableData, columnsCount, maxSize);
+            tableData += "|";
             for (int index = 1; index <= columnsCount; index++) {
-                System.out.format("%-" + maxSize + "s", " " + resultSet.getMetaData().getColumnName(index));
-                System.out.print("|");
+                tableData += String.format("%-" + maxSize + "s", " " + resultSet.getMetaData().getColumnName(index));
+                tableData += "|";
             }
-            System.out.println("");
-            printSeparator(columnsCount, maxSize);
+            tableData += "\n";
+            tableData = addSeparator(tableData, columnsCount, maxSize);
 
             resultSet.beforeFirst();
             while (resultSet.next()) {
-                System.out.print("|");
+                tableData += "|";
                 for (int i = 1; i <= columnsCount; i++) {
-                    System.out.format("%-" + maxSize + "s", " " + resultSet.getString(i));
-                    System.out.print("|");
+                    tableData += String.format("%-" + maxSize + "s", " " + resultSet.getString(i));
+                    tableData += "|";
                 }
-                System.out.println("");
+                tableData += "\n";
             }
-            printSeparator(columnsCount, maxSize);
-
+            tableData = addSeparator(tableData, columnsCount, maxSize);
         } catch (SQLException e) {
-            e.printStackTrace();
+            return null;
         }
-    }
-
-    private void printSeparator(int columnsCount, int maxSize) {
-        int separatorLength = columnsCount * maxSize + columnsCount;
-        System.out.print("+");
-        for (int i = 0; i <= separatorLength - 2; i++) {
-            System.out.print("-");
-        }
-        System.out.println("+");
+        return tableData;
     }
 
     private int getMaxSize(int columnsCount, ResultSet resultSet) {
+        int maxSize = 0;
         try {
             int longestColumnName = 0;
             for (int index = 1; index <= columnsCount; index++) {
@@ -354,13 +326,26 @@ public class JDBCDatabaseManager implements DatabaseManager {
                     }
                 }
             }
-            return Math.max(longestColumnName, longestColumnValue) + 2;
+            maxSize = Math.max(longestColumnName, longestColumnValue) + 2;
         } catch (SQLException e) {
-            return -1;
+            e.printStackTrace();
         }
+        return maxSize;
     }
 
+    private String addSeparator(String tableData, int columnsCount, int maxSize) {
+        int separatorLength = columnsCount * maxSize + columnsCount;
+        tableData += "+";
+        for (int i = 0; i <= separatorLength - 2; i++) {
+            tableData += "-";
+        }
+        tableData += "+\n";
+        return tableData;
+    }
+
+
     private int getColumnsCount(String tableName, Statement stmt) {
+
         try (ResultSet resultSetCount = stmt.executeQuery("SELECT * FROM public." + tableName)) {
             ResultSetMetaData rsmd = resultSetCount.getMetaData();
 
@@ -368,6 +353,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
         } catch (SQLException e) {
             return -1;
+
         }
     }
 }

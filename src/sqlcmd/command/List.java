@@ -17,7 +17,8 @@ public class List implements Command {
 
     @Override
     public void process(String command) {
-        manager.list(command);
+
+        System.out.println(manager.list(command));
     }
 }
 

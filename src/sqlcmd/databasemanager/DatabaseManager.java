@@ -15,7 +15,7 @@ public interface DatabaseManager {
 
     String list(String command);
 
-    void find(String command);
+    String getTableData(String command);
 
     void create(String command);
 
