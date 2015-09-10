@@ -906,7 +906,7 @@
       <workItem from="1441679983427" duration="695000" />
       <workItem from="1441713160581" duration="6430000" />
       <workItem from="1441722584633" duration="10873000" />
-      <workItem from="1441812287610" duration="9475000" />
+      <workItem from="1441812287610" duration="9546000" />
     </task>
     <task id="LOCAL-00001" summary="поменял сканер на баферед ридер">
       <created>1441625389932</created>
@@ -954,7 +954,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="122035000" />
+    <option name="totallyTimeSpent" value="122106000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
