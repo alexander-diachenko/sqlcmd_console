@@ -1,19 +1,12 @@
 package sqlcmd.databasemanager;
 
-import sqlcmd.Console;
-
-import java.sql.Connection;
-
-/**
- * Created by POSITIV on 07.09.2015.
- */
 public interface DatabaseManager {
 
     void help();
 
     void connect(String command);
 
-    String list(String command);
+    String getTableNames(String command);
 
     String getTableData(String command);
 
