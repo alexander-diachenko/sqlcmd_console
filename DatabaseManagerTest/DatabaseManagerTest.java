@@ -10,7 +10,7 @@ public class DatabaseManagerTest {
 
     @Before
     public void run() {
-        manager.connect("connect|sqlcmd|postgres|rffynbg");
+        manager.connect("connect|sqlcmd|postgres|123");
         manager.clear("clear|car");
         manager.create("create|car|2|ferrari|red|6");
     }
@@ -226,7 +226,7 @@ public class DatabaseManagerTest {
     @Test
     public void testConnectWithCorrectData() {
 
-        manager.connect("connect|sqlcmd|postgres|rffynbg");
+        manager.connect("connect|sqlcmd|postgres|123");
         assertEquals("+---------------------------------------+\n" +
                 "| id      | name    | color   | age     |\n" +
                 "+---------------------------------------+\n" +
