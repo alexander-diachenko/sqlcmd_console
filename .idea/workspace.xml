@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="da96dbaf-a716-408b-92f8-05ec0062ae0f" name="Default" comment="добавил тестов на 86% кавереджа">
-      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\juja" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/Stream/lab40/ByteFilter.class" afterPath="$PROJECT_DIR$/out/production/postgres/Stream/lab40/ByteFilter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/databasemanager/DatabaseManager.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/databasemanager/DatabaseManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/test/postgres/DatabaseManagerTest.class" afterPath="$PROJECT_DIR$/out/test/postgres/DatabaseManagerTest.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/databasemanager/JDBCDatabaseManager.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/databasemanager/JDBCDatabaseManager.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/List.class" afterPath="$PROJECT_DIR$/out/production/postgres/sqlcmd/command/List.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Stream/lab40/ByteFilter.java" afterPath="$PROJECT_DIR$/src/Stream/lab40/ByteFilter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/databasemanager/DatabaseManager.java" afterPath="$PROJECT_DIR$/src/sqlcmd/databasemanager/DatabaseManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/databasemanager/JDBCDatabaseManager.java" afterPath="$PROJECT_DIR$/src/sqlcmd/databasemanager/JDBCDatabaseManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/sqlcmd/command/List.java" afterPath="$PROJECT_DIR$/src/sqlcmd/command/List.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="da96dbaf-a716-408b-92f8-05ec0062ae0f" name="Default" comment="добавил тестов на 86% кавереджа" />
     <list id="617aabcc-1d31-46cc-9483-a150b0217857" name="Failed commit: Default" comment="добавил тестов на 86% кавереджа" />
     <ignored path="postgres.iws" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -899,7 +886,7 @@
       <workItem from="1441713160581" duration="6430000" />
       <workItem from="1441722584633" duration="10873000" />
       <workItem from="1441812287610" duration="9546000" />
-      <workItem from="1441864445495" duration="9952000" />
+      <workItem from="1441864445495" duration="10445000" />
     </task>
     <task id="LOCAL-00001" summary="поменял сканер на баферед ридер">
       <created>1441625389932</created>
@@ -947,7 +934,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="132058000" />
+    <option name="totallyTimeSpent" value="132551000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
