@@ -13,7 +13,7 @@ public interface DatabaseManager {
 
     void connect(String command);
 
-    String list(String command);
+    String getTableNames(String command);
 
     String getTableData(String command);
 

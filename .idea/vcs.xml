@@ -3,6 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/juja" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/src/Stream" vcs="Git" />
     <mapping directory="D:/Soft/POSITIV" vcs="CVS" />
   </component>

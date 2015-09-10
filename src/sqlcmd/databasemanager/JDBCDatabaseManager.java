@@ -1,7 +1,6 @@
 package sqlcmd.databasemanager;
 
 import sqlcmd.Console;
-
 import java.sql.*;
 
 public class JDBCDatabaseManager implements DatabaseManager {
@@ -15,7 +14,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public String list(String command) {
+    public String getTableNames(String command) {
         if (connection != null) {
             try {
                 DatabaseMetaData metaData = connection.getMetaData();
@@ -44,9 +43,9 @@ public class JDBCDatabaseManager implements DatabaseManager {
                 "\t подключение к базе");
         System.out.println("'list'\n" +
                 "\t вывод списка всех таблиц");
-        System.out.println("'getTableData|tableName'\n" +
+        System.out.println("'find|tableName'\n" +
                 "\t вывод всей таблицы");
-        System.out.println("'getTableData|tableName|limit|offset'\n" +
+        System.out.println("'find|tableName|limit|offset'\n" +
                 "\t вывод части таблицы");
         System.out.println("'create|tableName|column1Value|column2Value|...|columnNValue'\n" +
                 "\t создание поля");
@@ -148,12 +147,9 @@ public class JDBCDatabaseManager implements DatabaseManager {
             String result = string.substring(0, string.length() - 4);
             result += "')";
             stmt.executeUpdate(result);
-
             System.out.println("Запись успешно создана");
-
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println(String.format("Таблицы '%s' не существует", tableName));
+            System.out.println("Не правильные данные");
         }
     }
 
@@ -161,19 +157,20 @@ public class JDBCDatabaseManager implements DatabaseManager {
     public void clear(String command) {
         Console console = new Console();
         String[] data = command.split("\\|");
-        String tableName = data[1];
-
 
         if (data.length != 2) {
             System.out.println(String.format("Неправильная команда '%s'. Должно быть 'clear|tableName'", command));
             return;
         }
 
-        System.out.println(String.format("ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы '%s'. 'y' для подтверждения, 'n' для отмены", tableName));
-        String check = console.read();
-        if (check.equals("n")) {
-            return;
-        }
+        String tableName = data[1];
+
+//        System.out.println(String.format("ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы '%s'. 'y' для подтверждения, 'n' для отмены", tableName));
+//        String check = console.read();
+//        if (check.equals("n")) {
+//            return;
+//        }
+        //TODO вернуть назад
 
         try (Statement stmt = connection.createStatement()) {
 
@@ -241,6 +238,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
         }
         if (connection != null) {
+
             System.out.println(String.format("Подключение к базе '%s' прошло успешно", database));
         }
     }
@@ -248,11 +246,15 @@ public class JDBCDatabaseManager implements DatabaseManager {
     @Override
     public String getTableData(String command) {
 
+        if (connection == null) {
+            return "Вы не подключились к базе данных";
+        }
+
         String tableData = "";
         String[] data = command.split("\\|");
 
         if (data.length != 2 && data.length != 4) {
-            return String.format("Неправильная команда '%s'. Должно быть 'getTableData|tableName' или 'getTableData|tableName|limit|offset'", command);
+            return String.format("Неправильная команда '%s'. Должно быть 'find|tableName' или 'find|tableName|limit|offset'", command);
 
         }
 
@@ -265,15 +267,19 @@ public class JDBCDatabaseManager implements DatabaseManager {
             if (data.length == 2) {
                 ResultSet resultSet = stmt.executeQuery("SELECT * FROM public." + tableName);
                 tableData = tableData(tableData, columnsCount, resultSet);
+                resultSet.close();
             } else {
                 int limit = Integer.parseInt(data[2]);
                 int offset = Integer.parseInt(data[3]) - 1;
                 ResultSet resultSet = stmt.executeQuery("SELECT * FROM public." + tableName + " LIMIT " + limit + " OFFSET " + offset);
                 tableData = tableData(tableData, columnsCount, resultSet);
+                resultSet.close();
             }
+            stmt.close();
+
 
         } catch (SQLException e) {
-            System.out.format(String.format("Таблицы '%s' не существует\n", tableName));
+            return String.format("Таблицы '%s' не существует\n", tableName);
         }
         return tableData;
     }
@@ -300,6 +306,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
                 tableData += "\n";
             }
             tableData = addSeparator(tableData, columnsCount, maxSize);
+
         } catch (SQLException e) {
             return null;
         }
@@ -327,6 +334,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
                 }
             }
             maxSize = Math.max(longestColumnName, longestColumnValue) + 2;
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -343,13 +351,13 @@ public class JDBCDatabaseManager implements DatabaseManager {
         return tableData;
     }
 
-
     private int getColumnsCount(String tableName, Statement stmt) {
 
         try (ResultSet resultSetCount = stmt.executeQuery("SELECT * FROM public." + tableName)) {
             ResultSetMetaData rsmd = resultSetCount.getMetaData();
+            int columnCount = rsmd.getColumnCount();
 
-            return rsmd.getColumnCount();
+            return columnCount;
 
         } catch (SQLException e) {
             return -1;
