@@ -3,8 +3,25 @@
   <component name="ChangeListManager">
     <list default="true" id="da96dbaf-a716-408b-92f8-05ec0062ae0f" name="Default" comment="">
       <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab38\EntityInput.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab38\EntityInputStream.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab38\EntityOutput.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab38\EntityOutputStream.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab38\Person.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab38\Point.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab38\Test1.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab38\Test2.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab39\EntityInput.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab39\EntityInputReader.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab39\EntityOutput.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab39\EntityOutputWriter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab39\Person.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab39\Point.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab39\Test1.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab39\Test2.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab40\ByteFilter.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab40\Test1.java" afterPath="" />
+      <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab40\Test2.java" afterPath="" />
     </list>
     <list id="617aabcc-1d31-46cc-9483-a150b0217857" name="Failed commit: Default" comment="добавил тестов на 86% кавереджа" />
     <ignored path="postgres.iws" />
@@ -881,7 +898,7 @@
       <workItem from="1441864445495" duration="10445000" />
       <workItem from="1441876368296" duration="130000" />
       <workItem from="1441882445613" duration="697000" />
-      <workItem from="1441944646655" duration="202000" />
+      <workItem from="1441944646655" duration="213000" />
     </task>
     <task id="LOCAL-00001" summary="поменял сканер на баферед ридер">
       <created>1441625389932</created>
@@ -937,11 +954,17 @@
       <option name="project" value="LOCAL" />
       <updated>1441882545204</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="добавил тестов">
+      <created>1441944862361</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1441944862361</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133580000" />
+    <option name="totallyTimeSpent" value="133591000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
