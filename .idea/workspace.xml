@@ -22,6 +22,7 @@
       <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab40\ByteFilter.java" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab40\Test1.java" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\POSITIV\IDEAprojects\postgres\src\Stream\lab40\Test2.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="617aabcc-1d31-46cc-9483-a150b0217857" name="Failed commit: Default" comment="добавил тестов на 86% кавереджа" />
     <ignored path="postgres.iws" />
@@ -898,7 +899,7 @@
       <workItem from="1441864445495" duration="10445000" />
       <workItem from="1441876368296" duration="130000" />
       <workItem from="1441882445613" duration="697000" />
-      <workItem from="1441944646655" duration="213000" />
+      <workItem from="1441944646655" duration="290000" />
     </task>
     <task id="LOCAL-00001" summary="поменял сканер на баферед ридер">
       <created>1441625389932</created>
@@ -964,7 +965,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133591000" />
+    <option name="totallyTimeSpent" value="133668000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
