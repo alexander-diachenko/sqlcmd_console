@@ -3,6 +3,7 @@ import org.junit.Test;
 import sqlcmd.view.Console;
 import sqlcmd.databasemanager.DatabaseManager;
 import sqlcmd.databasemanager.JDBCDatabaseManager;
+import sqlcmd.view.View;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,8 +12,8 @@ import static org.junit.Assert.assertEquals;
 
 public class testDatabaseManager {
 
-    Console console = new Console();
-    DatabaseManager manager = new JDBCDatabaseManager(console);
+    View view = new Console();
+    DatabaseManager manager = new JDBCDatabaseManager(view);
 
     @Before
     public void run() throws SQLException {
