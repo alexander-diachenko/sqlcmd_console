@@ -1,50 +1,46 @@
 package sqlcmd.command;
 
-import sqlcmd.Console;
+import sqlcmd.command.*;
 import sqlcmd.databasemanager.DatabaseManager;
+import sqlcmd.view.View;
 
 public class Controller {
 
     private Command[] commands;
     private DatabaseManager manager;
-    private Console console;
+    private View view;
 
-    public Controller(Console console, DatabaseManager manager) {
+    public Controller(View view, DatabaseManager manager) {
         this.manager = manager;
-        this.console = console;
+        this.view = view;
         this.commands = new Command[]{
-                new Exit(manager),
-                new Help(manager),
-                new Connect(manager),
-                new List(manager),
-                new Find(manager),
-                new Create(manager),
-                new Update(manager),
-                new Delete(manager),
-                new Clear(manager),
-                new Drop(manager),
-                new Unsupported(manager)};
+                new Exit(view),
+                new Help(view),
+                new Connect(manager, view),
+                new isConnected(manager, view),
+                new List(view, manager),
+                new Find(manager, view),
+                new Create(manager, view),
+                new Update(manager, view),
+                new Delete(manager, view),
+                new Clear(manager, view),
+                new Drop(manager, view),
+                new Unsupported(view)};
     }
 
+    public void run() {
+        System.out.println("Добро пожаловать!");
 
-    public String run() {
+        while (true) {
+            System.out.println("Введите команду или 'help' для помощи:");
+            String command = view.read();
 
-        try {
-            while (true) {
-                System.out.println("Введите команду или 'help' для помощи:");
-                String command = console.read();
-
-                for (Command comm : commands) {
-                    if (comm.canProcess(command)) {
-                        comm.process(command);
-                        break;
-                    }
+            for (Command comm : commands) {
+                if (comm.canProcess(command)) {
+                    comm.process(command);
+                    break;
                 }
             }
-        } catch (NullPointerException e) {
-            System.out.println("До свидания");
         }
-        return null;
     }
 }
-
