@@ -10,7 +10,6 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public ArrayList<String> getTableNames() throws SQLException {
-
         DatabaseMetaData metaData = connection.getMetaData();
         ResultSet resultSet = metaData.getTables(null, "public", "%", new String[]{"TABLE"});
 
@@ -24,7 +23,6 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public void update(String tableName, String value, String primaryKey) throws SQLException {
-
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("UPDATE public." + tableName + " SET " + value + " WHERE " + primaryKey);
         stmt.close();
@@ -32,7 +30,6 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public void drop(String tableName) throws SQLException {
-
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("DROP TABLE public." + tableName);
         stmt.close();
@@ -45,7 +42,6 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public void create(String tableName, String value) throws SQLException {
-
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("INSERT INTO public." + tableName + " VALUES(" + value + ")");
         stmt.close();
@@ -53,7 +49,6 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public void clear(String tableName) throws SQLException {
-
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("DELETE FROM public." + tableName);
         stmt.close();
@@ -61,7 +56,6 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public void delete(String tableName, String primaryKey) throws SQLException {
-
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("DELETE FROM public." + tableName + " WHERE " + primaryKey);
         stmt.close();
@@ -77,7 +71,6 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public ArrayList<String> getTableData(String tableName) throws SQLException {
-
         Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         ResultSet resultSet = stmt.executeQuery("SELECT * FROM public." + tableName);
         ResultSetMetaData rsmd = resultSet.getMetaData();
