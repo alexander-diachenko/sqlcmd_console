@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public interface DatabaseManager {
 
-    void connect(String database, String user, String command) throws SQLException;
+    void connect(String database, String user, String command) throws SQLException, ClassNotFoundException;
 
     ArrayList<String> getTableNames() throws SQLException;
 
@@ -13,7 +13,7 @@ public interface DatabaseManager {
      * @param tableName .
      * @return tableData .
      * ArrayList[0] = columnCount.
-     * ArrayList[1, columnCount] = columnName.
+     * ArrayList[1, columnCount + 1] = columnName.
      * ArrayList[columnCount + 1, size] = columnData.
      * @throws SQLException .
      */

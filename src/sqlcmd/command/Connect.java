@@ -40,6 +40,8 @@ public class Connect implements Command {
         } catch (SQLException e) {
             view.write(String.format("Не удалось подключиться к базе '%s' " +
                     "по причине: %s", database, e.getMessage()));
+        } catch (ClassNotFoundException e) {
+            view.write("Не могу найти драйвер (jar). Добавьте его в библитеку проекта.");
         }
     }
 }

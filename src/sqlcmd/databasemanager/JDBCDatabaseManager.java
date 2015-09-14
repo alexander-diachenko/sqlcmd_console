@@ -1,7 +1,5 @@
 package sqlcmd.databasemanager;
 
-import sqlcmd.view.View;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -9,11 +7,6 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     public static final String JDBC_POSTGRESQL_URL = "jdbc:postgresql://localhost:5432/";
     private Connection connection;
-    private View view;
-
-    public JDBCDatabaseManager(View view) {
-        this.view = view;
-    }
 
     @Override
     public ArrayList<String> getTableNames() throws SQLException {
@@ -75,12 +68,8 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void connect(String database, String user, String password) throws SQLException {
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            view.write("Не могу найти драйвер (jar). Добавьте его в библитеку проекта.");
-        }
+    public void connect(String database, String user, String password) throws SQLException, ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
         connection = DriverManager.getConnection(
                 JDBC_POSTGRESQL_URL + database + "", "" + user + "",
                 "" + password + "");
@@ -101,9 +90,9 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
         while (resultSet.next()) {
             for (int indexData = 1; indexData <= rsmd.getColumnCount(); indexData++) {
-                if(resultSet.getString(indexData) == null){
+                if (resultSet.getString(indexData) == null) {
                     tableData.add("");
-                }else {
+                } else {
                     tableData.add(resultSet.getString(indexData));
                 }
             }

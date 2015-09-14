@@ -1,9 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
-import sqlcmd.view.Console;
 import sqlcmd.databasemanager.DatabaseManager;
 import sqlcmd.databasemanager.JDBCDatabaseManager;
-import sqlcmd.view.View;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,11 +10,10 @@ import static org.junit.Assert.assertEquals;
 
 public class testDatabaseManager {
 
-    View view = new Console();
-    DatabaseManager manager = new JDBCDatabaseManager(view);
+    DatabaseManager manager = new JDBCDatabaseManager();
 
     @Before
-    public void run() throws SQLException {
+    public void run() throws SQLException, ClassNotFoundException {
         manager.connect("sqlcmd", "postgres", "123");
         manager.clear("car");
         manager.create("car", "'1', 'ferrari', 'red', '6'");

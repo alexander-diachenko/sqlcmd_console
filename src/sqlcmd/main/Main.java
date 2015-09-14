@@ -8,7 +8,7 @@ import sqlcmd.view.View;
 public class Main {
     public static void main(String[] args) {
         View view = new Console();
-        DatabaseManager manager = new JDBCDatabaseManager(view);
+        DatabaseManager manager = new JDBCDatabaseManager();
         Controller controller = new Controller(view, manager);
 
         controller.run();
