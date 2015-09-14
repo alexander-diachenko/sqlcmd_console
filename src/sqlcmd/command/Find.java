@@ -1,13 +1,19 @@
 package sqlcmd.command;
 
 import sqlcmd.databasemanager.DatabaseManager;
+import sqlcmd.view.View;
+
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Find implements Command {
 
     private DatabaseManager manager;
+    private View view;
 
-    public Find(DatabaseManager manager) {
+    public Find(DatabaseManager manager, View view) {
         this.manager = manager;
+        this.view = view;
     }
 
     @Override
@@ -17,7 +23,78 @@ public class Find implements Command {
 
     @Override
     public void process(String command) {
+        String[] data = command.split("\\|");
 
-        System.out.println(manager.getTableData(command));
+        if (data.length != 2 && data.length != 4) {
+            view.write(String.format("Неправильная команда '%s'. " +
+                    "Должно быть 'find|tableName' или 'find|tableName|limit|offset'", command));
+            return;
+        }
+
+        String tableName;
+        if (data.length == 4) {
+            Integer limit = Integer.valueOf(data[2]);
+            Integer offset = Integer.valueOf(data[3]);
+            tableName = data[1] + " LIMIT " + limit + " OFFSET " + offset;
+        } else {
+            tableName = data[1];
+        }
+
+        try {
+            view.write(formatted(tableName));
+        } catch (SQLException e) {
+            view.write(String.format("Не удалось отобразить таблицу '%s' " +
+                    "по причине: %s", tableName, e.getMessage()));
+        }
+    }
+
+    private String formatted(String tableName) throws SQLException {
+        ArrayList<String> list = manager.getTableData(tableName);
+        String tableData = "";
+
+        int maxSize = 0;
+        for (int index = 1; index < list.size(); index++) {
+            if (maxSize < list.get(index).length()) {
+                maxSize = list.get(index).length();
+            }
+        }
+
+        int columnCount = Integer.parseInt(list.get(0));
+        int rowCount = (list.size() - 1) / columnCount - 1;
+
+        tableData = addSeparator(tableData, columnCount, maxSize);
+        int index = 1;
+        for (; index <= columnCount; index++) {
+            tableData += "| ";
+            tableData += String.format("%-" + maxSize + "s", list.get(index));
+            tableData += " ";
+        }
+        tableData += "|";
+        tableData += "\n";
+        tableData = addSeparator(tableData, columnCount, maxSize);
+
+        for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
+            for (int columnIndex = index; columnIndex < index + columnCount; columnIndex++) {
+                tableData += "| ";
+                tableData += String.format("%-" + maxSize + "s", list.get(columnIndex));
+                tableData += " ";
+            }
+            tableData += "|";
+            tableData += "\n";
+            index += columnCount;
+        }
+        tableData = addSeparator(tableData, columnCount, maxSize);
+        return tableData;
+    }
+
+    private String addSeparator(String tableData, int columnsCount, int maxSize) {
+        int separatorLength = columnsCount * (maxSize + 2) + columnsCount;
+        tableData += "+";
+        for (int i = 0; i <= separatorLength - 2; i++) {
+            tableData += "-";
+        }
+        tableData += "+\n";
+        return tableData;
     }
 }
+

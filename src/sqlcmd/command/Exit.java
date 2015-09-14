@@ -1,13 +1,13 @@
 package sqlcmd.command;
 
-import sqlcmd.databasemanager.DatabaseManager;
+import sqlcmd.view.View;
 
 public class Exit implements Command {
 
-    private DatabaseManager manager;
+    private View view;
 
-    public Exit(DatabaseManager manager) {
-        this.manager = manager;
+    public Exit(View view) {
+        this.view = view;
     }
 
     @Override
@@ -17,6 +17,7 @@ public class Exit implements Command {
 
     @Override
     public void process(String command) {
-        manager.exit();
+        view.write("До свидания!");
+        System.exit(0);
     }
 }

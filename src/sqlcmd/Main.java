@@ -1,19 +1,15 @@
 package sqlcmd;
 
-import sqlcmd.command.Controller;
 import sqlcmd.databasemanager.DatabaseManager;
 import sqlcmd.databasemanager.JDBCDatabaseManager;
+import sqlcmd.view.Console;
+import sqlcmd.view.View;
 
 public class Main {
-
-
     public static void main(String[] args) {
-    DatabaseManager manager = new JDBCDatabaseManager();
-
-        Console console = new Console();
-        Controller controller = new Controller(console,manager);
-
-        System.out.println("Welcome!");
+        View view = new Console();
+        DatabaseManager manager = new JDBCDatabaseManager(view);
+        Controller controller = new Controller(view, manager);
 
         controller.run();
 

@@ -1,13 +1,13 @@
 package sqlcmd.command;
 
-import sqlcmd.databasemanager.DatabaseManager;
+import sqlcmd.view.View;
 
 public class Unsupported implements Command {
 
-    private DatabaseManager manager;
+    private View view;
 
-    public Unsupported(DatabaseManager manager) {
-        this.manager = manager;
+    public Unsupported(View view) {
+        this.view = view;
     }
 
     @Override
@@ -17,6 +17,6 @@ public class Unsupported implements Command {
 
     @Override
     public void process(String command) {
-    manager.unsupported(command);
+        view.write(String.format("Команды '%s' не существует.", command));
     }
 }
