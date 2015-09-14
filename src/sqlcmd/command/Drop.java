@@ -25,7 +25,7 @@ public class Drop implements Command {
         String[] data = command.split("\\|");
 
         if (data.length != 2) {
-            System.out.println(String.format("Неправильные данные '%s'. " +
+            view.write(String.format("Неправильные данные '%s'. " +
                     "Должно быть 'drop|tableName'.", command));
             return;
         }

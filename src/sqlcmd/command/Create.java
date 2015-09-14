@@ -25,7 +25,7 @@ public class Create implements Command {
         String[] data = command.split("\\|");
 
         if (data.length < 2) {
-            System.out.println(String.format("Неправильные данные'%s'. " +
+            view.write(String.format("Неправильные данные'%s'. " +
                     "Должно быть 'create|tableName|column1Value|column2Value|...|columnNValue'.", command));
             return;
         }
@@ -41,7 +41,7 @@ public class Create implements Command {
 
         try {
             manager.create(tableName, value);
-            System.out.println("Запись успешно создана.");
+            view.write("Запись успешно создана.");
         } catch (SQLException e) {
             view.write(String.format("Не удалось создать поле по причине: %s", e.getMessage()));
         }

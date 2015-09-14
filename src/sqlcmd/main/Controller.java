@@ -29,10 +29,10 @@ public class Controller {
     }
 
     public void run() {
-        System.out.println("Добро пожаловать!");
+        view.write("Добро пожаловать!");
 
         while (true) {
-            System.out.println("Введите команду или 'help' для помощи:");
+            view.write("Введите команду или 'help' для помощи:");
             String input = view.read();
             if(input == null){
                 new Exit(view).process(input);

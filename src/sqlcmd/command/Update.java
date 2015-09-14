@@ -25,7 +25,7 @@ public class Update implements Command {
         String[] data = command.split("\\|");
 
         if (data.length < 6 || data.length % 2 == 1) {
-            System.out.println(String.format("Неправильные данные '%s'. " +
+            view.write(String.format("Неправильные данные '%s'. " +
                     "Должно быть 'update|tableName|primaryKeyColumnName|primaryKeyValue|" +
                     "column1Name|column1NewValue|column2Name|column2NewValue|...|" +
                     "columnNName|columnNNewValue'.", command));
@@ -40,7 +40,7 @@ public class Update implements Command {
                 value = data[index] + " ='" + data[index + 1] + "'";
                 manager.update(tableName, value, primaryKey);
             }
-            System.out.println("Поле успешно обновлено.");
+            view.write("Поле успешно обновлено.");
         }catch (SQLException e){
             view.write(String.format("Не удалось обновить поле по причине %s", e.getMessage()));
         }
