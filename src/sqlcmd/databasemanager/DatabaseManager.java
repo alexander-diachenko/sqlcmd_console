@@ -1,26 +1,33 @@
 package sqlcmd.databasemanager;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public interface DatabaseManager {
 
-    void help();
+    void connect(String database, String user, String command) throws SQLException;
 
-    void connect(String command);
+    ArrayList<String> getTableNames() throws SQLException;
 
-    String getTableNames(String command);
+    /**
+     * @param tableName .
+     * @return tableData .
+     * ArrayList[0] = columnCount.
+     * ArrayList[1, columnCount] = columnName.
+     * ArrayList[columnCount + 1, size] = columnData.
+     * @throws SQLException .
+     */
+    ArrayList<String> getTableData(String tableName) throws SQLException;
 
-    String getTableData(String command);
+    void create(String tableName, String value) throws SQLException;
 
-    void create(String command);
+    void update(String tableName, String value, String primaryKey) throws SQLException;
 
-    void update(String command);
+    void delete(String tableName, String primaryKey) throws SQLException;
 
-    void delete(String command);
+    void clear(String tableName) throws SQLException;
 
-    void clear(String command);
+    void drop(String tableName) throws SQLException;
 
-    void drop(String command);
-
-    void exit();
-
-    void unsupported(String command);
+    boolean isConnected();
 }
