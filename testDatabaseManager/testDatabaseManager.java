@@ -19,9 +19,9 @@ public class testDatabaseManager {
     public void run() throws SQLException {
         manager.connect("sqlcmd", "postgres", "123");
         manager.clear("car");
-        manager.create("car", "'1' , 'ferrari' , 'red' ,'6'");
-        manager.create("car", "'2' , 'porsche' , 'black' ,'1'");
-        manager.create("car", "'3' , 'bmw' , 'blue' ,'3'");
+        manager.create("car", "'1', 'ferrari', 'red', '6'");
+        manager.create("car", "'2', 'porsche', 'black', '1'");
+        manager.create("car", "'3', 'bmw', 'blue', '3'");
     }
 
     @Test
@@ -92,9 +92,9 @@ public class testDatabaseManager {
     @Test
     public void testCreateWithCorrectData() throws SQLException {
         manager.clear("car");
-        manager.create("car", "'1' , 'ferrari' , 'red' ,'6'");
-        manager.create("car", "'2' , 'porsche' , 'black' ,'1'");
-        manager.create("car", "'3' , 'bmw' , 'blue' ,'3'");
+        manager.create("car", "'1', 'ferrari', 'red', '6'");
+        manager.create("car", "'2', 'porsche', 'black', '1'");
+        manager.create("car", "'3', 'bmw', 'blue', '3'");
 
         ArrayList<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, 1, ferrari, red, 6, 2, porsche, black, 1, 3, bmw, blue, 3]", tableData.toString());
