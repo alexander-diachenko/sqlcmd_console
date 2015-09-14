@@ -33,9 +33,9 @@ public class Clear implements Command {
         String tableName = data[1];
 
         view.write(String.format("ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы '%s'. " +
-                "'y' для подтверждения.", tableName));
+                "Введите название таблицы для подтверждения.", tableName));
         String check = view.read();
-        if (!check.equals("y")) {
+        if (!check.equals(tableName)) {
             return;
         }
 

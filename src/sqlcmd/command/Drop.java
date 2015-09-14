@@ -32,9 +32,9 @@ public class Drop implements Command {
 
         String tableName = data[1];
         view.write(String.format("ВНИМАНИЕ! Вы собираетесь удалить таблицу '%s'. " +
-                "'y' для удаления.", tableName));
+                "Введите название таблицы для подтверждения.", tableName));
         String check = view.read();
-        if (!check.equals("y")) {
+        if (!check.equals(tableName)) {
             return;
         }
 
