@@ -29,10 +29,10 @@ public class Controller {
     }
 
     public void run() {
-        view.write("Добро пожаловать!");
+        System.out.println("Добро пожаловать!");
 
         while (true) {
-            view.write("Введите команду или 'help' для помощи:");
+            System.out.println("Введите команду или 'help' для помощи:");
             String command = view.read();
 
             for (Command comm : commands) {
@@ -44,4 +44,3 @@ public class Controller {
         }
     }
 }
-
