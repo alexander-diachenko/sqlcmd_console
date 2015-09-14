@@ -30,8 +30,6 @@ public class testDatabaseManager {
 
         ArrayList<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, 1, ferrari, red, 6, 2, porsche, black, 1]", tableData.toString());
-
-        manager.create("car", "'3' , 'bmw' , 'blue' ,'3'");
     }
 
     @Test
