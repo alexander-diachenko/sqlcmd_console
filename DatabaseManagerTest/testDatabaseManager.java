@@ -24,15 +24,6 @@ public class testDatabaseManager {
     }
 
     @Test
-    public void testClearWithCorrectData() throws SQLException {
-
-        manager.clear("car");
-
-        ArrayList<String> tableData = manager.getTableData("car");
-        assertEquals("[4, id, name, color, age]", tableData.toString());
-    }
-
-    @Test
     public void testDeleteWithCorrectData() throws SQLException {
 
         manager.delete("car", "id =3");
@@ -73,6 +64,15 @@ public class testDatabaseManager {
         ArrayList<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, 1, ferrari, red, 6," +
                 " 2, porsche, black, 1, 3, mercedes, white, 10]", tableData.toString());
+    }
+
+    @Test
+    public void testClearWithCorrectData() throws SQLException {
+
+        manager.clear("car");
+
+        ArrayList<String> tableData = manager.getTableData("car");
+        assertEquals("[4, id, name, color, age]", tableData.toString());
     }
 
     @Test
