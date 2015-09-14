@@ -1,4 +1,4 @@
-package sqlcmd;
+package sqlcmd.main;
 
 import sqlcmd.command.*;
 import sqlcmd.databasemanager.DatabaseManager;
