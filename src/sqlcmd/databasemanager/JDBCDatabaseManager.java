@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class JDBCDatabaseManager implements DatabaseManager {
 
+    public static final String JDBC_POSTGRESQL_URL = "jdbc:postgresql://localhost:5432/";
     private Connection connection;
     private View view;
 
@@ -29,10 +30,10 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void update(String tableName, String value, String primeryKey) throws SQLException {
+    public void update(String tableName, String value, String primaryKey) throws SQLException {
 
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("UPDATE public." + tableName + " SET " + value + " WHERE " + primeryKey);
+        stmt.executeUpdate("UPDATE public." + tableName + " SET " + value + " WHERE " + primaryKey);
         stmt.close();
     }
 
@@ -81,7 +82,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
             view.write("Не могу найти драйвер (jar). Добавьте его в библитеку проекта.");
         }
         connection = DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/" + database + "", "" + user + "",
+                JDBC_POSTGRESQL_URL + database + "", "" + user + "",
                 "" + password + "");
     }
 

@@ -25,7 +25,7 @@ public class Delete implements Command {
         String[] data = command.split("\\|");
 
         if (data.length != 4) {
-            System.out.println(String.format("Неправильная команда '%s'. " +
+            view.write(String.format("Неправильная команда '%s'. " +
                     "Должно быть 'delete|tableName|primaryKeyColumnName|primaryKeyValue'.", command));
             return;
         }
