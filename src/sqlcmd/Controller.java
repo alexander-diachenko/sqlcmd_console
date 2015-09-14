@@ -33,11 +33,14 @@ public class Controller {
 
         while (true) {
             System.out.println("Введите команду или 'help' для помощи:");
-            String command = view.read();
+            String input = view.read();
+            if(input == null){
+                new Exit(view).process(input);
+            }
 
             for (Command comm : commands) {
-                if (comm.canProcess(command)) {
-                    comm.process(command);
+                if (comm.canProcess(input)) {
+                    comm.process(input);
                     break;
                 }
             }
