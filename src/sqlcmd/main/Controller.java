@@ -7,11 +7,9 @@ import sqlcmd.view.View;
 public class Controller {
 
     private Command[] commands;
-    private DatabaseManager manager;
     private View view;
 
     public Controller(View view, DatabaseManager manager) {
-        this.manager = manager;
         this.view = view;
         this.commands = new Command[]{
                 new Exit(view),
