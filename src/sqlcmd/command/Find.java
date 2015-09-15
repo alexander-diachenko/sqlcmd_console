@@ -50,7 +50,6 @@ public class Find implements Command {
 
     private String formatted(String tableName) throws SQLException {
         List<String> list = manager.getTableData(tableName);
-        String tableData = "";
 
         int maxSize = 0;
         for (int index = 1; index < list.size(); index++) {
@@ -62,6 +61,7 @@ public class Find implements Command {
         int columnCount = Integer.parseInt(list.get(0));
         int rowCount = (list.size() - 1) / columnCount - 1;
 
+        String tableData = "";
         tableData = addSeparator(tableData, columnCount, maxSize);
         int index = 1;
         for (; index <= columnCount; index++) {

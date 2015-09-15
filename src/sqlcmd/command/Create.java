@@ -30,7 +30,7 @@ public class Create implements Command {
             return;
         }
 
-        String tableName = String.valueOf(data[1]);
+        String tableName = data[1];
 
         String value = "'";
         for (int index = 2; index < data.length; index++) {
