@@ -58,19 +58,33 @@ public class testDatabaseManager {
     }
 
     @Test
-    public void testUpdateWithCorrectData() throws SQLException {
-        manager.update("car", "name ='mercedes'", "id =3");
-        manager.update("car", "color ='white'", "id =3");
-        manager.update("car", "age ='10'", "id =3");
+    public void testUpdateAllWithCorrectData() throws SQLException {
+        manager.update(new String[]{"car", "id" , "3" , "name", "mercedes"});
+        manager.update(new String[]{"car", "id" , "3" , "color", "white"});
+        manager.update(new String[]{"car", "id" , "3" , "age", "10"});
+
 
         List<String> tableData = manager.getTableData("car");
-        assertEquals("[4, id, name, color, age, 1, ferrari, red, 6," +
-                " 2, porsche, black, 1, 3, mercedes, white, 10]", tableData.toString());
+        assertEquals("[4, id, name, color, age, " +
+                         "1, ferrari, red, 6, " +
+                         "2, porsche, black, 1, " +
+                         "3, mercedes, white, 10]", tableData.toString());
+    }
+
+    @Test
+    public void testUpdateSingleWithCorrectData() throws SQLException {
+        manager.update(new String[]{"car", "id" , "3" , "name", "mercedes"});
+
+        List<String> tableData = manager.getTableData("car");
+        assertEquals("[4, id, name, color, age, " +
+                         "1, ferrari, red, 6, " +
+                         "2, porsche, black, 1, " +
+                         "3, mercedes, blue, 3]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
     public void testUpdateWithIncorrectData() throws SQLException {
-        manager.update("qwe", "name ='mercedes'", "id =3");
+        manager.update(new String[]{"qwe", "id" , "3" , "name", "mercedes"});
     }
 
     @Test
@@ -94,7 +108,10 @@ public class testDatabaseManager {
         manager.create("car", "'3', 'bmw', 'blue', '3'");
 
         List<String> tableData = manager.getTableData("car");
-        assertEquals("[4, id, name, color, age, 1, ferrari, red, 6, 2, porsche, black, 1, 3, bmw, blue, 3]", tableData.toString());
+        assertEquals("[4, id, name, color, age, " +
+                         "1, ferrari, red, 6, " +
+                         "2, porsche, black, 1, " +
+                         "3, bmw, blue, 3]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
