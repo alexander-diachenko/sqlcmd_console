@@ -60,7 +60,7 @@ public class Find implements Command {
 
         int maxSize = getMaxSize(list);
         int columnCount = Integer.parseInt(list.get(0));
-        int rowCount = (list.size() - 1) / columnCount - 1;
+        int rowCount = getRowCount(list, columnCount);
 
         String tableData = "";
         tableData = addSeparator(tableData, columnCount, maxSize);
@@ -86,6 +86,14 @@ public class Find implements Command {
         }
         tableData = addSeparator(tableData, columnCount, maxSize);
         return tableData;
+    }
+
+    private int getRowCount(List<String> list, int columnCount) {
+        int rowCount = 0;
+        if(columnCount > 0) {
+            rowCount = (list.size() - 1 - columnCount) / columnCount;
+        }
+        return rowCount;
     }
 
     private int getMaxSize(List<String> list) {
