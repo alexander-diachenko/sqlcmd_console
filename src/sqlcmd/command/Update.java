@@ -36,15 +36,19 @@ public class Update implements Command {
         updateData[0] = data[1];
         updateData[1] = data[2];
         updateData[2] = data[3];
+        boolean success = true;
         for (int index = 4; index < data.length; index += 2) {
             updateData[3] = data[index];
             updateData[4] = data[index + 1];
             try {
                 manager.update(updateData);
             } catch (SQLException e) {
-                view.write(String.format("Не удалось обновить поле по причине %s", e.getMessage()));
+                view.write(String.format("Не удалось обновить по причине %s", e.getMessage()));
+                success = false;
             }
         }
-        view.write("Поле успешно обновлено.");
+        if (success) {
+            view.write("Все данные успешно обновлены.");
+        }
     }
 }
