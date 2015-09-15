@@ -23,7 +23,7 @@ public class testDatabaseManager {
 
     @Test
     public void testDeleteWithCorrectData() throws SQLException {
-        manager.delete(new String[]{"car", "id", "3"});
+        manager.delete("car", "id", "3");
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
@@ -33,7 +33,7 @@ public class testDatabaseManager {
 
     @Test(expected = SQLException.class)
     public void testDeleteWithIncorrectData() throws SQLException {
-        manager.delete(new String[]{"qwe", "id", "3"});
+        manager.delete("qwe", "id", "3");
     }
 
     @Test

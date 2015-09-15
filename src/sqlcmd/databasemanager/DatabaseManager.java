@@ -23,7 +23,7 @@ public interface DatabaseManager {
 
     void update(String[] data) throws SQLException;
 
-    void delete(String[] data) throws SQLException;
+    void delete(String tableName, String key, String value) throws SQLException;
 
     void clear(String tableName) throws SQLException;
 

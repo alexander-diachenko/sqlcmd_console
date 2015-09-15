@@ -30,9 +30,11 @@ public class Delete implements Command {
             return;
         }
 
-        String[] deleteData = {data[1], data[2], data[3]};
+        String tableName = data[1];
+        String key = data[2];
+        String value = data[2];
         try {
-            manager.delete(deleteData);
+            manager.delete(tableName, key, value);
             view.write("Успешно удалено.");
         } catch (SQLException e) {
             view.write(String.format("Не удалось удалить поле по причине: %s", e.getMessage()));

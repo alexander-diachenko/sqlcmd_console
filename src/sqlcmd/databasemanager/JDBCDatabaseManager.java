@@ -73,9 +73,9 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void delete(String[] data) throws SQLException {
+    public void delete(String tableName, String key, String value) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("DELETE FROM public." + data[0] + " WHERE " + data[1] + " = '" + data[2] + "'");
+        stmt.executeUpdate("DELETE FROM public." + tableName + " WHERE " + key + " = '" + value + "'");
         stmt.close();
     }
 

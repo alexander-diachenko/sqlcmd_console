@@ -32,16 +32,16 @@ public class Update implements Command {
             return;
         }
 
-        String[] updateData = new String[5];
-        updateData[0] = data[1];
-        updateData[1] = data[2];
-        updateData[2] = data[3];
+        String[] result = new String[5];
+        result[0] = data[1];
+        result[1] = data[2];
+        result[2] = data[3];
         boolean success = true;
         for (int index = 4; index < data.length; index += 2) {
-            updateData[3] = data[index];
-            updateData[4] = data[index + 1];
+            result[3] = data[index];
+            result[4] = data[index + 1];
             try {
-                manager.update(updateData);
+                manager.update(result);
             } catch (SQLException e) {
                 view.write(String.format("Не удалось обновить по причине %s", e.getMessage()));
                 success = false;
