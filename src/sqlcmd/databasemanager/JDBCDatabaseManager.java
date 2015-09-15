@@ -2,6 +2,7 @@ package sqlcmd.databasemanager;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class JDBCDatabaseManager implements DatabaseManager {
 
@@ -9,11 +10,11 @@ public class JDBCDatabaseManager implements DatabaseManager {
     private Connection connection;
 
     @Override
-    public ArrayList<String> getTableNames() throws SQLException {
+    public List<String> getTableNames() throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
         ResultSet resultSet = metaData.getTables(null, "public", "%", new String[]{"TABLE"});
 
-        ArrayList<String> tableNames = new ArrayList<>();
+        List<String> tableNames = new ArrayList<>();
         while (resultSet.next()) {
             tableNames.add(resultSet.getString(3));
         }
@@ -70,12 +71,12 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public ArrayList<String> getTableData(String tableName) throws SQLException {
+    public List<String> getTableData(String tableName) throws SQLException {
         Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         ResultSet resultSet = stmt.executeQuery("SELECT * FROM public." + tableName);
         ResultSetMetaData rsmd = resultSet.getMetaData();
 
-        ArrayList<String> tableData = new ArrayList<>();
+        List<String> tableData = new ArrayList<>();
         tableData.add(String.valueOf(rsmd.getColumnCount()));
         for (int indexColumn = 1; indexColumn <= rsmd.getColumnCount(); indexColumn++) {
             tableData.add(resultSet.getMetaData().getColumnName(indexColumn));

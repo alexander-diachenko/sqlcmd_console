@@ -4,7 +4,7 @@ import sqlcmd.databasemanager.DatabaseManager;
 import sqlcmd.view.View;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class Find implements Command {
 
@@ -49,7 +49,7 @@ public class Find implements Command {
     }
 
     private String formatted(String tableName) throws SQLException {
-        ArrayList<String> list = manager.getTableData(tableName);
+        List<String> list = manager.getTableData(tableName);
         String tableData = "";
 
         int maxSize = 0;

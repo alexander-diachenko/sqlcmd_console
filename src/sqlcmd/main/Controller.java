@@ -16,7 +16,7 @@ public class Controller {
                 new Help(view),
                 new Connect(manager, view),
                 new isConnected(manager, view),
-                new List(view, manager),
+                new Lists(view, manager),
                 new Find(manager, view),
                 new Create(manager, view),
                 new Update(manager, view),

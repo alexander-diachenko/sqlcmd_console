@@ -1,23 +1,23 @@
 package sqlcmd.databasemanager;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
 public interface DatabaseManager {
 
     void connect(String database, String user, String command) throws SQLException, ClassNotFoundException;
 
-    ArrayList<String> getTableNames() throws SQLException;
+    List<String> getTableNames() throws SQLException;
 
     /**
      * @param tableName .
      * @return tableData .
-     * ArrayList[0] = columnCount.
-     * ArrayList[1, columnCount + 1] = columnName.
-     * ArrayList[columnCount + 1, size] = columnData.
+     * List[0] = columnCount.
+     * List[1, columnCount + 1] = columnName.
+     * List[columnCount + 1, size] = columnData.
      * @throws SQLException .
      */
-    ArrayList<String> getTableData(String tableName) throws SQLException;
+    List<String> getTableData(String tableName) throws SQLException;
 
     void create(String tableName, String value) throws SQLException;
 
