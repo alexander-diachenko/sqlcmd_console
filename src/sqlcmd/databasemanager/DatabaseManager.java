@@ -21,7 +21,7 @@ public interface DatabaseManager {
 
     void create(String tableName, String value) throws SQLException;
 
-    void update(String tableName, String value, String primaryKey) throws SQLException;
+    void update(String[] data) throws SQLException;
 
     void delete(String tableName, String primaryKey) throws SQLException;
 

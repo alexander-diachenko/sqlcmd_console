@@ -32,14 +32,15 @@ public class Update implements Command {
             return;
         }
 
-        String tableName = data[1];
-        String primaryKey = data[2] + " =" + data[3];
-        String value;
-
+        String[] updateData = new String[5];
+        updateData[0] = data[1];
+        updateData[1] = data[2];
+        updateData[2] = data[3];
         for (int index = 4; index < data.length; index += 2) {
-            value = data[index] + " ='" + data[index + 1] + "'";
+            updateData[3] = data[index];
+            updateData[4] = data[index + 1];
             try {
-                manager.update(tableName, value, primaryKey);
+                manager.update(updateData);
             } catch (SQLException e) {
                 view.write(String.format("Не удалось обновить поле по причине %s", e.getMessage()));
             }
