@@ -24,9 +24,7 @@ public class Clear implements Command {
     public void process(String command) {
         String[] data = command.split("\\|");
 
-        if (data.length != 2) {
-            view.write(String.format("Неправильная команда '%s'. " +
-                    "Должно быть 'clear|tableName'.", command));
+        if (!isCorrect(command, data)) {
             return;
         }
 
@@ -46,5 +44,14 @@ public class Clear implements Command {
             view.write(String.format("Не удалось очистить таблицу '%s' " +
                     "по причине: '%s'", tableName, e.getMessage()));
         }
+    }
+
+    private boolean isCorrect(String command, String[] data) {
+        if (data.length != 2) {
+            view.write(String.format("Неправильная команда '%s'. " +
+                    "Должно быть 'clear|tableName'.", command));
+            return false;
+        }
+        return true;
     }
 }

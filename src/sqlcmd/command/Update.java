@@ -24,11 +24,7 @@ public class Update implements Command {
     public void process(String command) {
         String[] data = command.split("\\|");
 
-        if (data.length < 6 || data.length % 2 == 1) {
-            view.write(String.format("Неправильные данные '%s'. " +
-                    "Должно быть 'update|tableName|primaryKeyColumnName|primaryKeyValue|" +
-                    "column1Name|column1NewValue|column2Name|column2NewValue|...|" +
-                    "columnNName|columnNNewValue'.", command));
+        if (!isCorrect(command, data)) {
             return;
         }
 
@@ -50,5 +46,16 @@ public class Update implements Command {
         if (success) {
             view.write("Все данные успешно обновлены.");
         }
+    }
+
+    private boolean isCorrect(String command, String[] data) {
+        if (data.length < 6 || data.length % 2 == 1) {
+            view.write(String.format("Неправильные данные '%s'. " +
+                    "Должно быть 'update|tableName|primaryKeyColumnName|primaryKeyValue|" +
+                    "column1Name|column1NewValue|column2Name|column2NewValue|...|" +
+                    "columnNName|columnNNewValue'.", command));
+            return false;
+        }
+        return true;
     }
 }

@@ -25,9 +25,7 @@ public class Find implements Command {
     public void process(String command) {
         String[] data = command.split("\\|");
 
-        if (data.length != 2 && data.length != 4) {
-            view.write(String.format("Неправильная команда '%s'. " +
-                    "Должно быть 'find|tableName' или 'find|tableName|limit|offset'", command));
+        if (!isCorrect(command, data)) {
             return;
         }
 
@@ -48,16 +46,19 @@ public class Find implements Command {
         }
     }
 
+    private boolean isCorrect(String command, String[] data) {
+        if (data.length != 2 && data.length != 4) {
+            view.write(String.format("Неправильная команда '%s'. " +
+                    "Должно быть 'find|tableName' или 'find|tableName|limit|offset'", command));
+            return false;
+        }
+        return true;
+    }
+
     private String formatted(String tableName) throws SQLException {
         List<String> list = manager.getTableData(tableName);
 
-        int maxSize = 0;
-        for (int index = 1; index < list.size(); index++) {
-            if (maxSize < list.get(index).length()) {
-                maxSize = list.get(index).length();
-            }
-        }
-
+        int maxSize = getMaxSize(list);
         int columnCount = Integer.parseInt(list.get(0));
         int rowCount = (list.size() - 1) / columnCount - 1;
 
@@ -85,6 +86,16 @@ public class Find implements Command {
         }
         tableData = addSeparator(tableData, columnCount, maxSize);
         return tableData;
+    }
+
+    private int getMaxSize(List<String> list) {
+        int maxSize = 0;
+        for (int index = 1; index < list.size(); index++) {
+            if (maxSize < list.get(index).length()) {
+                maxSize = list.get(index).length();
+            }
+        }
+        return maxSize;
     }
 
     private String addSeparator(String tableData, int columnsCount, int maxSize) {

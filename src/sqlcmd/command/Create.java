@@ -24,13 +24,10 @@ public class Create implements Command {
     public void process(String command) {
         String[] data = command.split("\\|");
 
-        if (data.length < 2) {
-            view.write(String.format("Неправильные данные'%s'. " +
-                    "Должно быть 'create|tableName|column1Value|column2Value|...|columnNValue'.", command));
+        if (!isCorrect(command, data)) {
             return;
         }
 
-        String tableName = data[1];
 
         String value = "'";
         for (int index = 2; index < data.length; index++) {
@@ -39,11 +36,21 @@ public class Create implements Command {
         value = value.substring(0, value.length() - 4);
         value += "'";
 
+        String tableName = data[1];
         try {
             manager.create(tableName, value);
             view.write("Запись успешно создана.");
         } catch (SQLException e) {
             view.write(String.format("Не удалось создать поле по причине: %s", e.getMessage()));
         }
+    }
+
+    private boolean isCorrect(String command, String[] data) {
+        if (data.length < 2) {
+            view.write(String.format("Неправильные данные'%s'. " +
+                    "Должно быть 'create|tableName|column1Value|column2Value|...|columnNValue'.", command));
+            return false;
+        }
+        return true;
     }
 }

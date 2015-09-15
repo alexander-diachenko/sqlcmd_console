@@ -24,9 +24,7 @@ public class Drop implements Command {
     public void process(String command) {
         String[] data = command.split("\\|");
 
-        if (data.length != 2) {
-            view.write(String.format("Неправильные данные '%s'. " +
-                    "Должно быть 'drop|tableName'.", command));
+        if (!isCorrect(command, data)) {
             return;
         }
 
@@ -45,5 +43,14 @@ public class Drop implements Command {
             view.write(String.format("Не удалочь удалить таблицу '%s' " +
                     "по причине: %s", tableName, e.getMessage()));
         }
+    }
+
+    private boolean isCorrect(String command, String[] data) {
+        if (data.length != 2) {
+            view.write(String.format("Неправильные данные '%s'. " +
+                    "Должно быть 'drop|tableName'.", command));
+            return false;
+        }
+        return true;
     }
 }

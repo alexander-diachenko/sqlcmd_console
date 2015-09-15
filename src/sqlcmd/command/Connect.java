@@ -24,9 +24,7 @@ public class Connect implements Command {
     public void process(String command) {
         String[] data = command.split("\\|");
 
-        if (data.length != 4) {
-            view.write(String.format("Неправильная команда '%s'. " +
-                    "Должно быть 'connect|database|user|password'.", command));
+        if (!isCorrect(command, data)) {
             return;
         }
 
@@ -43,5 +41,14 @@ public class Connect implements Command {
         } catch (ClassNotFoundException e) {
             view.write("Не могу найти драйвер (jar). Добавьте его в библитеку проекта.");
         }
+    }
+
+    private boolean isCorrect(String command, String[] data) {
+        if (data.length != 4) {
+            view.write(String.format("Неправильная команда '%s'. " +
+                    "Должно быть 'connect|database|user|password'.", command));
+            return false;
+        }
+        return true;
     }
 }

@@ -24,9 +24,7 @@ public class Delete implements Command {
     public void process(String command) {
         String[] data = command.split("\\|");
 
-        if (data.length != 4) {
-            view.write(String.format("Неправильная команда '%s'. " +
-                    "Должно быть 'delete|tableName|primaryKeyColumnName|primaryKeyValue'.", command));
+        if (!isCorrect(command, data)) {
             return;
         }
 
@@ -39,5 +37,14 @@ public class Delete implements Command {
         } catch (SQLException e) {
             view.write(String.format("Не удалось удалить поле по причине: %s", e.getMessage()));
         }
+    }
+
+    private boolean isCorrect(String command, String[] data) {
+        if (data.length != 4) {
+            view.write(String.format("Неправильная команда '%s'. " +
+                    "Должно быть 'delete|tableName|primaryKeyColumnName|primaryKeyValue'.", command));
+            return false;
+        }
+        return true;
     }
 }
