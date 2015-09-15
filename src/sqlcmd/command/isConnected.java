@@ -19,6 +19,6 @@ public class isConnected implements Command {
 
     @Override
     public void process(String command) {
-        view.write("Вы не можете пользоваться этой командой без подключения к базе.");
+        view.write(String.format("Вы не можете пользоваться командой '%s' без подключения к базе.", command));
     }
 }

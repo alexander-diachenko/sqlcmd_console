@@ -32,7 +32,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     @Override
     public List<String> getTableData(String tableName) throws SQLException {
-        Statement stmt = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+        Statement stmt = connection.createStatement();
         ResultSet resultSet = stmt.executeQuery("SELECT * FROM public." + tableName);
         ResultSetMetaData rsmd = resultSet.getMetaData();
 
