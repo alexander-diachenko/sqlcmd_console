@@ -26,7 +26,9 @@ public class testDatabaseManager {
         manager.delete("car", "id =3");
 
         List<String> tableData = manager.getTableData("car");
-        assertEquals("[4, id, name, color, age, 1, ferrari, red, 6, 2, porsche, black, 1]", tableData.toString());
+        assertEquals("[4, id, name, color, age, " +
+                         "1, ferrari, red, 6, " +
+                         "2, porsche, black, 1]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
@@ -43,7 +45,10 @@ public class testDatabaseManager {
     @Test
     public void testFindAllTableDataWithCorrectData() throws SQLException {
         List<String> tableData = manager.getTableData("car");
-        assertEquals("[4, id, name, color, age, 1, ferrari, red, 6, 2, porsche, black, 1, 3, bmw, blue, 3]", tableData.toString());
+        assertEquals("[4, id, name, color, age, " +
+                         "1, ferrari, red, 6, " +
+                         "2, porsche, black, 1, " +
+                         "3, bmw, blue, 3]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
@@ -54,7 +59,9 @@ public class testDatabaseManager {
     @Test
     public void testFindLimitOffsetTableDataWithCorrectData() throws SQLException {
         List<String> tableData = manager.getTableData("car LIMIT 2 OFFSET 1");
-        assertEquals("[4, id, name, color, age, 2, porsche, black, 1, 3, bmw, blue, 3]", tableData.toString());
+        assertEquals("[4, id, name, color, age, " +
+                         "2, porsche, black, " +
+                         "1, 3, bmw, blue, 3]", tableData.toString());
     }
 
     @Test
