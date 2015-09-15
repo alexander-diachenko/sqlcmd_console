@@ -70,8 +70,7 @@ public class Find implements Command {
             tableData += String.format("%-" + maxSize + "s", list.get(index));
             tableData += " ";
         }
-        tableData += "|";
-        tableData += "\n";
+        tableData += "|\n";
         tableData = addSeparator(tableData, columnCount, maxSize);
 
         for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
@@ -80,8 +79,7 @@ public class Find implements Command {
                 tableData += String.format("%-" + maxSize + "s", list.get(columnIndex));
                 tableData += " ";
             }
-            tableData += "|";
-            tableData += "\n";
+            tableData += "|\n";
             index += columnCount;
         }
         tableData = addSeparator(tableData, columnCount, maxSize);
