@@ -10,6 +10,14 @@ public class JDBCDatabaseManager implements DatabaseManager {
     private Connection connection;
 
     @Override
+    public void connect(String database, String user, String password) throws SQLException, ClassNotFoundException {
+        Class.forName("org.postgresql.Driver");
+        connection = DriverManager.getConnection(
+                JDBC_POSTGRESQL_URL + database + "", "" + user + "",
+                "" + password + "");
+    }
+
+    @Override
     public List<String> getTableNames() throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
         ResultSet resultSet = metaData.getTables(null, "public", "%", new String[]{"TABLE"});
@@ -20,56 +28,6 @@ public class JDBCDatabaseManager implements DatabaseManager {
         }
         resultSet.close();
         return tableNames;
-    }
-
-    @Override
-    public void update(String[] data) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate("UPDATE public." + data[0] +
-                            " SET " + data[3] + " = '" + data[4] +
-                            "' WHERE " + data[1] + " = '" + data[2] + "'");
-        stmt.close();
-    }
-
-    @Override
-    public void drop(String tableName) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate("DROP TABLE public." + tableName);
-        stmt.close();
-    }
-
-    @Override
-    public boolean isConnected() {
-        return connection != null;
-    }
-
-    @Override
-    public void create(String tableName, String value) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate("INSERT INTO public." + tableName + " VALUES(" + value + ")");
-        stmt.close();
-    }
-
-    @Override
-    public void clear(String tableName) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate("DELETE FROM public." + tableName);
-        stmt.close();
-    }
-
-    @Override
-    public void delete(String[] data) throws SQLException {
-        Statement stmt = connection.createStatement();
-        stmt.executeUpdate("DELETE FROM public." + data[0] + " WHERE " + data[1] + " = '" + data[2] +"'");
-        stmt.close();
-    }
-
-    @Override
-    public void connect(String database, String user, String password) throws SQLException, ClassNotFoundException {
-        Class.forName("org.postgresql.Driver");
-        connection = DriverManager.getConnection(
-                JDBC_POSTGRESQL_URL + database + "", "" + user + "",
-                "" + password + "");
     }
 
     @Override
@@ -96,5 +54,47 @@ public class JDBCDatabaseManager implements DatabaseManager {
         stmt.close();
         resultSet.close();
         return tableData;
+    }
+
+    @Override
+    public void create(String tableName, String value) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("INSERT INTO public." + tableName + " VALUES(" + value + ")");
+        stmt.close();
+    }
+
+    @Override
+    public void update(String[] data) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("UPDATE public." + data[0] +
+                " SET " + data[3] + " = '" + data[4] +
+                "' WHERE " + data[1] + " = '" + data[2] + "'");
+        stmt.close();
+    }
+
+    @Override
+    public void delete(String[] data) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("DELETE FROM public." + data[0] + " WHERE " + data[1] + " = '" + data[2] + "'");
+        stmt.close();
+    }
+
+    @Override
+    public void clear(String tableName) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("DELETE FROM public." + tableName);
+        stmt.close();
+    }
+
+    @Override
+    public void drop(String tableName) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("DROP TABLE public." + tableName);
+        stmt.close();
+    }
+
+    @Override
+    public boolean isConnected() {
+        return connection != null;
     }
 }
