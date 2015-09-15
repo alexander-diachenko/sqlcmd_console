@@ -90,8 +90,8 @@ public class testDatabaseManager {
     }
 
     @Test(expected = SQLException.class)
-    public void testUpdateWithIncorrectData() throws SQLException {
-        manager.update(new String[]{"qwe", "id" , "3" , "name", "mercedes"});
+        public void testUpdateWithIncorrectData() throws SQLException {
+        manager.update(new String[]{"qwe", "id", "3", "name", "mercedes"});
     }
 
     @Test
