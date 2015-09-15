@@ -25,9 +25,9 @@ public class JDBCDatabaseManager implements DatabaseManager {
     @Override
     public void update(String[] data) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("UPDATE public." + data[0] + " " +
-                            "SET " + data[3] + " = '" + data[4] + "' " +
-                            "WHERE " + data[1] + " = '" + data[2] + "'");
+        stmt.executeUpdate("UPDATE public." + data[0] +
+                            " SET " + data[3] + " = '" + data[4] +
+                            "' WHERE " + data[1] + " = '" + data[2] + "'");
         stmt.close();
     }
 
