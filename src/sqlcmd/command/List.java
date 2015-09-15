@@ -4,14 +4,13 @@ import sqlcmd.databasemanager.DatabaseManager;
 import sqlcmd.view.View;
 
 import java.sql.SQLException;
-import java.util.List;
 
-public class Lists implements Command {
+public class List implements Command {
 
     private View view;
     private DatabaseManager manager;
 
-    public Lists(View view, DatabaseManager manager) {
+    public List(View view, DatabaseManager manager) {
         this.view = view;
         this.manager = manager;
     }
@@ -24,8 +23,7 @@ public class Lists implements Command {
     @Override
     public void process(String command) {
         try {
-            List<String> tableNames = manager.getTableNames();
-            view.write(tableNames.toString());
+            view.write(manager.getTableNames().toString());
         } catch (SQLException e) {
             view.write(String.format("Не удалось отобразить список таблиц по причине %s", e.getMessage()));
         }
