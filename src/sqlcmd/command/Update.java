@@ -35,14 +35,15 @@ public class Update implements Command {
         String tableName = data[1];
         String primaryKey = data[2] + " =" + data[3];
         String value;
-        try {
-            for (int index = 4; index < data.length; index += 2) {
-                value = data[index] + " ='" + data[index + 1] + "'";
+
+        for (int index = 4; index < data.length; index += 2) {
+            value = data[index] + " ='" + data[index + 1] + "'";
+            try {
                 manager.update(tableName, value, primaryKey);
+            } catch (SQLException e) {
+                view.write(String.format("Не удалось обновить поле по причине %s", e.getMessage()));
             }
-            view.write("Поле успешно обновлено.");
-        }catch (SQLException e){
-            view.write(String.format("Не удалось обновить поле по причине %s", e.getMessage()));
         }
+        view.write("Поле успешно обновлено.");
     }
 }
