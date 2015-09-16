@@ -46,5 +46,6 @@ Temporary Items
 .class
 .iml
 /out
+sqlcmd.iml
 postgres.iml
 target/
