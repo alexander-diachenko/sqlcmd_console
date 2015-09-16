@@ -2,7 +2,6 @@ package sqlcmd.databasemanager;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,18 +21,18 @@ public class JDBCDatabaseManager implements DatabaseManager {
     @Override
     public void table(String tableName, String primaryKey, Map<String, Object> data) throws SQLException {
         Statement stmt = connection.createStatement();
-        String sql = "CREATE TABLE " + tableName + "(" + primaryKey + " INT  PRIMARY KEY NOT NULL";
-
-        Iterator it = data.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            sql += ", " + pair.getKey() + " " + pair.getValue();
-            it.remove(); // avoids a ConcurrentModificationException
-        }
-        sql += ")";
-
-        stmt.executeUpdate(sql);
+        stmt.executeUpdate("CREATE TABLE " + tableName +
+                "(" + primaryKey + " INT  PRIMARY KEY NOT NULL" +
+                    getColumns(data) + ")");
         stmt.close();
+    }
+
+    private String getColumns(Map<String, Object> data) {
+        String result = "";
+        for (Map.Entry<String, Object> pair : data.entrySet()) {
+            result += ", " + pair.getKey() + " " + pair.getValue();
+        }
+        return result;
     }
 
     @Override
@@ -78,14 +77,14 @@ public class JDBCDatabaseManager implements DatabaseManager {
     @Override
     public void create(String tableName, Map<String, Object> data) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("INSERT INTO " + tableName + " (" + getKeys(data) + ") VALUES (" + getValues(data) + ")");
+        stmt.executeUpdate("INSERT INTO " + tableName + " (" + getKeys(data) + ")" +
+                                                 " VALUES (" + getValues(data) + ")");
         stmt.close();
     }
 
     private String getValues(Map<String, Object> data) {
         String values = "";
-        for (Object value : data.entrySet()) {
-            Map.Entry pair = (Map.Entry) value;
+        for (Map.Entry<String, Object> pair : data.entrySet()) {
             values += "'" + pair.getValue() + "', ";
         }
         return values.substring(0, values.length() - 2);
@@ -93,8 +92,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
     private String getKeys(Map<String, Object> data) {
         String keys = "";
-        for (Object key : data.entrySet()) {
-            Map.Entry pair = (Map.Entry) key;
+        for (Map.Entry<String, Object> pair : data.entrySet()) {
             keys += pair.getKey() + ",";
         }
         return keys.substring(0, keys.length() - 1);
