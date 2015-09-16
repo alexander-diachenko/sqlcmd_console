@@ -2,6 +2,9 @@ package command;
 
 import view.View;
 
+/**
+ * Created by POSITIV on 16.09.2015.
+ */
 public class Help implements Command {
 
     private View view;

@@ -3,6 +3,9 @@ package command;
 import databasemanagertest.DatabaseManager;
 import view.View;
 
+/**
+ * Created by POSITIV on 16.09.2015.
+ */
 public class isConnected implements Command {
     private DatabaseManager manager;
     private View view;

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Created by POSITIV on 16.09.2015.
+ */
 public class JDBCDatabaseManager implements DatabaseManager {
 
     public static final String JDBC_POSTGRESQL_URL = "jdbc:postgresql://localhost:5432/";

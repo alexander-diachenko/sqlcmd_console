@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Created by POSITIV on 16.09.2015.
+ */
 public class Create implements Command {
 
     private DatabaseManager manager;

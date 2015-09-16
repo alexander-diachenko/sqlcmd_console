@@ -5,6 +5,9 @@ import view.View;
 
 import java.sql.SQLException;
 
+/**
+ * Created by POSITIV on 16.09.2015.
+ */
 public class Connect implements Command {
 
     private DatabaseManager manager;

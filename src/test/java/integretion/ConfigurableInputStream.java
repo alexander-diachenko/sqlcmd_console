@@ -3,6 +3,9 @@ package integretion;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Created by POSITIV on 16.09.2015.
+ */
 public class ConfigurableInputStream extends InputStream {
 
     private String line;

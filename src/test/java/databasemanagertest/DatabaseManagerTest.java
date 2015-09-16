@@ -11,6 +11,9 @@ import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Created by POSITIV on 16.09.2015.
+ */
 public class DatabaseManagerTest {
 
     DatabaseManager manager = new JDBCDatabaseManager();

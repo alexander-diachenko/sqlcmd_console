@@ -4,6 +4,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Created by POSITIV on 16.09.2015.
+ */
 public interface DatabaseManager {
 
     void connect(String database, String user, String command) throws SQLException, ClassNotFoundException;
