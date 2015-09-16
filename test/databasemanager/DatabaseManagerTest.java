@@ -1,3 +1,5 @@
+package databasemanager;
+
 import org.junit.Before;
 import org.junit.Test;
 import sqlcmd.databasemanager.DatabaseManager;
@@ -10,7 +12,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class testDatabaseManager {
+public class DatabaseManagerTest {
 
     DatabaseManager manager = new JDBCDatabaseManager();
 
@@ -48,8 +50,8 @@ public class testDatabaseManager {
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
-                         "1, ferrari, red, 6, " +
-                         "2, porsche, black, 1]", tableData.toString());
+                "1, ferrari, red, 6, " +
+                "2, porsche, black, 1]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
@@ -67,9 +69,9 @@ public class testDatabaseManager {
     public void testFindAllTableDataWithCorrectData() throws SQLException {
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
-                         "1, ferrari, red, 6, " +
-                         "2, porsche, black, 1, " +
-                         "3, bmw, blue, 3]", tableData.toString());
+                "1, ferrari, red, 6, " +
+                "2, porsche, black, 1, " +
+                "3, bmw, blue, 3]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
@@ -105,9 +107,9 @@ public class testDatabaseManager {
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
-                         "1, ferrari, red, 6, " +
-                         "2, porsche, black, 1, " +
-                         "3, mercedes, blue, 3]", tableData.toString());
+                "1, ferrari, red, 6, " +
+                "2, porsche, black, 1, " +
+                "3, mercedes, blue, 3]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
@@ -152,7 +154,7 @@ public class testDatabaseManager {
 
         List<String> tableData = manager.getTableData("client");
         assertEquals("[3, id, name, password, " +
-                         "2, , ]", tableData.toString());
+                "2, , ]", tableData.toString());
     }
 
     @Test(expected = StringIndexOutOfBoundsException.class)
