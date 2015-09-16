@@ -26,7 +26,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
 
         Iterator it = data.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
+            Map.Entry pair = (Map.Entry) it.next();
             sql += ", " + pair.getKey() + " " + pair.getValue();
             it.remove(); // avoids a ConcurrentModificationException
         }
@@ -76,10 +76,28 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void create(String tableName, String value) throws SQLException {
+    public void create(String tableName, Map<String, Object> data) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("INSERT INTO public." + tableName + " VALUES(" + value + ")");
+        stmt.executeUpdate("INSERT INTO " + tableName + " (" + getKeys(data) + ") VALUES (" + getValues(data) + ")");
         stmt.close();
+    }
+
+    private String getValues(Map<String, Object> data) {
+        String values = "";
+        for (Object value : data.entrySet()) {
+            Map.Entry pair = (Map.Entry) value;
+            values += "'" + pair.getValue() + "', ";
+        }
+        return values.substring(0, values.length() - 2);
+    }
+
+    private String getKeys(Map<String, Object> data) {
+        String keys = "";
+        for (Object key : data.entrySet()) {
+            Map.Entry pair = (Map.Entry) key;
+            keys += pair.getKey() + ",";
+        }
+        return keys.substring(0, keys.length() - 1);
     }
 
     @Override

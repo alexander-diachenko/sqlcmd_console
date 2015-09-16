@@ -4,6 +4,8 @@ import sqlcmd.databasemanager.DatabaseManager;
 import sqlcmd.view.View;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Create implements Command {
 
@@ -28,17 +30,14 @@ public class Create implements Command {
             return;
         }
 
-
-        String value = "'";
-        for (int index = 2; index < data.length; index++) {
-            value += data[index] + "', '";
-        }
-        value = value.substring(0, value.length() - 4);
-        value += "'";
-
         String tableName = data[1];
+        Map<String, Object> map = new HashMap<>();
+        for (int index = 2; index < data.length; index += 2) {
+           map.put(data[index], data[index + 1]);
+        }
+
         try {
-            manager.create(tableName, value);
+            manager.create(tableName, map);
             view.write("Запись успешно создана.");
         } catch (SQLException e) {
             view.write(String.format("Не удалось создать поле по причине: %s", e.getMessage()));
@@ -46,9 +45,10 @@ public class Create implements Command {
     }
 
     private boolean isCorrect(String command, String[] data) {
-        if (data.length < 2) {
+        if (data.length < 2 || data.length % 2 == 1) {
             view.write(String.format("Неправильные данные'%s'. " +
-                    "Должно быть 'create|tableName|column1Value|column2Value|...|columnNValue'.", command));
+                    "Должно быть 'create|tableName|column1VName|column1Value|...|" +
+                    "columnNName|columnNValue'.", command));
             return false;
         }
         return true;

@@ -22,7 +22,7 @@ public interface DatabaseManager {
 
     void table(String tableName, String primaryKey, Map<String, Object> data) throws SQLException;
 
-    void create(String tableName, String value) throws SQLException;
+    void create(String tableName, Map<String, Object> data) throws SQLException;
 
     void update(String[] data) throws SQLException;
 
