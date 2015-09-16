@@ -2,6 +2,7 @@ package sqlcmd.databasemanager;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public interface DatabaseManager {
 
@@ -18,6 +19,8 @@ public interface DatabaseManager {
      * @throws SQLException .
      */
     List<String> getTableData(String tableName) throws SQLException;
+
+    void table(String tableName, String primaryKey, Map<String, Object> data) throws SQLException;
 
     void create(String tableName, String value) throws SQLException;
 

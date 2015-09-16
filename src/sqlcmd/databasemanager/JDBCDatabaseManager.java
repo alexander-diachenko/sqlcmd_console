@@ -2,7 +2,9 @@ package sqlcmd.databasemanager;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class JDBCDatabaseManager implements DatabaseManager {
 
@@ -15,6 +17,23 @@ public class JDBCDatabaseManager implements DatabaseManager {
         connection = DriverManager.getConnection(
                 JDBC_POSTGRESQL_URL + database + "", "" + user + "",
                 "" + password + "");
+    }
+
+    @Override
+    public void table(String tableName, String primaryKey, Map<String, Object> data) throws SQLException {
+        Statement stmt = connection.createStatement();
+        String sql = "CREATE TABLE " + tableName + "(" + primaryKey + " INT  PRIMARY KEY NOT NULL";
+
+        Iterator it = data.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            sql += ", " + pair.getKey() + " " + pair.getValue();
+            it.remove(); // avoids a ConcurrentModificationException
+        }
+        sql += ")";
+
+        stmt.executeUpdate(sql);
+        stmt.close();
     }
 
     @Override
