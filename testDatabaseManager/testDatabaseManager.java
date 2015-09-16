@@ -18,9 +18,28 @@ public class testDatabaseManager {
     public void run() throws SQLException, ClassNotFoundException {
         manager.connect("sqlcmd", "postgres", "123");
         manager.clear("car");
-        manager.create("car", "'1', 'ferrari', 'red', '6'");
-        manager.create("car", "'2', 'porsche', 'black', '1'");
-        manager.create("car", "'3', 'bmw', 'blue', '3'");
+
+        Map<String, Object> data1 = new HashMap<>();
+        data1.put("id", 1);
+        data1.put("name", "ferrari");
+        data1.put("color", "red");
+        data1.put("age", 6);
+        manager.create("car", data1);
+
+        Map<String, Object> data2 = new HashMap<>();
+        data2.put("id", 2);
+        data2.put("name", "porsche");
+        data2.put("color", "black");
+        data2.put("age", 1);
+        manager.create("car", data2);
+
+        Map<String, Object> data3 = new HashMap<>();
+        data3.put("id", 3);
+        data3.put("name", "bmw");
+        data3.put("color", "blue");
+        data3.put("age", 3);
+        manager.create("car", data3);
+
     }
 
     @Test
@@ -41,7 +60,7 @@ public class testDatabaseManager {
     @Test
     public void testGetTableNames() throws Exception {
         List<String> tableNames = manager.getTableNames();
-        assertEquals("[car, user]", tableNames.toString());
+        assertEquals("[car, client]", tableNames.toString());
     }
 
     @Test
@@ -110,22 +129,42 @@ public class testDatabaseManager {
     }
 
     @Test
-    public void testCreateWithCorrectData() throws SQLException {
+    public void testCreateWithAllCorrectData() throws SQLException {
         manager.clear("car");
-        manager.create("car", "'1', 'ferrari', 'red', '6'");
-        manager.create("car", "'2', 'porsche', 'black', '1'");
-        manager.create("car", "'3', 'bmw', 'blue', '3'");
+        Map<String, Object> data = new HashMap<>();
+        data.put("id", "1");
+        data.put("name", "ferrari");
+        data.put("color", "red");
+        data.put("age", "6");
+        manager.create("car", data);
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
-                "1, ferrari, red, 6, " +
-                "2, porsche, black, 1, " +
-                "3, bmw, blue, 3]", tableData.toString());
+                "1, ferrari, red, 6]", tableData.toString());
+    }
+
+    @Test
+    public void testCreateWithSingleCorrectData() throws SQLException {
+        manager.clear("client");
+        Map<String, Object> data = new HashMap<>();
+        data.put("id", "2");
+        manager.create("client", data);
+
+        List<String> tableData = manager.getTableData("client");
+        assertEquals("[3, id, name, password, " +
+                         "2, , ]", tableData.toString());
+    }
+
+    @Test(expected = StringIndexOutOfBoundsException.class)
+    public void testCreateWithIncorrectDataLength() throws SQLException {
+        manager.create("qwe", new HashMap<>());
     }
 
     @Test(expected = SQLException.class)
     public void testCreateWithIncorrectData() throws SQLException {
-        manager.create("qwe", "'1' , 'ferrari' , 'red' ,'6'");
+        Map<String, Object> data = new HashMap<>();
+        data.put("id", "2");
+        manager.create("qwe", data);
     }
 
     @Test
@@ -137,7 +176,7 @@ public class testDatabaseManager {
         manager.table("city", "id", data);
 
         List<String> tableNames = manager.getTableNames();
-        assertEquals("[car, city, user]", tableNames.toString());
+        assertEquals("[car, city, client]", tableNames.toString());
         manager.drop("city");
     }
 
