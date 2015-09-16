@@ -4,7 +4,9 @@ import sqlcmd.databasemanager.DatabaseManager;
 import sqlcmd.databasemanager.JDBCDatabaseManager;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,8 +29,8 @@ public class testDatabaseManager {
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
-                         "1, ferrari, red, 6, " +
-                         "2, porsche, black, 1]", tableData.toString());
+                "1, ferrari, red, 6, " +
+                "2, porsche, black, 1]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
@@ -60,8 +62,8 @@ public class testDatabaseManager {
     public void testFindLimitOffsetTableDataWithCorrectData() throws SQLException {
         List<String> tableData = manager.getTableData("car LIMIT 2 OFFSET 1");
         assertEquals("[4, id, name, color, age, " +
-                         "2, porsche, black, " +
-                         "1, 3, bmw, blue, 3]", tableData.toString());
+                "2, porsche, black, " +
+                "1, 3, bmw, blue, 3]", tableData.toString());
     }
 
     @Test
@@ -116,13 +118,33 @@ public class testDatabaseManager {
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
-                         "1, ferrari, red, 6, " +
-                         "2, porsche, black, 1, " +
-                         "3, bmw, blue, 3]", tableData.toString());
+                "1, ferrari, red, 6, " +
+                "2, porsche, black, 1, " +
+                "3, bmw, blue, 3]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
     public void testCreateWithIncorrectData() throws SQLException {
         manager.create("qwe", "'1' , 'ferrari' , 'red' ,'6'");
+    }
+
+    @Test
+    public void testTableWithCorrectData() throws SQLException {
+        Map<String, Object> data = new HashMap<>();
+        data.put("name", "text");
+        data.put("population", "int");
+        data.put("county", "text");
+        manager.table("city", "id", data);
+
+        List<String> tableNames = manager.getTableNames();
+        assertEquals("[car, city, user]", tableNames.toString());
+        manager.drop("city");
+    }
+
+    @Test(expected = SQLException.class)
+    public void testTableWithIncorrectData() throws SQLException {
+        Map<String, Object> data = new HashMap<>();
+        data.put("name", "");
+        manager.table("city", "id", data);
     }
 }
