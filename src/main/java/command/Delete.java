@@ -33,7 +33,7 @@ public class Delete implements Command {
 
         String tableName = data[1];
         String key = data[2];
-        String value = data[2];
+        String value = data[3];
         try {
             manager.delete(tableName, key, value);
             view.write("Успешно удалено.");

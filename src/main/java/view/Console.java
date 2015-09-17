@@ -11,6 +11,7 @@ public class Console implements View {
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
+    @Override
     public String read() {
         try {
             return reader.readLine();
@@ -20,6 +21,7 @@ public class Console implements View {
         return "";
     }
 
+    @Override
     public void write(String message) {
         System.out.println(message);
     }

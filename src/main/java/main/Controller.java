@@ -30,19 +30,23 @@ public class Controller {
     public void run() {
         view.write("Добро пожаловать!");
 
-        while (true) {
-            view.write("Введите команду или 'help' для помощи:");
-            String input = view.read();
-            if(input == null){
-                new Exit(view).process(input);
-            }
+        try {
+            while (true) {
+                view.write("Введите команду или 'help' для помощи:");
+                String input = view.read();
+                if (input == null) {
+                    new Exit(view).process(input);
+                }
 
-            for (Command comm : commands) {
-                if (comm.canProcess(input)) {
-                    comm.process(input);
-                    break;
+                for (Command comm : commands) {
+                    if (comm.canProcess(input)) {
+                        comm.process(input);
+                        break;
+                    }
                 }
             }
+        }catch (ExitException e){
+            //do nothing
         }
     }
 }
