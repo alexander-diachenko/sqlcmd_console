@@ -26,11 +26,11 @@ public class JDBCDatabaseManager implements DatabaseManager {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("CREATE TABLE " + tableName +
                 "(" + primaryKey + " INT  PRIMARY KEY NOT NULL" +
-                    getColumns(data) + ")");
+                    getParameters(data) + ")");
         stmt.close();
     }
 
-    private String getColumns(Map<String, Object> data) {
+    private String getParameters(Map<String, Object> data) {
         String result = "";
         for (Map.Entry<String, Object> pair : data.entrySet()) {
             result += ", " + pair.getKey() + " " + pair.getValue();
