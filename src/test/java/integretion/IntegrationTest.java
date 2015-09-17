@@ -157,6 +157,7 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
+                //list
                 "[car, client]\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
                 //exit
@@ -173,9 +174,10 @@ public class IntegrationTest {
 
         assertEquals("Добро пожаловать!\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
-                //find|car
+                //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
+                //find|car
                 "+---------------------------------------+\n" +
                 "| id      | name    | color   | age     |\n" +
                 "+---------------------------------------+\n" +
@@ -199,9 +201,10 @@ public class IntegrationTest {
 
         assertEquals("Добро пожаловать!\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
-                //find|car
+                //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
+                //find|car|1|1
                 "+-------------------------------+\n" +
                 "| id    | name  | color | age   |\n" +
                 "+-------------------------------+\n" +
@@ -342,6 +345,7 @@ public class IntegrationTest {
                 //drop|qwe
                 "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'qwe'. " +
                 "Введите название таблицы для подтверждения.\r\n" +
+                //qwe
                 "Не удалочь удалить таблицу 'qwe' по причине: ERROR: table \"qwe\" does not exist\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
                 //exit
@@ -393,7 +397,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testCreateWithIncorrectData() {
+    public void testCreateWithIncorrectDataLength() {
         in.add("connect|sqlcmd|postgres|123");
         in.add("create|car");
         in.add("exit");
@@ -415,7 +419,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testDeleteWithIncorrectData() {
+    public void testDeleteWithIncorrectDataLength() {
         in.add("connect|sqlcmd|postgres|123");
         in.add("delete|car");
         in.add("exit");
