@@ -45,6 +45,38 @@ public class IntegrationTest {
     }
 
     @Test
+    public void testConnectWithIncorrectData() {
+        in.add("connect|sqlcmd|postgres|qwe");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Не удалось подключиться к базе 'sqlcmd' по причине: " +
+                "FATAL: password authentication failed for user \"postgres\"\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testConnectWithIncorrectDataLength() {
+        in.add("connect|");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Неправильная команда 'connect|'. " +
+                "Должно быть 'connect|database|user|password'.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
     public void testExit() {
         in.add("exit");
 
@@ -132,7 +164,8 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testFindWithoutConnect() {
+    public void testFindWithCorrectData() {
+        in.add("connect|sqlcmd|postgres|123");
         in.add("find|car");
         in.add("exit");
 
@@ -141,16 +174,49 @@ public class IntegrationTest {
         assertEquals("Добро пожаловать!\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
                 //find|car
-                "Вы не можете пользоваться командой 'find|car' без подключения к базе.\r\n" +
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                "+---------------------------------------+\n" +
+                "| id      | name    | color   | age     |\n" +
+                "+---------------------------------------+\n" +
+                "| 2       | porsche | black   | 1       |\n" +
+                "| 3       | bmw     | blue    | 3       |\n" +
+                "| 1       | ferrari | red     | 6       |\n" +
+                "+---------------------------------------+\n" +
+                "\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
 
     @Test
-    public void testFindWithConnect() {
+    public void testFindLimitOffsetWithCorrectData() {
         in.add("connect|sqlcmd|postgres|123");
-        in.add("find|car");
+        in.add("find|car|1|1");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //find|car
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                "+-------------------------------+\n" +
+                "| id    | name  | color | age   |\n" +
+                "+-------------------------------+\n" +
+                "| 3     | bmw   | blue  | 3     |\n" +
+                "+-------------------------------+\n" +
+                "\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testFindWithIncorrectDataLength() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("find|");
         in.add("exit");
 
         Main.main(new String[0]);
@@ -160,15 +226,31 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
-                //find|car
-                "+---------------------------------------+\n" +
-                "| id      | name    | color   | age     |\n" +
-                "+---------------------------------------+\n" +
-                "| 1       | ferrari | red     | 6       |\n" +
-                "| 2       | porsche | black   | 1       |\n" +
-                "| 3       | bmw     | blue    | 3       |\n" +
-                "+---------------------------------------+\n" +
-                "\r\n" +
+                //find|
+                "Неправильная команда 'find|'. " +
+                "Должно быть 'find|tableName' или 'find|tableName|limit|offset'\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testFindWithIncorrectData() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("find|qwe");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //find|qwe
+                "Не удалось отобразить таблицу 'qwe' по причине:" +
+                " ERROR: relation \"public.qwe\" does not exist\n" +
+                "  Позиция: 15\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
@@ -202,7 +284,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testTableWithIncorrectData() {
+    public void testTableWithIncorrectDataType() {
         in.add("connect|sqlcmd|postgres|123");
         in.add("table|city|id|name|population");
         in.add("exit");
@@ -223,7 +305,71 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testCreateDeleteWithCorrectData() {
+    public void testTableWithIncorrectDataLength() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("table|");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //create
+                "Неправильная команда 'table|'. 'table|tableName|" +
+                "primaryKeyName|column1Name|column1Type|...|columnNName|columnNType'\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testDropWithIncorrectData() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("drop|qwe");
+        in.add("qwe");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //drop|qwe
+                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'qwe'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                "Не удалочь удалить таблицу 'qwe' по причине: ERROR: table \"qwe\" does not exist\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testDropWithIncorrectDataLength() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("drop|qwe|qwe");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //drop|qwe|qwe
+                "Неправильные данные 'drop|qwe|qwe'. Должно быть 'drop|tableName'.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testCreateWithCorrectData() {
         in.add("connect|sqlcmd|postgres|123");
         in.add("create|car|id|4|name|mercedes|color|white|age|5");
         in.add("delete|car|id|4");
@@ -241,6 +387,49 @@ public class IntegrationTest {
                 "Введите команду или 'help' для помощи:\r\n" +
                 //delete
                 "Успешно удалено.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testCreateWithIncorrectData() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("create|car");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //create
+                "Неправильные данные 'create|car'. " +
+                "Должно быть 'create|tableName|column1VName|column1Value|...|" +
+                "columnNName|columnNValue'.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testDeleteWithIncorrectData() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("delete|car");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //delete
+                "Неправильная команда 'delete|car'. " +
+                "Должно быть 'delete|tableName|primaryKeyColumnName|primaryKeyValue'.\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
@@ -287,6 +476,157 @@ public class IntegrationTest {
                 "Введите команду или 'help' для помощи:\r\n" +
                 //qwe
                 "Команды 'qwe' не существует.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testClearWithCorrectData() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("table|city|id");
+        in.add("clear|city");
+        in.add("city");
+        in.add("drop|city");
+        in.add("city");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //table|city
+                "Таблица 'city' успешно создана\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //clear|city
+                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'city'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //city
+                "Таблица 'city' успешно очищена.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //drop|city
+                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //city
+                "Таблица 'city' успешно удалена.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testClearWithIncorrectData() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("clear|qwe");
+        in.add("qwe");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //clear|qwe
+                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'qwe'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //qwe
+                "Не удалось очистить таблицу 'qwe' по причине: " +
+                "ERROR: relation \"public.qwe\" does not exist\n" +
+                "  Позиция: 13\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testClearWithIncorrectDataLength() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("clear|");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //clear|
+                "Неправильная команда 'clear|'. " +
+                "Должно быть 'clear|tableName'.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testUpdateWithIncorrectDataLength() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("update|");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //update|
+                "Неправильные данные 'update|'. " +
+                "Должно быть 'update|tableName|primaryKeyColumnName|" +
+                "primaryKeyValue|column1Name|column1NewValue|" +
+                "...|columnNName|columnNNewValue'.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testUpdateWithIncorrectData() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("update|qwe|qwe|qwe|qwe|qwe");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //update|qwe|qwe|qwe|qwe|qwe
+                "Не удалось обновить по причине ERROR: relation \"public.qwe\" does not exist\n" +
+                "  Позиция: 8\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testUpdateWithCorrectData() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("update|car|id|1|name|mercedes");
+        in.add("update|car|id|1|name|ferrari");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //update|car|id|1|name|mercedes
+                "Все данные успешно обновлены.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //update|car|id|1|name|ferrari
+                "Все данные успешно обновлены.\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());

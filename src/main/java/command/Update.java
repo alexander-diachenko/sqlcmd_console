@@ -55,7 +55,7 @@ public class Update implements Command {
         if (data.length < 6 || data.length % 2 == 1) {
             view.write(String.format("Неправильные данные '%s'. " +
                     "Должно быть 'update|tableName|primaryKeyColumnName|primaryKeyValue|" +
-                    "column1Name|column1NewValue|column2Name|column2NewValue|...|" +
+                    "column1Name|column1NewValue|...|" +
                     "columnNName|columnNNewValue'.", command));
             return false;
         }

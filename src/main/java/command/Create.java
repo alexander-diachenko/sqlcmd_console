@@ -48,8 +48,8 @@ public class Create implements Command {
     }
 
     private boolean isCorrect(String command, String[] data) {
-        if (data.length < 2 || data.length % 2 == 1) {
-            view.write(String.format("Неправильные данные'%s'. " +
+        if (data.length < 3 || data.length % 2 == 1) {
+            view.write(String.format("Неправильные данные '%s'. " +
                     "Должно быть 'create|tableName|column1VName|column1Value|...|" +
                     "columnNName|columnNValue'.", command));
             return false;

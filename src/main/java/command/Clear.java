@@ -45,7 +45,7 @@ public class Clear implements Command {
             view.write(String.format("Таблица '%s' успешно очищена.", tableName));
         } catch (SQLException e) {
             view.write(String.format("Не удалось очистить таблицу '%s' " +
-                    "по причине: '%s'", tableName, e.getMessage()));
+                    "по причине: %s", tableName, e.getMessage()));
         }
     }
 
