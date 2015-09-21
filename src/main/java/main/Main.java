@@ -22,6 +22,7 @@ public class Main{
 //            }
 //        });
 //        text.setVisible(true);
+//        View view = new JTextAreaConsole();
 
         View view = new Console();
         DatabaseManager manager = new JDBCDatabaseManager();

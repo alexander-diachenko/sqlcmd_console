@@ -14,21 +14,21 @@ public class JTextAreaConsole extends JFrame implements ActionListener, View {
     static String outputMessage = "";
     static String inputMessage = null;
 
-    JTextField jtfInput;
-    JTextArea jtAreaOutput;
+    JTextField textField;
+    JTextArea areaOutput;
 
     public JTextAreaConsole() {
         createGui();
     }
 
     public void createGui() {
-        jtfInput = new JTextField(30);
-        jtfInput.addActionListener(this);
-        jtAreaOutput = new JTextArea(30, 60);
-        jtAreaOutput.setCaretPosition(jtAreaOutput.getDocument()
+        textField = new JTextField();
+        textField.addActionListener(this);
+        areaOutput = new JTextArea(30, 60);
+        areaOutput.setCaretPosition(areaOutput.getDocument()
                 .getLength());
-        jtAreaOutput.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(jtAreaOutput,
+        areaOutput.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(areaOutput,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         GridBagLayout gridBag = new GridBagLayout();
@@ -37,19 +37,18 @@ public class JTextAreaConsole extends JFrame implements ActionListener, View {
         GridBagConstraints gridCons1 = new GridBagConstraints();
         gridCons1.gridwidth = GridBagConstraints.REMAINDER;
         gridCons1.fill = GridBagConstraints.HORIZONTAL;
-        contentPane.add(jtfInput, gridCons1);
+        contentPane.add(textField, gridCons1);
         GridBagConstraints gridCons2 = new GridBagConstraints();
-        gridCons2.weightx = 1.0;
-        gridCons2.weighty = 1.0;
+        gridCons2.weightx = 2.0;
+        gridCons2.weighty = 2.0;
         contentPane.add(scrollPane, gridCons2);
     }
-
     public void actionPerformed(ActionEvent evt) {
-        inputMessage = jtfInput.getText();
-        jtAreaOutput.append(inputMessage + "\n" + outputMessage + "\n");
+        inputMessage = textField.getText();
+        areaOutput.append(inputMessage + "\n" + outputMessage);
         outputMessage = "";
-        jtfInput.selectAll();
-        jtfInput.replaceSelection("");
+        textField.selectAll();
+        textField.replaceSelection("");
     }
 
     @Override
