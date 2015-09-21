@@ -4,31 +4,43 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Created by POSITIV on 21.09.2015.
  */
-public class JTextAreaConsole extends JFrame implements ActionListener, View {
+public class JText extends JFrame implements ActionListener, View {
 
 
     static String outputMessage = "";
     static String inputMessage = null;
+    JTextField inputField;
+    JTextArea outputField;
 
-    JTextField textField;
-    JTextArea areaOutput;
+    public static void startGUI() {
+        JText text = new JText();
+        text.pack();
+        text.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+        text.setVisible(true);
+    }
 
-    public JTextAreaConsole() {
+    public JText() {
         createGui();
     }
 
     public void createGui() {
-        textField = new JTextField();
-        textField.addActionListener(this);
-        areaOutput = new JTextArea(30, 60);
-        areaOutput.setCaretPosition(areaOutput.getDocument()
+        inputField = new JTextField();
+        inputField.addActionListener(this);
+        outputField = new JTextArea(30, 60);
+        outputField.setCaretPosition(outputField.getDocument()
                 .getLength());
-        areaOutput.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(areaOutput,
+        outputField.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(outputField,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
                 JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         GridBagLayout gridBag = new GridBagLayout();
@@ -37,18 +49,19 @@ public class JTextAreaConsole extends JFrame implements ActionListener, View {
         GridBagConstraints gridCons1 = new GridBagConstraints();
         gridCons1.gridwidth = GridBagConstraints.REMAINDER;
         gridCons1.fill = GridBagConstraints.HORIZONTAL;
-        contentPane.add(textField, gridCons1);
+        contentPane.add(inputField, gridCons1);
         GridBagConstraints gridCons2 = new GridBagConstraints();
         gridCons2.weightx = 2.0;
         gridCons2.weighty = 2.0;
         contentPane.add(scrollPane, gridCons2);
     }
+
     public void actionPerformed(ActionEvent evt) {
-        inputMessage = textField.getText();
-        areaOutput.append(inputMessage + "\n" + outputMessage);
+        inputMessage = inputField.getText();
+        outputField.append(inputMessage + "\n" + outputMessage);
         outputMessage = "";
-        textField.selectAll();
-        textField.replaceSelection("");
+        inputField.selectAll();
+        inputField.replaceSelection("");
     }
 
     @Override
