@@ -26,19 +26,10 @@ public class Clear implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
-
-        if (!isCorrect(command, data)) {
-            return;
-        }
+        if (!isCorrect(command, data)) return;
 
         String tableName = data[1];
-
-        view.write(String.format("ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы '%s'. " +
-                "Введите название таблицы для подтверждения.", tableName));
-        String check = view.read();
-        if (!check.equals(tableName)) {
-            return;
-        }
+        if (!confirm(tableName)) return;
 
         try {
             manager.clear(tableName);
@@ -56,5 +47,12 @@ public class Clear implements Command {
             return false;
         }
         return true;
+    }
+
+    private boolean confirm(String tableName) {
+        view.write(String.format("ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы '%s'. " +
+                "Введите название таблицы для подтверждения.", tableName));
+        String check = view.read();
+        return check.equals(tableName);
     }
 }

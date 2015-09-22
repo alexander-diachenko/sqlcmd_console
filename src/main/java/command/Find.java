@@ -27,19 +27,9 @@ public class Find implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
+        if (!isCorrect(command, data)) return;
 
-        if (!isCorrect(command, data)) {
-            return;
-        }
-
-        String tableName;
-        if (data.length == 4) {
-            Integer limit = Integer.valueOf(data[2]);
-            Integer offset = Integer.valueOf(data[3]);
-            tableName = data[1] + " LIMIT " + limit + " OFFSET " + offset;
-        } else {
-            tableName = data[1];
-        }
+        String tableName = getTableName(data);
 
         try {
             view.write(formatted(tableName));
@@ -55,7 +45,22 @@ public class Find implements Command {
                     "Должно быть 'find|tableName' или 'find|tableName|limit|offset'", command));
             return false;
         }
+        if(data.length == 4 && !isNumeric(data)) {
+                return false;
+        }
         return true;
+    }
+
+    private String getTableName(String[] data) {
+        String tableName;
+        if (data.length == 4) {
+            Integer limit = Integer.valueOf(data[2]);
+            Integer offset = Integer.valueOf(data[3]);
+            tableName = data[1] + " LIMIT " + limit + " OFFSET " + offset;
+        } else {
+            tableName = data[1];
+        }
+        return tableName;
     }
 
     private String formatted(String tableName) throws SQLException {
@@ -63,35 +68,53 @@ public class Find implements Command {
 
         int maxSize = getMaxSize(list);
         int columnCount = Integer.parseInt(list.get(0));
-        int rowCount = getRowCount(list, columnCount);
 
-        String tableData = "";
-        tableData = addSeparator(tableData, columnCount, maxSize);
-        int index = 1;
-        for (; index <= columnCount; index++) {
+        String result = "";
+        result = addSeparator(result, columnCount, maxSize) +
+                addColumnNames(list, maxSize, columnCount, result) +
+                addSeparator(result, columnCount, maxSize) +
+                addTableData(list, maxSize, columnCount, result) +
+                addSeparator(result, columnCount, maxSize);
+        return result;
+    }
+
+    private String addSeparator(String tableData, int columnsCount, int maxSize) {
+        int separatorLength = columnsCount * (maxSize + 2) + columnsCount;
+        tableData += "+";
+        for (int i = 0; i <= separatorLength - 2; i++) {
+            tableData += "-";
+        }
+        tableData += "+\n";
+        return tableData;
+    }
+
+    private String addColumnNames(List<String> list, int maxSize, int columnCount, String tableData) {
+        for (int index = 1; index <= columnCount; index++) {
             tableData += "| ";
             tableData += String.format("%-" + maxSize + "s", list.get(index));
             tableData += " ";
         }
         tableData += "|\n";
-        tableData = addSeparator(tableData, columnCount, maxSize);
+        return tableData;
+    }
 
-        for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
-            for (int columnIndex = index; columnIndex < index + columnCount; columnIndex++) {
+    private String addTableData(List<String> list, int maxSize, int columnCount, String tableData) {
+        int lastIndex = 1 + columnCount;
+        for (int rowIndex = 0; rowIndex < getRowCount(list, columnCount); rowIndex++) {
+            for (int columnIndex = lastIndex; columnIndex < lastIndex + columnCount; columnIndex++) {
                 tableData += "| ";
                 tableData += String.format("%-" + maxSize + "s", list.get(columnIndex));
                 tableData += " ";
             }
             tableData += "|\n";
-            index += columnCount;
+            lastIndex += columnCount;
         }
-        tableData = addSeparator(tableData, columnCount, maxSize);
         return tableData;
     }
 
     private int getRowCount(List<String> list, int columnCount) {
         int rowCount = 0;
-        if(columnCount > 0) {
+        if (columnCount > 0) {
             rowCount = (list.size() - 1 - columnCount) / columnCount;
         }
         return rowCount;
@@ -107,14 +130,16 @@ public class Find implements Command {
         return maxSize;
     }
 
-    private String addSeparator(String tableData, int columnsCount, int maxSize) {
-        int separatorLength = columnsCount * (maxSize + 2) + columnsCount;
-        tableData += "+";
-        for (int i = 0; i <= separatorLength - 2; i++) {
-            tableData += "-";
+    private boolean isNumeric(String[] data) {
+        for (int index = 2; index < 4; index++) {
+            for(char ch : data[2].toCharArray()) {
+                 if(!Character.isDigit(ch)){
+                     view.write("Неправильные данные. limit и offset должны быть целыми числами.");
+                     return false;
+                 }
+            }
         }
-        tableData += "+\n";
-        return tableData;
+        return true;
     }
 }
 

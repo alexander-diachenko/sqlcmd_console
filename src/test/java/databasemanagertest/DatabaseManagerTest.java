@@ -42,7 +42,6 @@ public class DatabaseManagerTest {
         data3.put("color", "blue");
         data3.put("age", 3);
         manager.create("car", data3);
-
     }
 
     @Test

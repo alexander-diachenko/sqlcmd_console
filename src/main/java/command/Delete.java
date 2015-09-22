@@ -26,14 +26,12 @@ public class Delete implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
-
-        if (!isCorrect(command, data)) {
-            return;
-        }
+        if (!isCorrect(command, data)) return;
 
         String tableName = data[1];
         String key = data[2];
         String value = data[3];
+
         try {
             manager.delete(tableName, key, value);
             view.write("Успешно удалено.");

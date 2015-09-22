@@ -28,10 +28,7 @@ public class Create implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
-
-        if (!isCorrect(command, data)) {
-            return;
-        }
+        if (!isCorrect(command, data)) return;
 
         String tableName = data[1];
         Map<String, Object> map = new HashMap<>();

@@ -9,6 +9,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -30,7 +32,7 @@ public class IntegrationTest {
     }
 
     @Before
-    public void clearIn() throws IOException {
+    public void run() throws IOException {
         in.reset();
     }
 
@@ -167,6 +169,11 @@ public class IntegrationTest {
     @Test
     public void testFindWithCorrectData() {
         in.add("connect|sqlcmd|postgres|123");
+        in.add("clear|car");
+        in.add("car");
+        in.add("create|car|id|1|name|ferrari|color|red|age|6");
+        in.add("create|car|id|2|name|porsche|color|black|age|1");
+        in.add("create|car|id|3|name|bmw|color|blue|age|3");
         in.add("find|car");
         in.add("exit");
 
@@ -177,13 +184,26 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
+                //clear
+                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'car'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //car
+                "Таблица 'car' успешно очищена.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //create
+                "Запись успешно создана.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                "Запись успешно создана.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                "Запись успешно создана.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
                 //find|car
                 "+---------------------------------------+\n" +
                 "| id      | name    | color   | age     |\n" +
                 "+---------------------------------------+\n" +
+                "| 1       | ferrari | red     | 6       |\n" +
                 "| 2       | porsche | black   | 1       |\n" +
                 "| 3       | bmw     | blue    | 3       |\n" +
-                "| 1       | ferrari | red     | 6       |\n" +
                 "+---------------------------------------+\n" +
                 "\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
@@ -194,6 +214,11 @@ public class IntegrationTest {
     @Test
     public void testFindLimitOffsetWithCorrectData() {
         in.add("connect|sqlcmd|postgres|123");
+        in.add("clear|car");
+        in.add("car");
+        in.add("create|car|id|1|name|ferrari|color|red|age|6");
+        in.add("create|car|id|2|name|porsche|color|black|age|1");
+        in.add("create|car|id|3|name|bmw|color|blue|age|3");
         in.add("find|car|1|1");
         in.add("exit");
 
@@ -204,13 +229,46 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
+                //clear
+                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'car'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //car
+                "Таблица 'car' успешно очищена.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //create
+                "Запись успешно создана.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                "Запись успешно создана.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                "Запись успешно создана.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
                 //find|car|1|1
-                "+-------------------------------+\n" +
-                "| id    | name  | color | age   |\n" +
-                "+-------------------------------+\n" +
-                "| 3     | bmw   | blue  | 3     |\n" +
-                "+-------------------------------+\n" +
+                "+---------------------------------------+\n" +
+                "| id      | name    | color   | age     |\n" +
+                "+---------------------------------------+\n" +
+                "| 2       | porsche | black   | 1       |\n" +
+                "+---------------------------------------+\n" +
                 "\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testFindLimitOffsetWithIncorrectData() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("find|car|qwe|qwe");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //find|car|1|1
+                "Неправильные данные. limit и offset должны быть целыми числами.\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
@@ -376,7 +434,6 @@ public class IntegrationTest {
     public void testCreateWithCorrectData() {
         in.add("connect|sqlcmd|postgres|123");
         in.add("create|car|id|4|name|mercedes|color|white|age|5");
-        in.add("delete|car|id|4");
         in.add("exit");
 
         Main.main(new String[0]);
@@ -388,9 +445,6 @@ public class IntegrationTest {
                 "Введите команду или 'help' для помощи:\r\n" +
                 //create
                 "Запись успешно создана.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
-                //delete
-                "Успешно удалено.\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
@@ -413,6 +467,30 @@ public class IntegrationTest {
                 "Неправильные данные 'create|car'. " +
                 "Должно быть 'create|tableName|column1VName|column1Value|...|" +
                 "columnNName|columnNValue'.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testDeleteWithCorrectData() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("create|car|id|5|name|qwe|color|qwe|age|1");
+        in.add("delete|car|id|5");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //create
+                "Запись успешно создана.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                //delete
+                "Успешно удалено.\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
@@ -615,8 +693,10 @@ public class IntegrationTest {
     @Test
     public void testUpdateWithCorrectData() {
         in.add("connect|sqlcmd|postgres|123");
-        in.add("update|car|id|1|name|mercedes");
-        in.add("update|car|id|1|name|ferrari");
+        in.add("clear|car");
+        in.add("car");
+        in.add("create|car|id|4|name|mercedes|color|white|age|5");
+        in.add("update|car|id|4|name|mercedes");
         in.add("exit");
 
         Main.main(new String[0]);
@@ -627,7 +707,11 @@ public class IntegrationTest {
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
                 //update|car|id|1|name|mercedes
-                "Все данные успешно обновлены.\r\n" +
+                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'car'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                "Таблица 'car' успешно очищена.\r\n" +
+                "Введите команду или 'help' для помощи:\r\n" +
+                "Запись успешно создана.\r\n" +
                 "Введите команду или 'help' для помощи:\r\n" +
                 //update|car|id|1|name|ferrari
                 "Все данные успешно обновлены.\r\n" +

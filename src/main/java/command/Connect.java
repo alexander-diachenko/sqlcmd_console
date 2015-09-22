@@ -26,10 +26,7 @@ public class Connect implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
-
-        if (!isCorrect(command, data)) {
-            return;
-        }
+        if (!isCorrect(command, data)) return;
 
         String database = data[1];
         String user = data[2];
