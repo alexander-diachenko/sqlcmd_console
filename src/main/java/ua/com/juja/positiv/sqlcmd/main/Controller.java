@@ -32,7 +32,7 @@ public class Controller {
 
         try {
             while (true) {
-                view.write("Введите команду или 'help' для помощи:");
+                view.write("Введите команду или help для помощи:");
                 String input = view.read();
                 if (input == null) {
                     new Exit(view).process(input);

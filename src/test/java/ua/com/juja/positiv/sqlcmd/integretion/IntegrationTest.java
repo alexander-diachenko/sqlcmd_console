@@ -51,11 +51,11 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Не удалось подключиться к базе 'sqlcmd' по причине: " +
                 "FATAL: password authentication failed for user \"postgres\"\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -67,11 +67,11 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Неправильная команда 'connect|'. " +
                 "Должно быть 'connect|database|user|password'.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -83,7 +83,7 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -96,34 +96,34 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //help
-                "'connect|database|user|password'\n" +
+                "connect|database|user|password\n" +
                     "\t подключение к базе\r\n" +
-                "'table|tableName|primaryKeyName|column1Name|column1Type|...|" +
-                "columnNName|columnNType'\n" +
+                "table|tableName|primaryKeyName|column1Name|column1Type|...|" +
+                "columnNName|columnNType\n" +
                    "\t для создания таблицы\r\n" +
-                "'list'\n" +
+                "list\n" +
                    "\t вывод списка всех таблиц\r\n" +
-                "'find|tableName'\n" +
+                "find|tableName\n" +
                   "\t вывод всей таблицы\r\n" +
-                "'find|tableName|limit|offset'\n" +
+                "find|tableName|limit|offset\n" +
                    "\t вывод части таблицы\r\n" +
-                "'create|tableName|column1Value|...|columnNValue'\n" +
+                "create|tableName|column1Value|...|columnNValue\n" +
                    "\t создание поля\r\n" +
-                "'update|tableName|primaryKeyColumnName|primaryKeyValue" +
+                "update|tableName|primaryKeyColumnName|primaryKeyValue" +
                 "|column1Name|column1NewValue|...|" +
-                "columnNName|columnNNewValue'\n" +
+                "columnNName|columnNNewValue\n" +
                   "\t обновление поля\r\n" +
-                "'delete|tableName|primaryKeyColumnName|primaryKeyValue'\n" +
-                  "\t удаление поле\r\n" +
-                "'clear|tableName'\n" +
+                "delete|tableName|primaryKeyColumnName|primaryKeyValue\n" +
+                  "\t удаление поля\r\n" +
+                "clear|tableName\n" +
                   "\t очистка таблицы\r\n" +
-                "'drop|tableName'\n" +
+                "drop|tableName\n" +
                    "\t удаление таблицы\r\n" +
-                "'exit'\n" +
+                "exit\n" +
                   "\t выход из програмы\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -136,10 +136,10 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //list
                 "Вы не можете пользоваться командой 'list' без подключения к базе.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -153,13 +153,13 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //list
                 "[car, client]\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -178,23 +178,23 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //clear
                 "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'car'. " +
                 "Введите название таблицы для подтверждения.\r\n" +
                 //car
                 "Таблица 'car' успешно очищена.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //create
                 "Запись успешно создана.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 "Запись успешно создана.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 "Запись успешно создана.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //find|car
                 "+---------------------------------------+\n" +
                 "| id      | name    | color   | age     |\n" +
@@ -204,7 +204,7 @@ public class IntegrationTest {
                 "| 3       | bmw     | blue    | 3       |\n" +
                 "+---------------------------------------+\n" +
                 "\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -223,23 +223,23 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //clear
                 "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'car'. " +
                 "Введите название таблицы для подтверждения.\r\n" +
                 //car
                 "Таблица 'car' успешно очищена.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //create
                 "Запись успешно создана.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 "Запись успешно создана.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 "Запись успешно создана.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //find|car|1|1
                 "+---------------------------------------+\n" +
                 "| id      | name    | color   | age     |\n" +
@@ -247,7 +247,7 @@ public class IntegrationTest {
                 "| 2       | porsche | black   | 1       |\n" +
                 "+---------------------------------------+\n" +
                 "\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -261,13 +261,13 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //find|car|1|1
                 "Неправильные данные. limit и offset должны быть целыми числами.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -281,14 +281,14 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //find|
                 "Неправильная команда 'find|'. " +
                 "Должно быть 'find|tableName' или 'find|tableName|limit|offset'\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -302,15 +302,15 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //find|qwe
                 "Не удалось отобразить таблицу 'qwe' по причине:" +
                 " ERROR: relation \"public.qwe\" does not exist\n" +
                 "  Позиция: 15\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -326,18 +326,19 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //table|city
                 "Таблица 'city' успешно создана\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //drop|city
-                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. Введите название таблицы для подтверждения.\r\n" +
+                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
                 //city
                 "Таблица 'city' успешно удалена.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -351,14 +352,15 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //create
-                "Не удалось создать таблицу 'city' по причине: ERROR: type \"population\" does not exist\n" +
+                "Не удалось создать таблицу 'city' по причине: " +
+                "ERROR: type \"population\" does not exist\n" +
                 "  Позиция: 54\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -372,14 +374,14 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //create
                 "Неправильная команда 'table|'. 'table|tableName|" +
                 "primaryKeyName|column1Name|column1Type|...|columnNName|columnNType'\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -394,16 +396,17 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //drop|qwe
                 "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'qwe'. " +
                 "Введите название таблицы для подтверждения.\r\n" +
                 //qwe
-                "Не удалочь удалить таблицу 'qwe' по причине: ERROR: table \"qwe\" does not exist\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Не удалочь удалить таблицу 'qwe' по причине: " +
+                "ERROR: table \"qwe\" does not exist\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -417,13 +420,14 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //drop|qwe|qwe
-                "Неправильные данные 'drop|qwe|qwe'. Должно быть 'drop|tableName'.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Неправильные данные 'drop|qwe|qwe'. " +
+                "Должно быть 'drop|tableName'.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -437,13 +441,13 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //create
                 "Запись успешно создана.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -457,15 +461,15 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //create
                 "Неправильные данные 'create|car'. " +
                 "Должно быть 'create|tableName|column1VName|column1Value|...|" +
                 "columnNName|columnNValue'.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -480,16 +484,16 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //create
                 "Запись успешно создана.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //delete
                 "Успешно удалено.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -503,14 +507,14 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //delete
                 "Неправильная команда 'delete|car'. " +
                 "Должно быть 'delete|tableName|primaryKeyColumnName|primaryKeyValue'.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -525,18 +529,20 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //create
-                "Не удалось создать поле по причине: ERROR: column \"qwe\" of relation \"car\" does not exist\n" +
+                "Не удалось создать поле по причине: " +
+                "ERROR: column \"qwe\" of relation \"car\" does not exist\n" +
                 "  Позиция: 29\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //delete
-                "Не удалось удалить поле по причине: ERROR: column \"qwe\" does not exist\n" +
+                "Не удалось удалить поле по причине: " +
+                "ERROR: column \"qwe\" does not exist\n" +
                 "  Позиция: 30\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -550,13 +556,13 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //qwe
                 "Команды 'qwe' не существует.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -574,25 +580,25 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //table|city
                 "Таблица 'city' успешно создана\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //clear|city
                 "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'city'. " +
                 "Введите название таблицы для подтверждения.\r\n" +
                 //city
                 "Таблица 'city' успешно очищена.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //drop|city
                 "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. " +
                 "Введите название таблицы для подтверждения.\r\n" +
                 //city
                 "Таблица 'city' успешно удалена.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -607,10 +613,10 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //clear|qwe
                 "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'qwe'. " +
                 "Введите название таблицы для подтверждения.\r\n" +
@@ -618,7 +624,7 @@ public class IntegrationTest {
                 "Не удалось очистить таблицу 'qwe' по причине: " +
                 "ERROR: relation \"public.qwe\" does not exist\n" +
                 "  Позиция: 13\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -632,14 +638,14 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //clear|
                 "Неправильная команда 'clear|'. " +
                 "Должно быть 'clear|tableName'.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -653,16 +659,16 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //update|
                 "Неправильные данные 'update|'. " +
                 "Должно быть 'update|tableName|primaryKeyColumnName|" +
                 "primaryKeyValue|column1Name|column1NewValue|" +
                 "...|columnNName|columnNNewValue'.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -676,14 +682,15 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //update|qwe|qwe|qwe|qwe|qwe
-                "Не удалось обновить по причине ERROR: relation \"public.qwe\" does not exist\n" +
+                "Не удалось обновить по причине " +
+                "ERROR: relation \"public.qwe\" does not exist\n" +
                 "  Позиция: 8\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
@@ -700,20 +707,20 @@ public class IntegrationTest {
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //update|car|id|1|name|mercedes
                 "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'car'. " +
                 "Введите название таблицы для подтверждения.\r\n" +
                 "Таблица 'car' успешно очищена.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 "Запись успешно создана.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //update|car|id|1|name|ferrari
                 "Все данные успешно обновлены.\r\n" +
-                "Введите команду или 'help' для помощи:\r\n" +
+                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }

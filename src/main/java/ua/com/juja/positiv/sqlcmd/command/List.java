@@ -28,7 +28,8 @@ public class List implements Command {
         try {
             view.write(manager.getTableNames().toString());
         } catch (SQLException e) {
-            view.write(String.format("Не удалось отобразить список таблиц по причине %s", e.getMessage()));
+            view.write(String.format("Не удалось отобразить список таблиц " +
+                    "по причине %s", e.getMessage()));
         }
     }
 }
