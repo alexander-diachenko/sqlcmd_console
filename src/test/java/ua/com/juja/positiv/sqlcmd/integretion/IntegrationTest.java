@@ -109,7 +109,8 @@ public class IntegrationTest {
                   "\t вывод всей таблицы\r\n" +
                 "find|tableName|limit|offset\n" +
                    "\t вывод части таблицы\r\n" +
-                "create|tableName|column1Value|...|columnNValue\n" +
+                "create|tableName|column1Name|column1Value|..." +
+                "|columnNName|columnNValue\n" +
                    "\t создание поля\r\n" +
                 "update|tableName|primaryKeyColumnName|primaryKeyValue" +
                 "|column1Name|column1NewValue|...|" +

@@ -31,7 +31,8 @@ public class Help implements Command {
                 "\t вывод всей таблицы");
         view.write("find|tableName|limit|offset\n" +
                 "\t вывод части таблицы");
-        view.write("create|tableName|column1Value|...|columnNValue\n" +
+        view.write("create|tableName|column1Name|column1Value|...|" +
+                "columnNName|columnNValue\n" +
                 "\t создание поля");
         view.write("update|tableName|primaryKeyColumnName|primaryKeyValue|" +
                 "column1Name|column1NewValue|...|" +
