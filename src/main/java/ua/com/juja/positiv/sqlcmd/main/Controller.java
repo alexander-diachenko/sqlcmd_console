@@ -45,7 +45,7 @@ public class Controller {
                     }
                 }
             }
-        }catch (ExitException e){
+        } catch (ExitException e) {
             //do nothing
         }
     }

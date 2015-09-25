@@ -29,7 +29,9 @@ public class Table implements Command {
     public void process(String command) {
         String[] data = command.split("\\|");
 
-        if (!isCorrect(command, data)) return;
+        if (!isCorrect(command, data)) {
+            return;
+        }
 
         String tableName = data[1];
         String primaryKeyName = data[2];
@@ -49,7 +51,7 @@ public class Table implements Command {
     }
 
     private boolean isCorrect(String command, String[] data) {
-        if(data.length < 3){
+        if (data.length < 3) {
             view.write(String.format("Неправильная команда '%s'. " +
                     "'table|tableName|primaryKeyName|column1Name|column1Type|...|" +
                     "columnNName|columnNType'", command));

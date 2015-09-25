@@ -1,7 +1,7 @@
 package ua.com.juja.positiv.sqlcmd.command;
 
-import ua.com.juja.positiv.sqlcmd.view.View;
 import ua.com.juja.positiv.sqlcmd.databasemanagertest.DatabaseManager;
+import ua.com.juja.positiv.sqlcmd.view.View;
 
 import java.sql.SQLException;
 
@@ -26,10 +26,14 @@ public class Drop implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
-        if (!isCorrect(command, data)) return;
+        if (!isCorrect(command, data)) {
+            return;
+        }
 
         String tableName = data[1];
-        if (!confirm(tableName)) return;
+        if (!confirm(tableName)) {
+            return;
+        }
 
         try {
             manager.drop(tableName);

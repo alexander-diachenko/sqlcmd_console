@@ -26,7 +26,9 @@ public class Update implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
-        if (!isCorrect(command, data)) return;
+        if (!isCorrect(command, data)) {
+            return;
+        }
 
         String[] result = new String[5];
         result[0] = data[1];

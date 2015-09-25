@@ -26,10 +26,14 @@ public class Clear implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
-        if (!isCorrect(command, data)) return;
+        if (!isCorrect(command, data)) {
+            return;
+        }
 
         String tableName = data[1];
-        if (!confirm(tableName)) return;
+        if (!confirm(tableName)) {
+            return;
+        }
 
         try {
             manager.clear(tableName);

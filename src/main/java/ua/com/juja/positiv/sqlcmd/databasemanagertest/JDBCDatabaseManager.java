@@ -26,7 +26,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("CREATE TABLE " + tableName +
                 "(" + primaryKey + " INT  PRIMARY KEY NOT NULL" +
-                    getParameters(data) + ")");
+                getParameters(data) + ")");
         stmt.close();
     }
 
@@ -81,7 +81,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
     public void create(String tableName, Map<String, Object> data) throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("INSERT INTO " + tableName + " (" + getKeys(data) + ")" +
-                                                 " VALUES (" + getValues(data) + ")");
+                " VALUES (" + getValues(data) + ")");
         stmt.close();
     }
 

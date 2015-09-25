@@ -27,7 +27,9 @@ public class Find implements Command {
     @Override
     public void process(String command) {
         String[] data = command.split("\\|");
-        if (!isCorrect(command, data)) return;
+        if (!isCorrect(command, data)) {
+            return;
+        }
 
         String tableName = getTableName(data);
 
@@ -45,8 +47,8 @@ public class Find implements Command {
                     "Должно быть 'find|tableName' или 'find|tableName|limit|offset'", command));
             return false;
         }
-        if(data.length == 4 && !isNumeric(data)) {
-                return false;
+        if (data.length == 4 && !isNumeric(data)) {
+            return false;
         }
         return true;
     }
@@ -132,11 +134,11 @@ public class Find implements Command {
 
     private boolean isNumeric(String[] data) {
         for (int index = 2; index < 4; index++) {
-            for(char ch : data[2].toCharArray()) {
-                 if(!Character.isDigit(ch)){
-                     view.write("Неправильные данные. limit и offset должны быть целыми числами.");
-                     return false;
-                 }
+            for (char ch : data[2].toCharArray()) {
+                if (!Character.isDigit(ch)) {
+                    view.write("Неправильные данные. limit и offset должны быть целыми числами.");
+                    return false;
+                }
             }
         }
         return true;
