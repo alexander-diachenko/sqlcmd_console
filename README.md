@@ -1,7 +1,7 @@
 
-SQLCMD is a console controller for DataBases
+SQLCMD is a console controller for databases
 
-![alt tag](http://i.imgur.com/T1RezfA.png)
-![alt tag](http://i.imgur.com/da3wfAl.png) 
+![alt tag](http://pixs.ru/showimage/Bezimyanni_3384950_18947481.png)
+
 
 
