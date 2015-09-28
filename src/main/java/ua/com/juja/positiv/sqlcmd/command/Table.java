@@ -4,7 +4,7 @@ import ua.com.juja.positiv.sqlcmd.databasemanagertest.DatabaseManager;
 import ua.com.juja.positiv.sqlcmd.view.View;
 
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -36,7 +36,7 @@ public class Table implements Command {
         String tableName = data[1];
         String primaryKeyName = data[2];
 
-        Map<String, Object> parameters = new HashMap<>();
+        Map<String, Object> parameters = new LinkedHashMap<>();
         for (int index = 3; index < data.length; index += 2) {
             parameters.put(data[index], data[index + 1]);
         }

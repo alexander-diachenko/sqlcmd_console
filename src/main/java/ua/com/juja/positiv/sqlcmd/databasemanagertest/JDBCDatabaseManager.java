@@ -57,7 +57,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
         ResultSet resultSet = stmt.executeQuery("SELECT * FROM public." + tableName);
         ResultSetMetaData rsmd = resultSet.getMetaData();
 
-        List<String> tableData = new ArrayList<>();
+        List<String> tableData = new ArrayList<>(100);
         tableData.add(String.valueOf(rsmd.getColumnCount()));
         for (int indexColumn = 1; indexColumn <= rsmd.getColumnCount(); indexColumn++) {
             tableData.add(resultSet.getMetaData().getColumnName(indexColumn));
