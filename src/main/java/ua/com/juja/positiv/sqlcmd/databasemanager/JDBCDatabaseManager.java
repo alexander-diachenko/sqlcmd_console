@@ -1,4 +1,4 @@
-package ua.com.juja.positiv.sqlcmd.databasemanagertest;
+package ua.com.juja.positiv.sqlcmd.databasemanager;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -22,17 +22,17 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void table(String tableName, String primaryKey, Map<String, Object> data) throws SQLException {
+    public void table(String tableName, String keyName, Map<String, Object> columnParameters) throws SQLException {
         Statement stmt = connection.createStatement();
         stmt.executeUpdate("CREATE TABLE " + tableName +
-                "(" + primaryKey + " INT  PRIMARY KEY NOT NULL" +
-                getParameters(data) + ")");
+                "(" + keyName + " INT  PRIMARY KEY NOT NULL" +
+                getParameters(columnParameters) + ")");
         stmt.close();
     }
 
-    private String getParameters(Map<String, Object> data) {
+    private String getParameters(Map<String, Object> columnParameters) {
         String result = "";
-        for (Map.Entry<String, Object> pair : data.entrySet()) {
+        for (Map.Entry<String, Object> pair : columnParameters.entrySet()) {
             result += ", " + pair.getKey() + " " + pair.getValue();
         }
         return result;
@@ -54,7 +54,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
     @Override
     public List<String> getTableData(String tableName) throws SQLException {
         Statement stmt = connection.createStatement();
-        ResultSet resultSet = stmt.executeQuery("SELECT * FROM public." + tableName);
+        ResultSet resultSet = stmt.executeQuery("SELECT * FROM " + tableName);
         ResultSetMetaData rsmd = resultSet.getMetaData();
 
         List<String> tableData = new ArrayList<>(100);
@@ -78,56 +78,58 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void create(String tableName, Map<String, Object> data) throws SQLException {
+    public void create(String tableName, Map<String, Object> columnData) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("INSERT INTO " + tableName + " (" + getKeys(data) + ")" +
-                " VALUES (" + getValues(data) + ")");
+        stmt.executeUpdate("INSERT INTO " + tableName + " (" + getColumnNames(columnData) + ")" +
+                " VALUES (" + getColumnValues(columnData) + ")");
         stmt.close();
     }
 
-    private String getValues(Map<String, Object> data) {
-        String values = "";
-        for (Map.Entry<String, Object> pair : data.entrySet()) {
-            values += "'" + pair.getValue() + "', ";
-        }
-        return values.substring(0, values.length() - 2);
-    }
-
-    private String getKeys(Map<String, Object> data) {
+    private String getColumnNames(Map<String, Object> columnData) {
         String keys = "";
-        for (Map.Entry<String, Object> pair : data.entrySet()) {
+        for (Map.Entry<String, Object> pair : columnData.entrySet()) {
             keys += pair.getKey() + ",";
         }
         return keys.substring(0, keys.length() - 1);
     }
 
+    private String getColumnValues(Map<String, Object> columnData) {
+        String values = "";
+        for (Map.Entry<String, Object> pair : columnData.entrySet()) {
+            values += "'" + pair.getValue() + "', ";
+        }
+        return values.substring(0, values.length() - 2);
+    }
+
     @Override
-    public void update(String[] data) throws SQLException {
+    public void update(String tableName, String keyName, String keyValue, String[] columnData) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("UPDATE public." + data[0] +
-                " SET " + data[3] + " = '" + data[4] +
-                "' WHERE " + data[1] + " = '" + data[2] + "'");
+        for (int index = 0; index < columnData.length; index += 2) {
+            stmt.executeUpdate("UPDATE " + tableName +
+                    " SET " + columnData[index] + " = '" + columnData[index + 1] +
+                    "' WHERE " + keyName + " = '" + keyValue + "'");
+        }
         stmt.close();
     }
 
     @Override
-    public void delete(String tableName, String key, String value) throws SQLException {
+    public void delete(String tableName, String keyName, String keyValue) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("DELETE FROM public." + tableName + " WHERE " + key + " = '" + value + "'");
+        stmt.executeUpdate("DELETE FROM " + tableName + " WHERE " + keyName + " = '" + keyValue + "'");
         stmt.close();
     }
 
     @Override
     public void clear(String tableName) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("DELETE FROM public." + tableName);
+        stmt.executeUpdate("DELETE FROM " + tableName);
         stmt.close();
     }
 
     @Override
     public void drop(String tableName) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.executeUpdate("DROP TABLE public." + tableName);
+        stmt.executeUpdate("DROP TABLE " + tableName);
         stmt.close();
     }
 

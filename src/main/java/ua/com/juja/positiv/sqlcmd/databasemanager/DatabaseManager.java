@@ -1,4 +1,4 @@
-package ua.com.juja.positiv.sqlcmd.databasemanagertest;
+package ua.com.juja.positiv.sqlcmd.databasemanager;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,13 +23,13 @@ public interface DatabaseManager {
      */
     List<String> getTableData(String tableName) throws SQLException;
 
-    void table(String tableName, String primaryKey, Map<String, Object> data) throws SQLException;
+    void table(String tableName, String keyName, Map<String, Object> columnParameters) throws SQLException;
 
-    void create(String tableName, Map<String, Object> data) throws SQLException;
+    void create(String tableName, Map<String, Object> columnData) throws SQLException;
 
-    void update(String[] data) throws SQLException;
+    void update(String tableName, String keyName, String keyValue, String[] columnData) throws SQLException;
 
-    void delete(String tableName, String key, String value) throws SQLException;
+    void delete(String tableName, String keyName, String keyValue) throws SQLException;
 
     void clear(String tableName) throws SQLException;
 

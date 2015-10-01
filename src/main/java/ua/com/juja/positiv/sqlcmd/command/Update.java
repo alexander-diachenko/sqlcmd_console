@@ -1,6 +1,6 @@
 package ua.com.juja.positiv.sqlcmd.command;
 
-import ua.com.juja.positiv.sqlcmd.databasemanagertest.DatabaseManager;
+import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;
 import ua.com.juja.positiv.sqlcmd.view.View;
 
 import java.sql.SQLException;
@@ -30,23 +30,18 @@ public class Update implements Command {
             return;
         }
 
-        String[] result = new String[5];
-        result[0] = data[1];
-        result[1] = data[2];
-        result[2] = data[3];
-        boolean success = true;
-        for (int index = 4; index < data.length; index += 2) {
-            result[3] = data[index];
-            result[4] = data[index + 1];
-            try {
-                manager.update(result);
-            } catch (SQLException e) {
-                view.write(String.format("Не удалось обновить по причине %s", e.getMessage()));
-                success = false;
-            }
+        String[] columnData = new String[data.length - 4];
+        String tableName = data[1];
+        String primaryKey = data[2];
+        String primaryKeyValue = data[3];
+        for (int index = 4; index < data.length; index++) {
+            columnData[index - 4] = data[index];
         }
-        if (success) {
+        try {
+            manager.update(tableName, primaryKey, primaryKeyValue, columnData);
             view.write("Все данные успешно обновлены.");
+        } catch (SQLException e) {
+            view.write(String.format("Не удалось обновить по причине %s", e.getMessage()));
         }
     }
 

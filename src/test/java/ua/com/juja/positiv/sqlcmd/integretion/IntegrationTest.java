@@ -309,7 +309,7 @@ public class IntegrationTest {
                 "Введите команду или help для помощи:\r\n" +
                 //find|qwe
                 "Не удалось отобразить таблицу 'qwe' по причине:" +
-                " ERROR: relation \"public.qwe\" does not exist\n" +
+                " ERROR: relation \"qwe\" does not exist\n" +
                 "  Позиция: 15\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
@@ -542,7 +542,7 @@ public class IntegrationTest {
                 //delete
                 "Не удалось удалить поле по причине: " +
                 "ERROR: column \"qwe\" does not exist\n" +
-                "  Позиция: 30\r\n" +
+                "  Позиция: 23\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
@@ -623,7 +623,7 @@ public class IntegrationTest {
                 "Введите название таблицы для подтверждения.\r\n" +
                 //qwe
                 "Не удалось очистить таблицу 'qwe' по причине: " +
-                "ERROR: relation \"public.qwe\" does not exist\n" +
+                "ERROR: relation \"qwe\" does not exist\n" +
                 "  Позиция: 13\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
@@ -689,7 +689,7 @@ public class IntegrationTest {
                 "Введите команду или help для помощи:\r\n" +
                 //update|qwe|qwe|qwe|qwe|qwe
                 "Не удалось обновить по причине " +
-                "ERROR: relation \"public.qwe\" does not exist\n" +
+                "ERROR: relation \"qwe\" does not exist\n" +
                 "  Позиция: 8\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit

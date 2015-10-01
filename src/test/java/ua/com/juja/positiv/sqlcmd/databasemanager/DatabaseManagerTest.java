@@ -1,4 +1,4 @@
-package ua.com.juja.positiv.sqlcmd.databasemanagertest;
+package ua.com.juja.positiv.sqlcmd.databasemanager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -89,9 +89,9 @@ public class DatabaseManagerTest {
 
     @Test
     public void testUpdateAllWithCorrectData() throws SQLException {
-        manager.update(new String[]{"car", "id" , "3" , "name", "mercedes"});
-        manager.update(new String[]{"car", "id" , "3" , "color", "white"});
-        manager.update(new String[]{"car", "id" , "3" , "age", "10"});
+        manager.update("car", "id", "3", new String[]{"name", "mercedes"});
+        manager.update("car", "id", "3", new String[]{"color", "white"});
+        manager.update("car", "id", "3", new String[]{"age", "10"});
 
 
         List<String> tableData = manager.getTableData("car");
@@ -103,7 +103,7 @@ public class DatabaseManagerTest {
 
     @Test
     public void testUpdateSingleWithCorrectData() throws SQLException {
-        manager.update(new String[]{"car", "id" , "3" , "name", "mercedes"});
+        manager.update("car", "id" , "3", new String[]{"name", "mercedes"});
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
@@ -114,7 +114,7 @@ public class DatabaseManagerTest {
 
     @Test(expected = SQLException.class)
         public void testUpdateWithIncorrectData() throws SQLException {
-        manager.update(new String[]{"qwe", "id", "3", "name", "mercedes"});
+        manager.update("qwe", "id", "3", new String[]{"name", "mercedes"});
     }
 
     @Test

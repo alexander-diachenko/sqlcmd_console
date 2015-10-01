@@ -1,7 +1,7 @@
 package ua.com.juja.positiv.sqlcmd.main;
 
 import ua.com.juja.positiv.sqlcmd.command.*;
-import ua.com.juja.positiv.sqlcmd.databasemanagertest.DatabaseManager;
+import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;
 import ua.com.juja.positiv.sqlcmd.view.View;
 
 public class Controller {
