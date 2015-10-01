@@ -61,17 +61,17 @@ public class DatabaseManagerTest {
     }
 
     @Test
-    public void testDeleteWithCorrectData() throws SQLException {
+    public void testDelete_WithCorrectData() throws SQLException {
         manager.delete("car", "id", "3");
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
-                         "1, ferrari, red, 6, " +
-                         "2, porsche, black, 1]", tableData.toString());
+                "1, ferrari, red, 6, " +
+                "2, porsche, black, 1]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
-    public void testDeleteWithIncorrectData() throws SQLException {
+    public void testDelete_WithIncorrectData_TableName() throws SQLException {
         manager.delete("qwe", "id", "3");
     }
 
@@ -82,29 +82,29 @@ public class DatabaseManagerTest {
     }
 
     @Test
-    public void testFindAllTableDataWithCorrectData() throws SQLException {
+    public void testFind_WithCorrectData() throws SQLException {
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
-                         "1, ferrari, red, 6, " +
-                         "2, porsche, black, 1, " +
-                         "3, bmw, blue, 3]", tableData.toString());
+                "1, ferrari, red, 6, " +
+                "2, porsche, black, 1, " +
+                "3, bmw, blue, 3]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
-    public void testFindAllTableDataWithIncorrectData() throws SQLException {
+    public void testFind_WithIncorrectData_TableName() throws SQLException {
         manager.getTableData("qwe");
     }
 
     @Test
-    public void testFindLimitOffsetTableDataWithCorrectData() throws SQLException {
+    public void testFindLimitOffset_WithCorrectData() throws SQLException {
         List<String> tableData = manager.getTableData("car LIMIT 2 OFFSET 1");
         assertEquals("[4, id, name, color, age, " +
-                         "2, porsche, black, " +
-                         "1, 3, bmw, blue, 3]", tableData.toString());
+                "2, porsche, black, " +
+                "1, 3, bmw, blue, 3]", tableData.toString());
     }
 
     @Test
-    public void testUpdateAllWithCorrectData() throws SQLException {
+    public void testUpdateAll_WithCorrectData() throws SQLException {
         manager.update("car", "id", "3", new String[]{"name", "mercedes"});
         manager.update("car", "id", "3", new String[]{"color", "white"});
         manager.update("car", "id", "3", new String[]{"age", "10"});
@@ -112,29 +112,29 @@ public class DatabaseManagerTest {
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
-                         "1, ferrari, red, 6, " +
-                         "2, porsche, black, 1, " +
-                         "3, mercedes, white, 10]", tableData.toString());
+                "1, ferrari, red, 6, " +
+                "2, porsche, black, 1, " +
+                "3, mercedes, white, 10]", tableData.toString());
     }
 
     @Test
-    public void testUpdateSingleWithCorrectData() throws SQLException {
-        manager.update("car", "id" , "3", new String[]{"name", "mercedes"});
+    public void testUpdateSingle_WithCorrectData() throws SQLException {
+        manager.update("car", "id", "3", new String[]{"name", "mercedes"});
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
-                         "1, ferrari, red, 6, " +
-                         "2, porsche, black, 1, " +
-                         "3, mercedes, blue, 3]", tableData.toString());
+                "1, ferrari, red, 6, " +
+                "2, porsche, black, 1, " +
+                "3, mercedes, blue, 3]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
-        public void testUpdateWithIncorrectData() throws SQLException {
+        public void testUpdate_WithIncorrectData_TableName() throws SQLException {
         manager.update("qwe", "id", "3", new String[]{"name", "mercedes"});
     }
 
     @Test
-    public void testClearWithCorrectData() throws SQLException {
+    public void testClear_WithCorrectData() throws SQLException {
         manager.clear("car");
 
         List<String> tableData = manager.getTableData("car");
@@ -142,12 +142,12 @@ public class DatabaseManagerTest {
     }
 
     @Test(expected = SQLException.class)
-    public void testClearWithIncorrectData() throws SQLException {
+    public void testClear_WithIncorrectData_TableName() throws SQLException {
         manager.clear("qwe");
     }
 
     @Test
-    public void testCreateWithAllCorrectData() throws SQLException {
+    public void testCreateAll_WithCorrectData() throws SQLException {
         manager.clear("car");
         Map<String, Object> data = new HashMap<>();
         data.put("id", "1");
@@ -158,11 +158,11 @@ public class DatabaseManagerTest {
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
-                         "1, ferrari, red, 6]", tableData.toString());
+                "1, ferrari, red, 6]", tableData.toString());
     }
 
     @Test
-    public void testCreateWithSingleCorrectData() throws SQLException {
+    public void testCreateSingle_WithCorrectData() throws SQLException {
         manager.clear("car");
         Map<String, Object> data = new HashMap<>();
         data.put("id", "2");
@@ -170,24 +170,24 @@ public class DatabaseManagerTest {
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
-                         "2, , , ]", tableData.toString());
+                "2, , , ]", tableData.toString());
     }
 
     @Test(expected = StringIndexOutOfBoundsException.class)
-    public void testCreateWithIncorrectDataLength() throws SQLException {
+    public void testCreate_WithIncorrectData_Length() throws SQLException {
         Map<String, Object> map = new HashMap<>();
         manager.create("qwe", map);
     }
 
     @Test(expected = SQLException.class)
-    public void testCreateWithIncorrectData() throws SQLException {
+    public void testCreate_WithIncorrectData_TableName() throws SQLException {
         Map<String, Object> data = new HashMap<>();
         data.put("id", "2");
         manager.create("qwe", data);
     }
 
     @Test
-    public void testTableWithCorrectData() throws SQLException {
+    public void testTable_WithCorrectData() throws SQLException {
         Map<String, Object> data = new HashMap<>();
         data.put("name", "text");
         data.put("population", "int");
@@ -200,7 +200,7 @@ public class DatabaseManagerTest {
     }
 
     @Test(expected = SQLException.class)
-    public void testTableWithIncorrectData() throws SQLException {
+    public void testTable_WithIncorrectData_Type() throws SQLException {
         Map<String, Object> data = new HashMap<>();
         data.put("name", "");
         manager.table("city", "id", data);
