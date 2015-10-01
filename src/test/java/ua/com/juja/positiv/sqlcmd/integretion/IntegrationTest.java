@@ -27,6 +27,7 @@ public class IntegrationTest {
     private static final String CONNECT_DATABASE_DATA = "connect|sqlcmd|postgres|123";
     private static ConfigurableInputStream in;
     private static ByteArrayOutputStream out;
+
     DatabaseManager manager = new JDBCDatabaseManager();
 
     @BeforeClass
@@ -73,6 +74,12 @@ public class IntegrationTest {
         manager.table("client", "id", tableClient);
 
         in.reset();
+    }
+
+    @After
+    public void dropTestTables() throws SQLException {
+        manager.drop("car");
+        manager.drop("client");
     }
 
     public String getData() {
@@ -794,11 +801,5 @@ public class IntegrationTest {
                 "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
-    }
-
-    @After
-    public void dropTestTables() throws SQLException {
-        manager.drop("car");
-        manager.drop("client");
     }
 }

@@ -54,6 +54,12 @@ public class DatabaseManagerTest {
         manager.table("client", "id", tableClient);
     }
 
+    @After
+    public void dropTestTables() throws SQLException {
+        manager.drop("car");
+        manager.drop("client");
+    }
+
     @Test
     public void testDeleteWithCorrectData() throws SQLException {
         manager.delete("car", "id", "3");
@@ -198,11 +204,5 @@ public class DatabaseManagerTest {
         Map<String, Object> data = new HashMap<>();
         data.put("name", "");
         manager.table("city", "id", data);
-    }
-
-    @After
-    public void dropTestTables() throws SQLException {
-        manager.drop("car");
-        manager.drop("client");
     }
 }
