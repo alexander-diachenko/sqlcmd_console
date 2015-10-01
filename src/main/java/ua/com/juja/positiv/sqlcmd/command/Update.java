@@ -34,9 +34,7 @@ public class Update implements Command {
         String tableName = data[1];
         String primaryKey = data[2];
         String primaryKeyValue = data[3];
-        for (int index = 4; index < data.length; index++) {
-            columnData[index - 4] = data[index];
-        }
+        System.arraycopy(data, 4, columnData, 0, data.length - 4);
         try {
             manager.update(tableName, primaryKey, primaryKeyValue, columnData);
             view.write("Все данные успешно обновлены.");
