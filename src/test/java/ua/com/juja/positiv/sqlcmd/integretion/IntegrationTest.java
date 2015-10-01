@@ -1,5 +1,8 @@
 package ua.com.juja.positiv.sqlcmd.integretion;
 
+import org.junit.After;
+import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;
+import ua.com.juja.positiv.sqlcmd.databasemanager.JDBCDatabaseManager;
 import ua.com.juja.positiv.sqlcmd.main.Main;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -9,6 +12,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,8 +24,10 @@ import static org.junit.Assert.assertEquals;
  */
 public class IntegrationTest {
 
+    private static final String CONNECT_DATABASE_DATA = "connect|sqlcmd|postgres|123";
     private static ConfigurableInputStream in;
     private static ByteArrayOutputStream out;
+    DatabaseManager manager = new JDBCDatabaseManager();
 
     @BeforeClass
     public static void setup() {
@@ -30,7 +39,39 @@ public class IntegrationTest {
     }
 
     @Before
-    public void run() throws IOException {
+    public void run() throws IOException, SQLException, ClassNotFoundException {
+        manager.connect("sqlcmd", "postgres", "123");
+
+        Map<String, Object> tableCar = new LinkedHashMap<>();
+        tableCar.put("name", "text");
+        tableCar.put("color", "text");
+        tableCar.put("age", "int");
+        manager.table("car", "id", tableCar);
+
+        Map<String, Object> field1 = new HashMap<>();
+        field1.put("id", 1);
+        field1.put("name", "ferrari");
+        field1.put("color", "red");
+        field1.put("age", 6);
+        manager.create("car", field1);
+
+        Map<String, Object> field2 = new HashMap<>();
+        field2.put("id", 2);
+        field2.put("name", "porsche");
+        field2.put("color", "black");
+        field2.put("age", 1);
+        manager.create("car", field2);
+
+        Map<String, Object> field3 = new HashMap<>();
+        field3.put("id", 3);
+        field3.put("name", "bmw");
+        field3.put("color", "blue");
+        field3.put("age", 3);
+        manager.create("car", field3);
+
+        Map<String, Object> tableClient = new LinkedHashMap<>();
+        manager.table("client", "id", tableClient);
+
         in.reset();
     }
 
@@ -45,30 +86,30 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testConnectWithIncorrectData() {
-        in.add("connect|sqlcmd|postgres|qwe");
+    public void testConnect_WithIncorrectData() {
+        in.add("connect|qwe|qwe|qwe");
 
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //connect
-                "Не удалось подключиться к базе 'sqlcmd' по причине: " +
-                "FATAL: password authentication failed for user \"postgres\"\r\n" +
+                //connect qwe
+                "Не удалось подключиться к базе 'qwe' по причине: " +
+                "FATAL: password authentication failed for user \"qwe\"\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
 
     @Test
-    public void testConnectWithIncorrectDataLength() {
+    public void testConnect_WithIncorrectData_Length() {
         in.add("connect|");
 
         Main.main(new String[0]);
 
         assertEquals("Добро пожаловать!\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //connect
+                //connect|
                 "Неправильная команда 'connect|'. " +
                 "Должно быть 'connect|database|user|password'.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
@@ -130,7 +171,7 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testListWithoutConnect() {
+    public void testList_WithoutConnect() {
         in.add("list");
         in.add("exit");
 
@@ -146,8 +187,8 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testListWithConnect() {
-        in.add("connect|sqlcmd|postgres|123");
+    public void testList_WithConnect() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("list");
         in.add("exit");
 
@@ -166,13 +207,8 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testFindWithCorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
-        in.add("clear|car");
-        in.add("car");
-        in.add("create|car|id|1|name|ferrari|color|red|age|6");
-        in.add("create|car|id|2|name|porsche|color|black|age|1");
-        in.add("create|car|id|3|name|bmw|color|blue|age|3");
+    public void testFind_WithCorrectData() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("find|car");
         in.add("exit");
 
@@ -182,19 +218,6 @@ public class IntegrationTest {
                 "Введите команду или help для помощи:\r\n" +
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //clear
-                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'car'. " +
-                "Введите название таблицы для подтверждения.\r\n" +
-                //car
-                "Таблица 'car' успешно очищена.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //create
-                "Запись успешно создана.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                "Запись успешно создана.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                "Запись успешно создана.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //find|car
                 "+---------------------------------------+\n" +
@@ -211,92 +234,8 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testFindLimitOffsetWithCorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
-        in.add("clear|car");
-        in.add("car");
-        in.add("create|car|id|1|name|ferrari|color|red|age|6");
-        in.add("create|car|id|2|name|porsche|color|black|age|1");
-        in.add("create|car|id|3|name|bmw|color|blue|age|3");
-        in.add("find|car|1|1");
-        in.add("exit");
-
-        Main.main(new String[0]);
-
-        assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //connect
-                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //clear
-                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'car'. " +
-                "Введите название таблицы для подтверждения.\r\n" +
-                //car
-                "Таблица 'car' успешно очищена.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //create
-                "Запись успешно создана.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                "Запись успешно создана.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                "Запись успешно создана.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //find|car|1|1
-                "+---------------------------------------+\n" +
-                "| id      | name    | color   | age     |\n" +
-                "+---------------------------------------+\n" +
-                "| 2       | porsche | black   | 1       |\n" +
-                "+---------------------------------------+\n" +
-                "\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //exit
-                "До свидания!\r\n", getData());
-    }
-
-    @Test
-    public void testFindLimitOffsetWithIncorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
-        in.add("find|car|qwe|qwe");
-        in.add("exit");
-
-        Main.main(new String[0]);
-
-        assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //connect
-                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //find|car|1|1
-                "Неправильные данные. limit и offset должны быть целыми числами.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //exit
-                "До свидания!\r\n", getData());
-    }
-
-    @Test
-    public void testFindWithIncorrectDataLength() {
-        in.add("connect|sqlcmd|postgres|123");
-        in.add("find|");
-        in.add("exit");
-
-        Main.main(new String[0]);
-
-        assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //connect
-                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //find|
-                "Неправильная команда 'find|'. " +
-                "Должно быть 'find|tableName' или 'find|tableName|limit|offset'\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //exit
-                "До свидания!\r\n", getData());
-    }
-
-    @Test
-    public void testFindWithIncorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
+    public void testFind_WithIncorrectData_TableName() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("find|qwe");
         in.add("exit");
 
@@ -317,11 +256,9 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testTableWithCorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
-        in.add("table|city|id|name|text|population|int");
-        in.add("drop|city");
-        in.add("city");
+    public void testFind_WithIncorrectData_Length() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("find|");
         in.add("exit");
 
         Main.main(new String[0]);
@@ -331,23 +268,18 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //table|city
-                "Таблица 'city' успешно создана\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //drop|city
-                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. " +
-                "Введите название таблицы для подтверждения.\r\n" +
-                //city
-                "Таблица 'city' успешно удалена.\r\n" +
+                //find|
+                "Неправильная команда 'find|'. " +
+                "Должно быть 'find|tableName' или 'find|tableName|limit|offset'\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
 
     @Test
-    public void testTableWithIncorrectDataType() {
-        in.add("connect|sqlcmd|postgres|123");
-        in.add("table|city|id|name|population");
+    public void testFindLimitOffset_WithCorrectData() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("find|car|1|1");
         in.add("exit");
 
         Main.main(new String[0]);
@@ -357,8 +289,81 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //create
-                "Не удалось создать таблицу 'city' по причине: " +
+                //find|car|1|1
+                "+---------------------------------------+\n" +
+                "| id      | name    | color   | age     |\n" +
+                "+---------------------------------------+\n" +
+                "| 2       | porsche | black   | 1       |\n" +
+                "+---------------------------------------+\n" +
+                "\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testFindLimitOffset_WithIncorrectData_LimitOffsetType() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("find|car|qwe|qwe");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //find|car|qwe|qwe
+                "Неправильные данные. limit и offset должны быть целыми числами.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testTable_WithCorrectData() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("table|test|id|name|text|population|int");
+        in.add("drop|test");
+        in.add("test");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //table|test
+                "Таблица 'test' успешно создана\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //drop|test
+                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'test'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //test
+                "Таблица 'test' успешно удалена.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testTable_WithIncorrectData_Type() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("table|test|id|name|population");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //table
+                "Не удалось создать таблицу 'test' по причине: " +
                 "ERROR: type \"population\" does not exist\n" +
                 "  Позиция: 54\r\n" +
                 "Введите команду или help для помощи:\r\n" +
@@ -367,8 +372,8 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testTableWithIncorrectDataLength() {
-        in.add("connect|sqlcmd|postgres|123");
+    public void testTable_WithIncorrectData_Length() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("table|");
         in.add("exit");
 
@@ -379,7 +384,7 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //create
+                //table|
                 "Неправильная команда 'table|'. 'table|tableName|" +
                 "primaryKeyName|column1Name|column1Type|...|columnNName|columnNType'\r\n" +
                 "Введите команду или help для помощи:\r\n" +
@@ -388,8 +393,36 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testDropWithIncorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
+    public void testDrop_WithCorrectData() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("table|test|id");
+        in.add("drop|test");
+        in.add("test");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //table|test
+                "Таблица 'test' успешно создана\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //drop|test
+                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'test'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //test
+                "Таблица 'test' успешно удалена.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testDrop_WithIncorrectData_TableName() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("drop|qwe");
         in.add("qwe");
         in.add("exit");
@@ -413,8 +446,8 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testDropWithIncorrectDataLength() {
-        in.add("connect|sqlcmd|postgres|123");
+    public void testDrop_WithIncorrectData_Length() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("drop|qwe|qwe");
         in.add("exit");
 
@@ -434,13 +467,10 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testTableWithIncorrectDataConfirm() {
-        in.add("connect|sqlcmd|postgres|123");
-        in.add("table|city|id|name|text|population|int");
-        in.add("drop|city");
+    public void testTable_WithIncorrectData_Confirm() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("drop|car");
         in.add("qwe");
-        in.add("drop|city");
-        in.add("city");
         in.add("exit");
 
         Main.main(new String[0]);
@@ -450,25 +480,19 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //table|city
-                "Таблица 'city' успешно создана\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //drop|city
-                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. " +
+                //drop|car
+                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'car'. " +
                 "Введите название таблицы для подтверждения.\r\n" +
-                //city
+                //qwe
                 "Удаление отменено.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. Введите название таблицы для подтверждения.\r\n" +
-                "Таблица 'city' успешно удалена.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
     }
 
     @Test
-    public void testCreateWithCorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
+    public void testCreate_WithCorrectData() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("create|car|id|4|name|mercedes|color|white|age|5");
         in.add("exit");
 
@@ -487,8 +511,8 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testCreateWithIncorrectDataLength() {
-        in.add("connect|sqlcmd|postgres|123");
+    public void testCreate_WithIncorrectData_Length() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("create|car");
         in.add("exit");
 
@@ -499,7 +523,7 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //create
+                //create|car
                 "Неправильные данные 'create|car'. " +
                 "Должно быть 'create|tableName|column1VName|column1Value|...|" +
                 "columnNName|columnNValue'.\r\n" +
@@ -509,10 +533,9 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testDeleteWithCorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
-        in.add("create|car|id|5|name|qwe|color|qwe|age|1");
-        in.add("delete|car|id|5");
+    public void testCreate_WithIncorrectData_Key() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("create|car|qwe|4|name|mercedes|color|white|age|5");
         in.add("exit");
 
         Main.main(new String[0]);
@@ -522,8 +545,27 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //create
-                "Запись успешно создана.\r\n" +
+                //create|car|qwe
+                "Не удалось создать поле по причине: " +
+                "ERROR: column \"qwe\" of relation \"car\" does not exist\n" +
+                "  Позиция: 29\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testDelete_WithCorrectData() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("delete|car|id|1");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //delete
                 "Успешно удалено.\r\n" +
@@ -533,8 +575,8 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testDeleteWithIncorrectDataLength() {
-        in.add("connect|sqlcmd|postgres|123");
+    public void testDelete_WithIncorrectData_Length() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("delete|car");
         in.add("exit");
 
@@ -545,7 +587,7 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //delete
+                //delete|car
                 "Неправильная команда 'delete|car'. " +
                 "Должно быть 'delete|tableName|primaryKeyColumnName|primaryKeyValue'.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
@@ -554,10 +596,9 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testCreateDeleteWithIncorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
-        in.add("create|car|qwe|4|name|mercedes|color|white|age|5");
-        in.add("delete|car|qwe|4");
+    public void testDelete_WithIncorrectData_TableName() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("delete|qwe|id|1");
         in.add("exit");
 
         Main.main(new String[0]);
@@ -567,15 +608,9 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //create
-                "Не удалось создать поле по причине: " +
-                "ERROR: column \"qwe\" of relation \"car\" does not exist\n" +
-                "  Позиция: 29\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //delete
-                "Не удалось удалить поле по причине: " +
-                "ERROR: column \"qwe\" does not exist\n" +
-                "  Позиция: 23\r\n" +
+                //delete|qwe|id|1
+                "Не удалось удалить поле по причине: ERROR: relation \"qwe\" does not exist\n" +
+                "  Позиция: 13\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
@@ -583,7 +618,7 @@ public class IntegrationTest {
 
     @Test
     public void testUnsupported() {
-        in.add("connect|sqlcmd|postgres|123");
+        in.add(CONNECT_DATABASE_DATA);
         in.add("qwe");
         in.add("exit");
 
@@ -602,8 +637,32 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testClearWithIncorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
+    public void testClear_WithCorrectData() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("clear|car");
+        in.add("car");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //clear|car
+                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'car'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //car
+                "Таблица 'car' успешно очищена.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testClear_WithIncorrectData_TableName() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("clear|qwe");
         in.add("qwe");
         in.add("exit");
@@ -628,8 +687,8 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testClearWithIncorrectDataLength() {
-        in.add("connect|sqlcmd|postgres|123");
+    public void testClear_WithIncorrectData_Length() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("clear|");
         in.add("exit");
 
@@ -649,8 +708,28 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testUpdateWithIncorrectDataLength() {
-        in.add("connect|sqlcmd|postgres|123");
+    public void testUpdate_WithCorrectData() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("update|car|id|1|name|mercedes");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //update
+                "Все данные успешно обновлены.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testUpdate_WithIncorrectData_Length() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("update|");
         in.add("exit");
 
@@ -672,8 +751,8 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testUpdateWithIncorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
+    public void testUpdate_WithIncorrectData_TableName() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("update|qwe|qwe|qwe|qwe|qwe");
         in.add("exit");
 
@@ -694,79 +773,10 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testUpdateWithCorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
+    public void testClear_WithIncorrectData_Confirm() {
+        in.add(CONNECT_DATABASE_DATA);
         in.add("clear|car");
-        in.add("car");
-        in.add("create|car|id|4|name|mercedes|color|white|age|5");
-        in.add("update|car|id|4|name|mercedes");
-        in.add("exit");
-
-        Main.main(new String[0]);
-
-        assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //connect
-                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //update|car|id|1|name|mercedes
-                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'car'. " +
-                "Введите название таблицы для подтверждения.\r\n" +
-                "Таблица 'car' успешно очищена.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                "Запись успешно создана.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //update|car|id|1|name|ferrari
-                "Все данные успешно обновлены.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //exit
-                "До свидания!\r\n", getData());
-    }
-
-    @Test
-      public void testClearWithCorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
-        in.add("table|city|id");
-        in.add("clear|city");
-        in.add("city");
-        in.add("drop|city");
-        in.add("city");
-        in.add("exit");
-
-        Main.main(new String[0]);
-
-        assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //connect
-                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //table|city
-                "Таблица 'city' успешно создана\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //clear|city
-                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'city'. " +
-                "Введите название таблицы для подтверждения.\r\n" +
-                //city
-                "Таблица 'city' успешно очищена.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //drop|city
-                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. " +
-                "Введите название таблицы для подтверждения.\r\n" +
-                //city
-                "Таблица 'city' успешно удалена.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //exit
-                "До свидания!\r\n", getData());
-    }
-
-    @Test
-    public void testClearWithIncorrectDataConfirm() {
-        in.add("connect|sqlcmd|postgres|123");
-        in.add("table|city|id");
-        in.add("clear|city");
         in.add("qwe");
-        in.add("drop|city");
-        in.add("city");
         in.add("exit");
 
         Main.main(new String[0]);
@@ -776,22 +786,19 @@ public class IntegrationTest {
                 //connect
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //table|city
-                "Таблица 'city' успешно создана\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //clear|city
-                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'city'. " +
+                //clear|car
+                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'car'. " +
                 "Введите название таблицы для подтверждения.\r\n" +
                 //qwe
                 "Очистка отменена.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //drop|city
-                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. " +
-                "Введите название таблицы для подтверждения.\r\n" +
-                //city
-                "Таблица 'city' успешно удалена.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
+    }
+
+    @After
+    public void dropTestTables() throws SQLException {
+        manager.drop("car");
+        manager.drop("client");
     }
 }

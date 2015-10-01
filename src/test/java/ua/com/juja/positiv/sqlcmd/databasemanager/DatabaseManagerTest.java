@@ -1,10 +1,12 @@
 package ua.com.juja.positiv.sqlcmd.databasemanager;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,28 +22,36 @@ public class DatabaseManagerTest {
     @Before
     public void run() throws SQLException, ClassNotFoundException {
         manager.connect("sqlcmd", "postgres", "123");
-        manager.clear("car");
 
-        Map<String, Object> data1 = new HashMap<>();
-        data1.put("id", 1);
-        data1.put("name", "ferrari");
-        data1.put("color", "red");
-        data1.put("age", 6);
-        manager.create("car", data1);
+        Map<String, Object> tableCar = new LinkedHashMap<>();
+        tableCar.put("name", "text");
+        tableCar.put("color", "text");
+        tableCar.put("age", "int");
+        manager.table("car", "id", tableCar);
 
-        Map<String, Object> data2 = new HashMap<>();
-        data2.put("id", 2);
-        data2.put("name", "porsche");
-        data2.put("color", "black");
-        data2.put("age", 1);
-        manager.create("car", data2);
+        Map<String, Object> field1 = new HashMap<>();
+        field1.put("id", 1);
+        field1.put("name", "ferrari");
+        field1.put("color", "red");
+        field1.put("age", 6);
+        manager.create("car", field1);
 
-        Map<String, Object> data3 = new HashMap<>();
-        data3.put("id", 3);
-        data3.put("name", "bmw");
-        data3.put("color", "blue");
-        data3.put("age", 3);
-        manager.create("car", data3);
+        Map<String, Object> field2 = new HashMap<>();
+        field2.put("id", 2);
+        field2.put("name", "porsche");
+        field2.put("color", "black");
+        field2.put("age", 1);
+        manager.create("car", field2);
+
+        Map<String, Object> field3 = new HashMap<>();
+        field3.put("id", 3);
+        field3.put("name", "bmw");
+        field3.put("color", "blue");
+        field3.put("age", 3);
+        manager.create("car", field3);
+
+        Map<String, Object> tableClient = new LinkedHashMap<>();
+        manager.table("client", "id", tableClient);
     }
 
     @Test
@@ -83,8 +93,8 @@ public class DatabaseManagerTest {
     public void testFindLimitOffsetTableDataWithCorrectData() throws SQLException {
         List<String> tableData = manager.getTableData("car LIMIT 2 OFFSET 1");
         assertEquals("[4, id, name, color, age, " +
-                         "2, porsche, black, " +
-                         "1, 3, bmw, blue, 3]", tableData.toString());
+                "2, porsche, black, " +
+                "1, 3, bmw, blue, 3]", tableData.toString());
     }
 
     @Test
@@ -147,14 +157,13 @@ public class DatabaseManagerTest {
 
     @Test
     public void testCreateWithSingleCorrectData() throws SQLException {
-        manager.clear("client");
+        manager.clear("car");
         Map<String, Object> data = new HashMap<>();
         data.put("id", "2");
-        manager.create("client", data);
+        manager.create("car", data);
 
-        List<String> tableData = manager.getTableData("client");
-        assertEquals("[3, id, name, password, " +
-                "2, , ]", tableData.toString());
+        List<String> tableData = manager.getTableData("car");
+        assertEquals("[4, id, name, color, age, 2, , , ]", tableData.toString());
     }
 
     @Test(expected = StringIndexOutOfBoundsException.class)
@@ -188,5 +197,11 @@ public class DatabaseManagerTest {
         Map<String, Object> data = new HashMap<>();
         data.put("name", "");
         manager.table("city", "id", data);
+    }
+
+    @After
+    public void dropTestTables() throws SQLException {
+        manager.drop("car");
+        manager.drop("client");
     }
 }
