@@ -434,6 +434,39 @@ public class IntegrationTest {
     }
 
     @Test
+    public void testTableWithIncorrectDataConfirm() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("table|city|id|name|text|population|int");
+        in.add("drop|city");
+        in.add("qwe");
+        in.add("drop|city");
+        in.add("city");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //table|city
+                "Таблица 'city' успешно создана\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //drop|city
+                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //city
+                "Удаление отменено.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. Введите название таблицы для подтверждения.\r\n" +
+                "Таблица 'city' успешно удалена.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
     public void testCreateWithCorrectData() {
         in.add("connect|sqlcmd|postgres|123");
         in.add("create|car|id|4|name|mercedes|color|white|age|5");
@@ -569,42 +602,6 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testClearWithCorrectData() {
-        in.add("connect|sqlcmd|postgres|123");
-        in.add("table|city|id");
-        in.add("clear|city");
-        in.add("city");
-        in.add("drop|city");
-        in.add("city");
-        in.add("exit");
-
-        Main.main(new String[0]);
-
-        assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //connect
-                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //table|city
-                "Таблица 'city' успешно создана\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //clear|city
-                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'city'. " +
-                "Введите название таблицы для подтверждения.\r\n" +
-                //city
-                "Таблица 'city' успешно очищена.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //drop|city
-                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. " +
-                "Введите название таблицы для подтверждения.\r\n" +
-                //city
-                "Таблица 'city' успешно удалена.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //exit
-                "До свидания!\r\n", getData());
-    }
-
-    @Test
     public void testClearWithIncorrectData() {
         in.add("connect|sqlcmd|postgres|123");
         in.add("clear|qwe");
@@ -721,6 +718,78 @@ public class IntegrationTest {
                 "Введите команду или help для помощи:\r\n" +
                 //update|car|id|1|name|ferrari
                 "Все данные успешно обновлены.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+      public void testClearWithCorrectData() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("table|city|id");
+        in.add("clear|city");
+        in.add("city");
+        in.add("drop|city");
+        in.add("city");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //table|city
+                "Таблица 'city' успешно создана\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //clear|city
+                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'city'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //city
+                "Таблица 'city' успешно очищена.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //drop|city
+                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //city
+                "Таблица 'city' успешно удалена.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testClearWithIncorrectDataConfirm() {
+        in.add("connect|sqlcmd|postgres|123");
+        in.add("table|city|id");
+        in.add("clear|city");
+        in.add("qwe");
+        in.add("drop|city");
+        in.add("city");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //table|city
+                "Таблица 'city' успешно создана\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //clear|city
+                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'city'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //qwe
+                "Очистка отменена.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //drop|city
+                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'city'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //city
+                "Таблица 'city' успешно удалена.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
