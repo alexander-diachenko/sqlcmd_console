@@ -33,7 +33,6 @@ public class Connect implements Command {
         String database = data[1];
         String user = data[2];
         String password = data[3];
-
         try {
             manager.connect(database, user, password);
             view.write(String.format("Подключение к базе '%s' прошло успешно.", database));

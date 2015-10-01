@@ -33,13 +33,13 @@ public class Create implements Command {
         }
 
         String tableName = data[1];
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> columnData = new HashMap<>();
         for (int index = 2; index < data.length; index += 2) {
-            map.put(data[index], data[index + 1]);
+            columnData.put(data[index], data[index + 1]);
         }
 
         try {
-            manager.create(tableName, map);
+            manager.create(tableName, columnData);
             view.write("Запись успешно создана.");
         } catch (SQLException e) {
             view.write(String.format("Не удалось создать поле по причине: %s", e.getMessage()));

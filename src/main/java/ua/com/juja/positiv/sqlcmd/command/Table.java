@@ -34,15 +34,14 @@ public class Table implements Command {
         }
 
         String tableName = data[1];
-        String primaryKeyName = data[2];
-
-        Map<String, Object> parameters = new LinkedHashMap<>();
+        String keyName = data[2];
+        Map<String, Object> columnParameters = new LinkedHashMap<>();
         for (int index = 3; index < data.length; index += 2) {
-            parameters.put(data[index], data[index + 1]);
+            columnParameters.put(data[index], data[index + 1]);
         }
 
         try {
-            manager.table(tableName, primaryKeyName, parameters);
+            manager.table(tableName, keyName, columnParameters);
             view.write(String.format("Таблица '%s' успешно создана", tableName));
         } catch (SQLException e) {
             view.write(String.format("Не удалось создать таблицу '%s' " +

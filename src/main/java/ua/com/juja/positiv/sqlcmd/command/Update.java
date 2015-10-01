@@ -32,11 +32,11 @@ public class Update implements Command {
 
         String[] columnData = new String[data.length - 4];
         String tableName = data[1];
-        String primaryKey = data[2];
-        String primaryKeyValue = data[3];
+        String keyName = data[2];
+        String keyValue = data[3];
         System.arraycopy(data, 4, columnData, 0, data.length - 4);
         try {
-            manager.update(tableName, primaryKey, primaryKeyValue, columnData);
+            manager.update(tableName, keyName, keyValue, columnData);
             view.write("Все данные успешно обновлены.");
         } catch (SQLException e) {
             view.write(String.format("Не удалось обновить по причине %s", e.getMessage()));

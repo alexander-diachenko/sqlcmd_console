@@ -32,7 +32,6 @@ public class Find implements Command {
         }
 
         String tableName = getTableName(data);
-
         try {
             view.write(formatted(tableName));
         } catch (SQLException e) {
