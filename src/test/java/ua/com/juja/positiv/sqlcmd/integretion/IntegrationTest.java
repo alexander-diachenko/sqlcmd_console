@@ -708,6 +708,30 @@ public class IntegrationTest {
     }
 
     @Test
+    public void testClear_WithIncorrectData_Confirm() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("clear|car");
+        in.add("qwe");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //clear|car
+                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'car'. " +
+                "Введите название таблицы для подтверждения.\r\n" +
+                //qwe
+                "Очистка отменена.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
     public void testUpdate_WithCorrectData() {
         in.add(CONNECT_DATABASE_DATA);
         in.add("update|car|id|1|name|mercedes");
@@ -767,30 +791,6 @@ public class IntegrationTest {
                 "Не удалось обновить по причине " +
                 "ERROR: relation \"qwe\" does not exist\n" +
                 "  Позиция: 8\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //exit
-                "До свидания!\r\n", getData());
-    }
-
-    @Test
-    public void testClear_WithIncorrectData_Confirm() {
-        in.add(CONNECT_DATABASE_DATA);
-        in.add("clear|car");
-        in.add("qwe");
-        in.add("exit");
-
-        Main.main(new String[0]);
-
-        assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //connect
-                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //clear|car
-                "ВНИМАНИЕ! Вы собираетесь удалить все данные с таблицы 'car'. " +
-                "Введите название таблицы для подтверждения.\r\n" +
-                //qwe
-                "Очистка отменена.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
