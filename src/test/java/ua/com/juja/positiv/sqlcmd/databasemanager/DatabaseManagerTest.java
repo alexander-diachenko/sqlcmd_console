@@ -129,7 +129,7 @@ public class DatabaseManagerTest {
     }
 
     @Test(expected = SQLException.class)
-        public void testUpdate_WithIncorrectData_TableName() throws SQLException {
+    public void testUpdate_WithIncorrectData_TableName() throws SQLException {
         manager.update("qwe", "id", "3", new String[]{"name", "mercedes"});
     }
 
