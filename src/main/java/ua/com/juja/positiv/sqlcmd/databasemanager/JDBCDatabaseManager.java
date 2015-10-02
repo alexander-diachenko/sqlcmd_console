@@ -86,9 +86,9 @@ public class JDBCDatabaseManager implements DatabaseManager {
     private String getColumnNames(Map<String, Object> columnData) {
         String keys = "";
         for (Map.Entry<String, Object> pair : columnData.entrySet()) {
-            keys += pair.getKey() + ",";
+            keys += pair.getKey() + ", ";
         }
-        return keys.substring(0, keys.length() - 1);
+        return keys.substring(0, keys.length() - 2);
     }
 
     private String getColumnValues(Map<String, Object> columnData) {

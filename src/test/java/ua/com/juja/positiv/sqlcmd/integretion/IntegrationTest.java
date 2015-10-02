@@ -534,7 +534,7 @@ public class IntegrationTest {
                 //create|car|qwe
                 "Не удалось создать поле по причине: " +
                 "ERROR: column \"qwe\" of relation \"car\" does not exist\n" +
-                "  Позиция: 29\r\n" +
+                "  Позиция: 31\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
