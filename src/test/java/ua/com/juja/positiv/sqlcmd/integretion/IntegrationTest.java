@@ -1,6 +1,6 @@
 package ua.com.juja.positiv.sqlcmd.integretion;
 
-import org.junit.After;
+
 import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;
 import ua.com.juja.positiv.sqlcmd.databasemanager.JDBCDatabaseManager;
 import ua.com.juja.positiv.sqlcmd.main.Main;
@@ -41,45 +41,24 @@ public class IntegrationTest {
 
     @Before
     public void run() throws IOException, SQLException, ClassNotFoundException {
-        manager.connect("sqlcmd", "postgres", "123");
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("drop|car");
+        in.add("car");
+        in.add("drop|client");
+        in.add("client");
 
-        Map<String, Object> tableCar = new LinkedHashMap<>();
-        tableCar.put("name", "text");
-        tableCar.put("color", "text");
-        tableCar.put("age", "int");
-        manager.table("car", "id", tableCar);
+        in.add("table|car|id|name|text|color|text|age|int");
+        in.add("create|car|id|1|name|ferrari|color|red|age|6");
+        in.add("create|car|id|2|name|porsche|color|black|age|1");
+        in.add("create|car|id|3|name|bmw|color|blue|age|3");
 
-        Map<String, Object> field1 = new HashMap<>();
-        field1.put("id", 1);
-        field1.put("name", "ferrari");
-        field1.put("color", "red");
-        field1.put("age", 6);
-        manager.create("car", field1);
+        in.add("table|client|id");
+        in.add("exit");
 
-        Map<String, Object> field2 = new HashMap<>();
-        field2.put("id", 2);
-        field2.put("name", "porsche");
-        field2.put("color", "black");
-        field2.put("age", 1);
-        manager.create("car", field2);
-
-        Map<String, Object> field3 = new HashMap<>();
-        field3.put("id", 3);
-        field3.put("name", "bmw");
-        field3.put("color", "blue");
-        field3.put("age", 3);
-        manager.create("car", field3);
-
-        Map<String, Object> tableClient = new LinkedHashMap<>();
-        manager.table("client", "id", tableClient);
+        Main.main(new String[0]);
 
         in.reset();
-    }
-
-    @After
-    public void dropTestTables() throws SQLException {
-        manager.drop("car");
-        manager.drop("client");
+        out.reset();
     }
 
     public String getData() {

@@ -4,6 +4,8 @@ import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;
 import ua.com.juja.positiv.sqlcmd.view.View;
 
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by POSITIV on 16.09.2015.
@@ -30,11 +32,13 @@ public class Update implements Command {
             return;
         }
 
-        String[] columnData = new String[data.length - 4];
         String tableName = data[1];
         String keyName = data[2];
         String keyValue = data[3];
-        System.arraycopy(data, 4, columnData, 0, data.length - 4);
+        Map<String, Object> columnData = new LinkedHashMap<>();
+        for (int index = 4; index < data.length; index += 2) {
+            columnData.put(data[index], data[index + 1]);
+        }
         try {
             manager.update(tableName, keyName, keyValue, columnData);
             view.write("Все данные успешно обновлены.");

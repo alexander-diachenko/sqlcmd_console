@@ -1,9 +1,7 @@
 package ua.com.juja.positiv.sqlcmd.databasemanager;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by POSITIV on 16.09.2015.
@@ -39,11 +37,11 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public List<String> getTableNames() throws SQLException {
+    public Set<String> getTableNames() throws SQLException {
         DatabaseMetaData metaData = connection.getMetaData();
         ResultSet resultSet = metaData.getTables(null, "public", "%", new String[]{"TABLE"});
 
-        List<String> tableNames = new ArrayList<>();
+        Set<String> tableNames = new LinkedHashSet<>();
         while (resultSet.next()) {
             tableNames.add(resultSet.getString(3));
         }
@@ -57,7 +55,7 @@ public class JDBCDatabaseManager implements DatabaseManager {
         ResultSet resultSet = stmt.executeQuery("SELECT * FROM " + tableName);
         ResultSetMetaData rsmd = resultSet.getMetaData();
 
-        List<String> tableData = new ArrayList<>(100);
+        List<String> tableData = new ArrayList<>();
         tableData.add(String.valueOf(rsmd.getColumnCount()));
         for (int indexColumn = 1; indexColumn <= rsmd.getColumnCount(); indexColumn++) {
             tableData.add(resultSet.getMetaData().getColumnName(indexColumn));
@@ -102,11 +100,11 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
-    public void update(String tableName, String keyName, String keyValue, String[] columnData) throws SQLException {
+    public void update(String tableName, String keyName, String keyValue, Map<String, Object> columnData) throws SQLException {
         Statement stmt = connection.createStatement();
-        for (int index = 0; index < columnData.length; index += 2) {
+        for (Map.Entry<String, Object> pair : columnData.entrySet()) {
             stmt.executeUpdate("UPDATE " + tableName +
-                    " SET " + columnData[index] + " = '" + columnData[index + 1] +
+                    " SET " + pair.getKey() + " = '" + pair.getValue() +
                     "' WHERE " + keyName + " = '" + keyValue + "'");
         }
         stmt.close();

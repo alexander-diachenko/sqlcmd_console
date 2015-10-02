@@ -3,6 +3,7 @@ package ua.com.juja.positiv.sqlcmd.databasemanager;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by POSITIV on 16.09.2015.
@@ -11,7 +12,7 @@ public interface DatabaseManager {
 
     void connect(String database, String user, String command) throws SQLException, ClassNotFoundException;
 
-    List<String> getTableNames() throws SQLException;
+    Set<String> getTableNames() throws SQLException;
 
     /**
      * @param tableName .
@@ -27,7 +28,7 @@ public interface DatabaseManager {
 
     void create(String tableName, Map<String, Object> columnData) throws SQLException;
 
-    void update(String tableName, String keyName, String keyValue, String[] columnData) throws SQLException;
+    void update(String tableName, String keyName, String keyValue, Map<String, Object> columnData) throws SQLException;
 
     void delete(String tableName, String keyName, String keyValue) throws SQLException;
 

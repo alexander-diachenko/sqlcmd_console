@@ -1,14 +1,10 @@
 package ua.com.juja.positiv.sqlcmd.databasemanager;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -22,6 +18,13 @@ public class DatabaseManagerTest {
     @Before
     public void run() throws SQLException, ClassNotFoundException {
         manager.connect("sqlcmd", "postgres", "123");
+
+        try {
+            manager.drop("car");
+            manager.drop("client");
+        }catch (SQLException e){
+            //если таблиц еще нету do nothing
+        }
 
         Map<String, Object> tableCar = new LinkedHashMap<>();
         tableCar.put("name", "text");
@@ -54,12 +57,6 @@ public class DatabaseManagerTest {
         manager.table("client", "id", tableClient);
     }
 
-    @After
-    public void dropTestTables() throws SQLException {
-        manager.drop("car");
-        manager.drop("client");
-    }
-
     @Test
     public void testDelete_WithCorrectData() throws SQLException {
         manager.delete("car", "id", "3");
@@ -77,7 +74,7 @@ public class DatabaseManagerTest {
 
     @Test
     public void testGetTableNames() throws Exception {
-        List<String> tableNames = manager.getTableNames();
+        Set<String> tableNames = manager.getTableNames();
         assertEquals("[car, client]", tableNames.toString());
     }
 
@@ -105,10 +102,11 @@ public class DatabaseManagerTest {
 
     @Test
     public void testUpdateAll_WithCorrectData() throws SQLException {
-        manager.update("car", "id", "3", new String[]{"name", "mercedes"});
-        manager.update("car", "id", "3", new String[]{"color", "white"});
-        manager.update("car", "id", "3", new String[]{"age", "10"});
-
+        Map<String, Object> columnData = new LinkedHashMap<>();
+        columnData.put("name", "mercedes");
+        columnData.put("color", "white");
+        columnData.put("age", "10");
+        manager.update("car", "id", "3", columnData);
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
@@ -119,7 +117,9 @@ public class DatabaseManagerTest {
 
     @Test
     public void testUpdateSingle_WithCorrectData() throws SQLException {
-        manager.update("car", "id", "3", new String[]{"name", "mercedes"});
+        Map<String, Object> columnData = new LinkedHashMap<>();
+        columnData.put("name", "mercedes");
+        manager.update("car", "id", "3", columnData);
 
         List<String> tableData = manager.getTableData("car");
         assertEquals("[4, id, name, color, age, " +
@@ -130,7 +130,9 @@ public class DatabaseManagerTest {
 
     @Test(expected = SQLException.class)
     public void testUpdate_WithIncorrectData_TableName() throws SQLException {
-        manager.update("qwe", "id", "3", new String[]{"name", "mercedes"});
+        Map<String, Object> columnData = new LinkedHashMap<>();
+        columnData.put("name", "mercedes");
+        manager.update("qwe", "id", "3", columnData);
     }
 
     @Test
@@ -194,7 +196,7 @@ public class DatabaseManagerTest {
         data.put("county", "text");
         manager.table("city", "id", data);
 
-        List<String> tableNames = manager.getTableNames();
+        Set<String> tableNames = manager.getTableNames();
         assertEquals("[car, city, client]", tableNames.toString());
         manager.drop("city");
     }
