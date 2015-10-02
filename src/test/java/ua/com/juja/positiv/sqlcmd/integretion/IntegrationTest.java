@@ -41,6 +41,8 @@ public class IntegrationTest {
         in.add("car");
         in.add("drop|client");
         in.add("client");
+        in.add("drop|city");
+        in.add("city");
 
         in.add("table|car|id|name|text|color|text|year|int");
         in.add("create|car|id|1|name|ferrari|color|red|year|2002");

@@ -22,6 +22,7 @@ public class DatabaseManagerTest {
         try {
             manager.drop("car");
             manager.drop("client");
+            manager.drop("city");
         }catch (SQLException e){
             //если таблиц нету do nothing
         }
