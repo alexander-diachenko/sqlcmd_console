@@ -23,35 +23,35 @@ public class DatabaseManagerTest {
             manager.drop("car");
             manager.drop("client");
         }catch (SQLException e){
-            //если таблиц еще нету do nothing
+            //если таблиц нету do nothing
         }
 
         Map<String, Object> tableCar = new LinkedHashMap<>();
         tableCar.put("name", "text");
         tableCar.put("color", "text");
-        tableCar.put("age", "int");
+        tableCar.put("year", "int");
         manager.table("car", "id", tableCar);
 
-        Map<String, Object> field1 = new HashMap<>();
-        field1.put("id", 1);
-        field1.put("name", "ferrari");
-        field1.put("color", "red");
-        field1.put("age", 6);
-        manager.create("car", field1);
+        Map<String, Object> field = new HashMap<>();
+        field.put("id", 1);
+        field.put("name", "ferrari");
+        field.put("color", "red");
+        field.put("year", 2002);
+        manager.create("car", field);
 
-        Map<String, Object> field2 = new HashMap<>();
-        field2.put("id", 2);
-        field2.put("name", "porsche");
-        field2.put("color", "black");
-        field2.put("age", 1);
-        manager.create("car", field2);
+        field = new HashMap<>();
+        field.put("id", 2);
+        field.put("name", "porsche");
+        field.put("color", "black");
+        field.put("year", 1964);
+        manager.create("car", field);
 
-        Map<String, Object> field3 = new HashMap<>();
-        field3.put("id", 3);
-        field3.put("name", "bmw");
-        field3.put("color", "blue");
-        field3.put("age", 3);
-        manager.create("car", field3);
+        field = new HashMap<>();
+        field.put("id", 3);
+        field.put("name", "bmw");
+        field.put("color", "blue");
+        field.put("year", 2001);
+        manager.create("car", field);
 
         Map<String, Object> tableClient = new LinkedHashMap<>();
         manager.table("client", "id", tableClient);
@@ -62,9 +62,9 @@ public class DatabaseManagerTest {
         manager.delete("car", "id", "3");
 
         List<String> tableData = manager.getTableData("car");
-        assertEquals("[4, id, name, color, age, " +
-                "1, ferrari, red, 6, " +
-                "2, porsche, black, 1]", tableData.toString());
+        assertEquals("[4, id, name, color, year, " +
+                "1, ferrari, red, 2002, " +
+                "2, porsche, black, 1964]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
@@ -81,10 +81,10 @@ public class DatabaseManagerTest {
     @Test
     public void testFind_WithCorrectData() throws SQLException {
         List<String> tableData = manager.getTableData("car");
-        assertEquals("[4, id, name, color, age, " +
-                "1, ferrari, red, 6, " +
-                "2, porsche, black, 1, " +
-                "3, bmw, blue, 3]", tableData.toString());
+        assertEquals("[4, id, name, color, year, " +
+                "1, ferrari, red, 2002, " +
+                "2, porsche, black, 1964, " +
+                "3, bmw, blue, 2001]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
@@ -95,9 +95,9 @@ public class DatabaseManagerTest {
     @Test
     public void testFindLimitOffset_WithCorrectData() throws SQLException {
         List<String> tableData = manager.getTableData("car LIMIT 2 OFFSET 1");
-        assertEquals("[4, id, name, color, age, " +
-                "2, porsche, black, " +
-                "1, 3, bmw, blue, 3]", tableData.toString());
+        assertEquals("[4, id, name, color, year, " +
+                "2, porsche, black, 1964, " +
+                "3, bmw, blue, 2001]", tableData.toString());
     }
 
     @Test
@@ -105,14 +105,14 @@ public class DatabaseManagerTest {
         Map<String, Object> columnData = new LinkedHashMap<>();
         columnData.put("name", "mercedes");
         columnData.put("color", "white");
-        columnData.put("age", "10");
+        columnData.put("year", "2008");
         manager.update("car", "id", "3", columnData);
 
         List<String> tableData = manager.getTableData("car");
-        assertEquals("[4, id, name, color, age, " +
-                "1, ferrari, red, 6, " +
-                "2, porsche, black, 1, " +
-                "3, mercedes, white, 10]", tableData.toString());
+        assertEquals("[4, id, name, color, year, " +
+                "1, ferrari, red, 2002, " +
+                "2, porsche, black, 1964, " +
+                "3, mercedes, white, 2008]", tableData.toString());
     }
 
     @Test
@@ -122,10 +122,10 @@ public class DatabaseManagerTest {
         manager.update("car", "id", "3", columnData);
 
         List<String> tableData = manager.getTableData("car");
-        assertEquals("[4, id, name, color, age, " +
-                "1, ferrari, red, 6, " +
-                "2, porsche, black, 1, " +
-                "3, mercedes, blue, 3]", tableData.toString());
+        assertEquals("[4, id, name, color, year, " +
+                "1, ferrari, red, 2002, " +
+                "2, porsche, black, 1964, " +
+                "3, mercedes, blue, 2001]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
@@ -140,7 +140,7 @@ public class DatabaseManagerTest {
         manager.clear("car");
 
         List<String> tableData = manager.getTableData("car");
-        assertEquals("[4, id, name, color, age]", tableData.toString());
+        assertEquals("[4, id, name, color, year]", tableData.toString());
     }
 
     @Test(expected = SQLException.class)
@@ -155,11 +155,11 @@ public class DatabaseManagerTest {
         data.put("id", "1");
         data.put("name", "ferrari");
         data.put("color", "red");
-        data.put("age", "6");
+        data.put("year", "6");
         manager.create("car", data);
 
         List<String> tableData = manager.getTableData("car");
-        assertEquals("[4, id, name, color, age, " +
+        assertEquals("[4, id, name, color, year, " +
                 "1, ferrari, red, 6]", tableData.toString());
     }
 
@@ -171,7 +171,7 @@ public class DatabaseManagerTest {
         manager.create("car", data);
 
         List<String> tableData = manager.getTableData("car");
-        assertEquals("[4, id, name, color, age, " +
+        assertEquals("[4, id, name, color, year, " +
                 "2, , , ]", tableData.toString());
     }
 

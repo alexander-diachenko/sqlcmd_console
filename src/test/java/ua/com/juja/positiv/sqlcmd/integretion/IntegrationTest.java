@@ -13,9 +13,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -27,8 +24,6 @@ public class IntegrationTest {
     private static final String CONNECT_DATABASE_DATA = "connect|sqlcmd|postgres|123";
     private static ConfigurableInputStream in;
     private static ByteArrayOutputStream out;
-
-    DatabaseManager manager = new JDBCDatabaseManager();
 
     @BeforeClass
     public static void setup() {
@@ -47,10 +42,10 @@ public class IntegrationTest {
         in.add("drop|client");
         in.add("client");
 
-        in.add("table|car|id|name|text|color|text|age|int");
-        in.add("create|car|id|1|name|ferrari|color|red|age|6");
-        in.add("create|car|id|2|name|porsche|color|black|age|1");
-        in.add("create|car|id|3|name|bmw|color|blue|age|3");
+        in.add("table|car|id|name|text|color|text|year|int");
+        in.add("create|car|id|1|name|ferrari|color|red|year|2002");
+        in.add("create|car|id|2|name|porsche|color|black|year|1964");
+        in.add("create|car|id|3|name|bmw|color|blue|year|2001");
 
         in.add("table|client|id");
         in.add("exit");
@@ -207,11 +202,11 @@ public class IntegrationTest {
                 "Введите команду или help для помощи:\r\n" +
                 //find|car
                 "+---------------------------------------+\n" +
-                "| id      | name    | color   | age     |\n" +
+                "| id      | name    | color   | year    |\n" +
                 "+---------------------------------------+\n" +
-                "| 1       | ferrari | red     | 6       |\n" +
-                "| 2       | porsche | black   | 1       |\n" +
-                "| 3       | bmw     | blue    | 3       |\n" +
+                "| 1       | ferrari | red     | 2002    |\n" +
+                "| 2       | porsche | black   | 1964    |\n" +
+                "| 3       | bmw     | blue    | 2001    |\n" +
                 "+---------------------------------------+\n" +
                 "\r\n" +
                 "Введите команду или help для помощи:\r\n" +
@@ -277,9 +272,9 @@ public class IntegrationTest {
                 "Введите команду или help для помощи:\r\n" +
                 //find|car|1|1
                 "+---------------------------------------+\n" +
-                "| id      | name    | color   | age     |\n" +
+                "| id      | name    | color   | year    |\n" +
                 "+---------------------------------------+\n" +
-                "| 2       | porsche | black   | 1       |\n" +
+                "| 2       | porsche | black   | 1964    |\n" +
                 "+---------------------------------------+\n" +
                 "\r\n" +
                 "Введите команду или help для помощи:\r\n" +
@@ -479,7 +474,7 @@ public class IntegrationTest {
     @Test
     public void testCreate_WithCorrectData() {
         in.add(CONNECT_DATABASE_DATA);
-        in.add("create|car|id|4|name|mercedes|color|white|age|5");
+        in.add("create|car|id|4|name|mercedes|color|white|year|2015");
         in.add("exit");
 
         Main.main(new String[0]);
@@ -521,7 +516,7 @@ public class IntegrationTest {
     @Test
     public void testCreate_WithIncorrectData_Key() {
         in.add(CONNECT_DATABASE_DATA);
-        in.add("create|car|qwe|4|name|mercedes|color|white|age|5");
+        in.add("create|car|qwe|4|name|mercedes|color|white|year|2015");
         in.add("exit");
 
         Main.main(new String[0]);
@@ -534,7 +529,7 @@ public class IntegrationTest {
                 //create|car|qwe
                 "Не удалось создать поле по причине: " +
                 "ERROR: column \"qwe\" of relation \"car\" does not exist\n" +
-                "  Позиция: 31\r\n" +
+                "  Позиция: 37\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
