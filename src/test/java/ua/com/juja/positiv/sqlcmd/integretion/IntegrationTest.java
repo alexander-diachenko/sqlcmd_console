@@ -1,8 +1,5 @@
 package ua.com.juja.positiv.sqlcmd.integretion;
 
-
-import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;
-import ua.com.juja.positiv.sqlcmd.databasemanager.JDBCDatabaseManager;
 import ua.com.juja.positiv.sqlcmd.main.Main;
 import org.junit.Before;
 import org.junit.BeforeClass;
