@@ -33,26 +33,26 @@ public class DatabaseManagerTest {
         tableCar.put("year", "int");
         manager.table("car", "id", tableCar);
 
-        Map<String, Object> field = new HashMap<>();
-        field.put("id", 1);
-        field.put("name", "ferrari");
-        field.put("color", "red");
-        field.put("year", 2002);
-        manager.create("car", field);
+        Map<String, Object> field1 = new HashMap<>();
+        field1.put("id", 1);
+        field1.put("name", "ferrari");
+        field1.put("color", "red");
+        field1.put("year", 2002);
+        manager.create("car", field1);
 
-        field = new HashMap<>();
-        field.put("id", 2);
-        field.put("name", "porsche");
-        field.put("color", "black");
-        field.put("year", 1964);
-        manager.create("car", field);
+        Map<String, Object> field2 = new HashMap<>();
+        field2.put("id", 2);
+        field2.put("name", "porsche");
+        field2.put("color", "black");
+        field2.put("year", 1964);
+        manager.create("car", field2);
 
-        field = new HashMap<>();
-        field.put("id", 3);
-        field.put("name", "bmw");
-        field.put("color", "blue");
-        field.put("year", 2001);
-        manager.create("car", field);
+        Map<String, Object> field3 = new HashMap<>();
+        field3.put("id", 3);
+        field3.put("name", "bmw");
+        field3.put("color", "blue");
+        field3.put("year", 2001);
+        manager.create("car", field3);
 
         Map<String, Object> tableClient = new LinkedHashMap<>();
         manager.table("client", "id", tableClient);
