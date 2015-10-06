@@ -31,7 +31,7 @@ public class Drop implements Command {
         }
 
         String tableName = data[1];
-        if (!confirm(tableName)) {
+        if (!confirmed(tableName)) {
             return;
         }
 
@@ -53,7 +53,7 @@ public class Drop implements Command {
         return true;
     }
 
-    private boolean confirm(String tableName) {
+    private boolean confirmed(String tableName) {
         view.write(String.format("ВНИМАНИЕ! Вы собираетесь удалить таблицу '%s'. " +
                 "Введите название таблицы для подтверждения.", tableName));
         String check = view.read();
