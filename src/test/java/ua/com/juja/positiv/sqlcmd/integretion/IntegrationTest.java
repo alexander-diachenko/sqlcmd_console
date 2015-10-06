@@ -123,7 +123,7 @@ public class IntegrationTest {
                     "\t подключение к базе\r\n" +
                 "table|tableName|primaryKeyName|column1Name|column1Type|...|" +
                 "columnNName|columnNType\n" +
-                   "\t для создания таблицы\r\n" +
+                   "\t создание таблицы\r\n" +
                 "list\n" +
                    "\t вывод списка всех таблиц\r\n" +
                 "find|tableName\n" +
@@ -317,7 +317,7 @@ public class IntegrationTest {
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //table|test
-                "Таблица 'test' успешно создана\r\n" +
+                "Таблица 'test' успешно создана.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //drop|test
                 "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'test'. " +
@@ -365,7 +365,7 @@ public class IntegrationTest {
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //table|
-                "Неправильная команда 'table|'. 'table|tableName|" +
+                "Неправильная команда 'table|'. Должно быть 'table|tableName|" +
                 "primaryKeyName|column1Name|column1Type|...|columnNName|columnNType'\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
@@ -388,7 +388,7 @@ public class IntegrationTest {
                 "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //table|test
-                "Таблица 'test' успешно создана\r\n" +
+                "Таблица 'test' успешно создана.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //drop|test
                 "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'test'. " +

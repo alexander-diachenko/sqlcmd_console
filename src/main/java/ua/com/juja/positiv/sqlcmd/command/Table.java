@@ -42,7 +42,7 @@ public class Table implements Command {
 
         try {
             manager.table(tableName, keyName, columnParameters);
-            view.write(String.format("Таблица '%s' успешно создана", tableName));
+            view.write(String.format("Таблица '%s' успешно создана.", tableName));
         } catch (SQLException e) {
             view.write(String.format("Не удалось создать таблицу '%s' " +
                     "по причине: %s", tableName, e.getMessage()));
@@ -52,7 +52,7 @@ public class Table implements Command {
     private boolean isCorrect(String command, String[] data) {
         if (data.length < 3) {
             view.write(String.format("Неправильная команда '%s'. " +
-                    "'table|tableName|primaryKeyName|column1Name|column1Type|...|" +
+                    "Должно быть 'table|tableName|primaryKeyName|column1Name|column1Type|...|" +
                     "columnNName|columnNType'", command));
             return false;
         }

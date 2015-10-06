@@ -24,7 +24,7 @@ public class Help implements Command {
                 "\t подключение к базе");
         view.write("table|tableName|primaryKeyName|column1Name|column1Type|...|" +
                 "columnNName|columnNType\n" +
-                "\t для создания таблицы");
+                "\t создание таблицы");
         view.write("list\n" +
                 "\t вывод списка всех таблиц");
         view.write("find|tableName\n" +
