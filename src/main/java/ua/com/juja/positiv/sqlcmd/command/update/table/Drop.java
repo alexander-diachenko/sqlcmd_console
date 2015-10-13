@@ -1,4 +1,4 @@
-package ua.com.juja.positiv.sqlcmd.command.update;
+package ua.com.juja.positiv.sqlcmd.command.update.table;
 
 import ua.com.juja.positiv.sqlcmd.command.Command;
 import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;

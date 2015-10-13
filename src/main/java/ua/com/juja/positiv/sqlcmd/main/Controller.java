@@ -9,7 +9,9 @@ import ua.com.juja.positiv.sqlcmd.command.standalone.Exit;
 import ua.com.juja.positiv.sqlcmd.command.standalone.ExitException;
 import ua.com.juja.positiv.sqlcmd.command.standalone.Help;
 import ua.com.juja.positiv.sqlcmd.command.standalone.Unsupported;
-import ua.com.juja.positiv.sqlcmd.command.update.*;
+import ua.com.juja.positiv.sqlcmd.command.update.database.CreateBase;
+import ua.com.juja.positiv.sqlcmd.command.update.database.DropBase;
+import ua.com.juja.positiv.sqlcmd.command.update.table.*;
 import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;
 import ua.com.juja.positiv.sqlcmd.view.View;
 
