@@ -36,5 +36,9 @@ public interface DatabaseManager {
 
     void drop(String tableName) throws SQLException;
 
+    void createBase(String database) throws SQLException;
+
+    void dropBase(String database) throws SQLException;
+
     boolean isConnected();
 }

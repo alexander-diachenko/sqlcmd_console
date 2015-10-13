@@ -1,5 +1,6 @@
-package ua.com.juja.positiv.sqlcmd.command;
+package ua.com.juja.positiv.sqlcmd.command.connect;
 
+import ua.com.juja.positiv.sqlcmd.command.Command;
 import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;
 import ua.com.juja.positiv.sqlcmd.view.View;
 

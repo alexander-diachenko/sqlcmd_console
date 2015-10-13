@@ -1,6 +1,15 @@
 package ua.com.juja.positiv.sqlcmd.main;
 
 import ua.com.juja.positiv.sqlcmd.command.*;
+import ua.com.juja.positiv.sqlcmd.command.connect.Connect;
+import ua.com.juja.positiv.sqlcmd.command.connect.isConnected;
+import ua.com.juja.positiv.sqlcmd.command.show.Find;
+import ua.com.juja.positiv.sqlcmd.command.show.List;
+import ua.com.juja.positiv.sqlcmd.command.standalone.Exit;
+import ua.com.juja.positiv.sqlcmd.command.standalone.ExitException;
+import ua.com.juja.positiv.sqlcmd.command.standalone.Help;
+import ua.com.juja.positiv.sqlcmd.command.standalone.Unsupported;
+import ua.com.juja.positiv.sqlcmd.command.update.*;
 import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;
 import ua.com.juja.positiv.sqlcmd.view.View;
 
@@ -16,6 +25,8 @@ public class Controller {
                 new Help(view),
                 new Connect(manager, view),
                 new isConnected(manager, view),
+                new CreateBase(manager, view),
+                new DropBase(manager, view),
                 new Table(manager, view),
                 new List(view, manager),
                 new Find(manager, view),

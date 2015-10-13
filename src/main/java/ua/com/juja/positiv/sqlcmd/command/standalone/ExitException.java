@@ -1,4 +1,4 @@
-package ua.com.juja.positiv.sqlcmd.command;
+package ua.com.juja.positiv.sqlcmd.command.standalone;
 
 /**
  * Created by POSITIV on 17.09.2015.

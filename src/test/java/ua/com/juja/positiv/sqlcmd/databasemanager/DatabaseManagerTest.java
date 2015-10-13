@@ -1,6 +1,7 @@
 package ua.com.juja.positiv.sqlcmd.databasemanager;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.sql.SQLException;
@@ -19,12 +20,9 @@ public class DatabaseManagerTest {
     public void run() throws SQLException, ClassNotFoundException {
         manager.connect("sqlcmd", "postgres", "123");
 
-        try {
-            manager.drop("car");
-            manager.drop("client");
-            manager.drop("city");
-        }catch (SQLException e){
-            //если таблиц нету do nothing
+        Set<String> tables = manager.getTableNames();
+        for (String table : tables) {
+            manager.drop(table);
         }
 
         Map<String, Object> tableCar = new LinkedHashMap<>();

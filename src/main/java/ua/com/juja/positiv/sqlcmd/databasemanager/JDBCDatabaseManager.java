@@ -132,6 +132,20 @@ public class JDBCDatabaseManager implements DatabaseManager {
     }
 
     @Override
+    public void createBase(String database) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("CREATE DATABASE " + database);
+        stmt.close();
+    }
+
+    @Override
+    public void dropBase(String database) throws SQLException {
+        Statement stmt = connection.createStatement();
+        stmt.executeUpdate("DROP DATABASE " + database);
+        stmt.close();
+    }
+
+    @Override
     public boolean isConnected() {
         return connection != null;
     }

@@ -1,5 +1,6 @@
-package ua.com.juja.positiv.sqlcmd.command;
+package ua.com.juja.positiv.sqlcmd.command.standalone;
 
+import ua.com.juja.positiv.sqlcmd.command.Command;
 import ua.com.juja.positiv.sqlcmd.view.View;
 
 /**
@@ -22,11 +23,13 @@ public class Help implements Command {
     public void process(String command) {
         view.write("connect|database|user|password\n" +
                 "\t подключение к базе");
+        view.write("list\n" +
+                "\t вывод списка всех таблиц");
+        view.write("createbase|databaseName\n" +
+                "\t создание базы");
         view.write("table|tableName|primaryKeyName|column1Name|column1Type|...|" +
                 "columnNName|columnNType\n" +
                 "\t создание таблицы");
-        view.write("list\n" +
-                "\t вывод списка всех таблиц");
         view.write("find|tableName\n" +
                 "\t вывод всей таблицы");
         view.write("find|tableName|limit|offset\n" +
@@ -44,6 +47,8 @@ public class Help implements Command {
                 "\t очистка таблицы");
         view.write("drop|tableName\n" +
                 "\t удаление таблицы");
+        view.write("dropbase|databaseName\n" +
+                "\t удаление базы");
         view.write("exit\n" +
                 "\t выход из програмы");
     }

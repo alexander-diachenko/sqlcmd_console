@@ -1,15 +1,18 @@
 package ua.com.juja.positiv.sqlcmd.integretion;
 
-import ua.com.juja.positiv.sqlcmd.main.Main;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;
+import ua.com.juja.positiv.sqlcmd.databasemanager.JDBCDatabaseManager;
+import ua.com.juja.positiv.sqlcmd.main.Main;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -33,14 +36,23 @@ public class IntegrationTest {
 
     @Before
     public void run() throws IOException, SQLException, ClassNotFoundException {
-        in.add(CONNECT_DATABASE_DATA);
-        in.add("drop|car");
-        in.add("car");
-        in.add("drop|client");
-        in.add("client");
-        in.add("drop|city");
-        in.add("city");
+        in.reset();
+    }
 
+    private void cleanDatabase() {
+        try {
+            DatabaseManager manager = new JDBCDatabaseManager();
+            manager.connect("sqlcmd", "postgres", "123");
+
+            Set<String> tables = manager.getTableNames();
+            for (String table : tables) {
+                manager.drop(table);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        in.add(CONNECT_DATABASE_DATA);
         in.add("table|car|id|name|text|color|text|year|int");
         in.add("create|car|id|1|name|ferrari|color|red|year|2002");
         in.add("create|car|id|2|name|porsche|color|black|year|1964");
@@ -51,7 +63,11 @@ public class IntegrationTest {
 
         Main.main(new String[0]);
 
-        in.reset();
+        try {
+            in.reset();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         out.reset();
     }
 
@@ -118,35 +134,33 @@ public class IntegrationTest {
 
         assertEquals("Добро пожаловать!\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //help
                 "connect|database|user|password\n" +
-                    "\t подключение к базе\r\n" +
-                "table|tableName|primaryKeyName|column1Name|column1Type|...|" +
-                "columnNName|columnNType\n" +
-                   "\t создание таблицы\r\n" +
+                "\t подключение к базе\r\n" +
                 "list\n" +
-                   "\t вывод списка всех таблиц\r\n" +
+                "\t вывод списка всех таблиц\r\n" +
+                "createbase|databaseName\n" +
+                "\t создание базы\r\n" +
+                "table|tableName|primaryKeyName|column1Name|column1Type|...|columnNName|columnNType\n" +
+                "\t создание таблицы\r\n" +
                 "find|tableName\n" +
-                  "\t вывод всей таблицы\r\n" +
+                "\t вывод всей таблицы\r\n" +
                 "find|tableName|limit|offset\n" +
-                   "\t вывод части таблицы\r\n" +
-                "create|tableName|column1Name|column1Value|..." +
-                "|columnNName|columnNValue\n" +
-                   "\t создание поля\r\n" +
-                "update|tableName|primaryKeyColumnName|primaryKeyValue" +
-                "|column1Name|column1NewValue|...|" +
-                "columnNName|columnNNewValue\n" +
-                  "\t обновление поля\r\n" +
+                "\t вывод части таблицы\r\n" +
+                "create|tableName|column1Name|column1Value|...|columnNName|columnNValue\n" +
+                "\t создание поля\r\n" +
+                "update|tableName|primaryKeyColumnName|primaryKeyValue|column1Name|column1NewValue|...|columnNName|columnNNewValue\n" +
+                "\t обновление поля\r\n" +
                 "delete|tableName|primaryKeyColumnName|primaryKeyValue\n" +
-                  "\t удаление поля\r\n" +
+                "\t удаление поля\r\n" +
                 "clear|tableName\n" +
-                  "\t очистка таблицы\r\n" +
+                "\t очистка таблицы\r\n" +
                 "drop|tableName\n" +
-                   "\t удаление таблицы\r\n" +
+                "\t удаление таблицы\r\n" +
+                "dropbase|databaseName\n" +
+                "\t удаление базы\r\n" +
                 "exit\n" +
-                  "\t выход из програмы\r\n" +
+                "\t выход из програмы\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                //exit
                 "До свидания!\r\n", getData());
     }
 
@@ -167,27 +181,8 @@ public class IntegrationTest {
     }
 
     @Test
-    public void testList_WithConnect() {
-        in.add(CONNECT_DATABASE_DATA);
-        in.add("list");
-        in.add("exit");
-
-        Main.main(new String[0]);
-
-        assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //connect
-                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //list
-                "[car, client]\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //exit
-                "До свидания!\r\n", getData());
-    }
-
-    @Test
     public void testFind_WithCorrectData() {
+        cleanDatabase();
         in.add(CONNECT_DATABASE_DATA);
         in.add("find|car");
         in.add("exit");
@@ -258,6 +253,7 @@ public class IntegrationTest {
 
     @Test
     public void testFindLimitOffset_WithCorrectData() {
+        cleanDatabase();
         in.add(CONNECT_DATABASE_DATA);
         in.add("find|car|1|1");
         in.add("exit");
@@ -296,34 +292,6 @@ public class IntegrationTest {
                 "Введите команду или help для помощи:\r\n" +
                 //find|car|qwe|qwe
                 "Неправильные данные. limit и offset должны быть целыми числами.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //exit
-                "До свидания!\r\n", getData());
-    }
-
-    @Test
-    public void testTable_WithCorrectData() {
-        in.add(CONNECT_DATABASE_DATA);
-        in.add("table|test|id|name|text|population|int");
-        in.add("drop|test");
-        in.add("test");
-        in.add("exit");
-
-        Main.main(new String[0]);
-
-        assertEquals("Добро пожаловать!\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //connect
-                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //table|test
-                "Таблица 'test' успешно создана.\r\n" +
-                "Введите команду или help для помощи:\r\n" +
-                //drop|test
-                "ВНИМАНИЕ! Вы собираетесь удалить таблицу 'test'. " +
-                "Введите название таблицы для подтверждения.\r\n" +
-                //test
-                "Таблица 'test' успешно удалена.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());
@@ -374,6 +342,7 @@ public class IntegrationTest {
 
     @Test
     public void testDrop_WithCorrectData() {
+        cleanDatabase();
         in.add(CONNECT_DATABASE_DATA);
         in.add("table|test|id");
         in.add("drop|test");
@@ -472,6 +441,7 @@ public class IntegrationTest {
 
     @Test
     public void testCreate_WithCorrectData() {
+        cleanDatabase();
         in.add(CONNECT_DATABASE_DATA);
         in.add("create|car|id|4|name|mercedes|color|white|year|2015");
         in.add("exit");
@@ -536,6 +506,7 @@ public class IntegrationTest {
 
     @Test
     public void testDelete_WithCorrectData() {
+        cleanDatabase();
         in.add(CONNECT_DATABASE_DATA);
         in.add("delete|car|id|1");
         in.add("exit");
@@ -713,6 +684,7 @@ public class IntegrationTest {
 
     @Test
     public void testUpdate_WithCorrectData() {
+        cleanDatabase();
         in.add(CONNECT_DATABASE_DATA);
         in.add("update|car|id|1|name|mercedes");
         in.add("exit");
@@ -771,6 +743,154 @@ public class IntegrationTest {
                 "Не удалось обновить по причине " +
                 "ERROR: relation \"qwe\" does not exist\n" +
                 "  Позиция: 8\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testCreateDropBase_WithCorrectData() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("createbase|test123321");
+        in.add("dropbase|test123321");
+        in.add("test123321");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //createbase
+                "База 'test123321' успешно создана.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //dropbase
+                "ВНИМАНИЕ! Вы собираетесь удалить базу 'test123321'. Введите название базы для подтверждения.\r\n" +
+                "База 'test123321' успешно удалена.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testCreateBase_WithIncorrectData_Length() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("createbase|");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //createbase|
+                "Неправильная команда 'createbase|'. " +
+                "Должно быть 'createBase|databaseName'.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testCreateBase_WithIncorrectData_DatabaseName() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("createbase|sqlcmd");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //createbase|sqlcmd
+                "Не удалось создать базу 'sqlcmd' по причине: " +
+                "ERROR: database \"sqlcmd\" already exists\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testDropBase_WithIncorrectData_Length() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("dropbase|");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //dropbase|
+                "Неправильная команда 'dropbase|'. " +
+                "Должно быть 'dropBase|databaseName'.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testDropBase_WithIncorrectData_DatabaseName() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("dropbase|qwe");
+        in.add("qwe");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //dropbase|qwe
+                "ВНИМАНИЕ! Вы собираетесь удалить базу 'qwe'. " +
+                "Введите название базы для подтверждения.\r\n" +
+                //qwe
+                "Не удалось удалить базу 'qwe' по причине: " +
+                "ERROR: database \"qwe\" does not exist\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
+    public void testDropBase_WithIncorrectData_Confirm() {
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("createbase|test123321");
+        in.add("dropbase|test123321");
+        in.add("qwe");
+        in.add("dropbase|test123321");
+        in.add("test123321");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //createbase
+                "База 'test123321' успешно создана.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //dropbase
+                "ВНИМАНИЕ! Вы собираетесь удалить базу 'test123321'. Введите название базы для подтверждения.\r\n" +
+                //qwe
+                "Удаление отменено.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //dropbase
+                "ВНИМАНИЕ! Вы собираетесь удалить базу 'test123321'. Введите название базы для подтверждения.\r\n" +
+                //test123321
+                "База 'test123321' успешно удалена.\r\n" +
                 "Введите команду или help для помощи:\r\n" +
                 //exit
                 "До свидания!\r\n", getData());

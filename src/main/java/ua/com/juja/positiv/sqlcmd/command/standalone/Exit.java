@@ -1,5 +1,6 @@
-package ua.com.juja.positiv.sqlcmd.command;
+package ua.com.juja.positiv.sqlcmd.command.standalone;
 
+import ua.com.juja.positiv.sqlcmd.command.Command;
 import ua.com.juja.positiv.sqlcmd.view.View;
 
 /**
