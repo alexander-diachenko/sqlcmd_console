@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class IntegrationTest {
 
-    private static final String CONNECT_DATABASE_DATA = "connect|sqlcmd|postgres|123";
+    private static final String CONNECT_DATABASE_DATA = "connect|sqlcmd|postgres|postgres";
     private static ConfigurableInputStream in;
     private static ByteArrayOutputStream out;
 
@@ -35,14 +35,14 @@ public class IntegrationTest {
     }
 
     @Before
-    public void run() throws IOException, SQLException, ClassNotFoundException {
+    public void run() throws IOException {
         in.reset();
     }
 
     private void cleanDatabase() {
         try {
             DatabaseManager manager = new JDBCDatabaseManager();
-            manager.connect("sqlcmd", "postgres", "123");
+            manager.connect("sqlcmd", "postgres", "postgres");
 
             Set<String> tables = manager.getTableNames();
             for (String table : tables) {

@@ -1,7 +1,6 @@
 package ua.com.juja.positiv.sqlcmd.databasemanager;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.sql.SQLException;
@@ -18,7 +17,7 @@ public class DatabaseManagerTest {
 
     @Before
     public void run() throws SQLException, ClassNotFoundException {
-        manager.connect("sqlcmd", "postgres", "123");
+        manager.connect("sqlcmd", "postgres", "postgres");
 
         Set<String> tables = manager.getTableNames();
         for (String table : tables) {
