@@ -181,6 +181,27 @@ public class IntegrationTest {
     }
 
     @Test
+    public void testList_WithConnect() {
+        cleanDatabase();
+        in.add(CONNECT_DATABASE_DATA);
+        in.add("list");
+        in.add("exit");
+
+        Main.main(new String[0]);
+
+        assertEquals("Добро пожаловать!\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //connect
+                "Подключение к базе 'sqlcmd' прошло успешно.\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //list
+                "[car, client]\r\n" +
+                "Введите команду или help для помощи:\r\n" +
+                //exit
+                "До свидания!\r\n", getData());
+    }
+
+    @Test
     public void testFind_WithCorrectData() {
         cleanDatabase();
         in.add(CONNECT_DATABASE_DATA);
