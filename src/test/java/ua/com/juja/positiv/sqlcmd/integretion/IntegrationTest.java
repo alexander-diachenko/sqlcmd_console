@@ -3,16 +3,14 @@ package ua.com.juja.positiv.sqlcmd.integretion;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;
-import ua.com.juja.positiv.sqlcmd.databasemanager.JDBCDatabaseManager;
+import ua.com.juja.positiv.sqlcmd.DatabaseLogin;
+import ua.com.juja.positiv.sqlcmd.DatabasePreparation;
 import ua.com.juja.positiv.sqlcmd.main.Main;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
-import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,7 +19,15 @@ import static org.junit.Assert.assertEquals;
  */
 public class IntegrationTest {
 
-    private static final String CONNECT_DATABASE_DATA = "connect|sqlcmd|postgres|postgres";
+    //---===ОСТОРОЖНО! Тесты очищают текущую базу!===----
+
+    DatabaseLogin login = new DatabaseLogin();
+    DatabasePreparation preparation = new DatabasePreparation();
+
+    private String CONNECT_DATABASE_DATA = "connect|" +
+                                                        login.getDatabase() + "|" +
+                                                        login.getUser() + "|" +
+                                                        login.getPassword();
     private static ConfigurableInputStream in;
     private static ByteArrayOutputStream out;
 
@@ -37,38 +43,6 @@ public class IntegrationTest {
     @Before
     public void run() throws IOException {
         in.reset();
-    }
-
-    private void cleanDatabase() {
-        try {
-            DatabaseManager manager = new JDBCDatabaseManager();
-            manager.connect("sqlcmd", "postgres", "postgres");
-
-            Set<String> tables = manager.getTableNames();
-            for (String table : tables) {
-                manager.drop(table);
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        in.add(CONNECT_DATABASE_DATA);
-        in.add("table|car|id|name|text|color|text|year|int");
-        in.add("create|car|id|1|name|ferrari|color|red|year|2002");
-        in.add("create|car|id|2|name|porsche|color|black|year|1964");
-        in.add("create|car|id|3|name|bmw|color|blue|year|2001");
-
-        in.add("table|client|id");
-        in.add("exit");
-
-        Main.main(new String[0]);
-
-        try {
-            in.reset();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        out.reset();
     }
 
     public String getData() {
@@ -182,7 +156,7 @@ public class IntegrationTest {
 
     @Test
     public void testList_WithConnect() {
-        cleanDatabase();
+        preparation.run();
         in.add(CONNECT_DATABASE_DATA);
         in.add("list");
         in.add("exit");
@@ -203,7 +177,7 @@ public class IntegrationTest {
 
     @Test
     public void testFind_WithCorrectData() {
-        cleanDatabase();
+        preparation.run();
         in.add(CONNECT_DATABASE_DATA);
         in.add("find|car");
         in.add("exit");
@@ -274,7 +248,7 @@ public class IntegrationTest {
 
     @Test
     public void testFindLimitOffset_WithCorrectData() {
-        cleanDatabase();
+        preparation.run();
         in.add(CONNECT_DATABASE_DATA);
         in.add("find|car|1|1");
         in.add("exit");
@@ -363,7 +337,7 @@ public class IntegrationTest {
 
     @Test
     public void testDrop_WithCorrectData() {
-        cleanDatabase();
+        preparation.run();
         in.add(CONNECT_DATABASE_DATA);
         in.add("table|test|id");
         in.add("drop|test");
@@ -462,7 +436,7 @@ public class IntegrationTest {
 
     @Test
     public void testCreate_WithCorrectData() {
-        cleanDatabase();
+        preparation.run();
         in.add(CONNECT_DATABASE_DATA);
         in.add("create|car|id|4|name|mercedes|color|white|year|2015");
         in.add("exit");
@@ -527,7 +501,7 @@ public class IntegrationTest {
 
     @Test
     public void testDelete_WithCorrectData() {
-        cleanDatabase();
+        preparation.run();
         in.add(CONNECT_DATABASE_DATA);
         in.add("delete|car|id|1");
         in.add("exit");
@@ -610,6 +584,7 @@ public class IntegrationTest {
 
     @Test
     public void testClear_WithCorrectData() {
+        preparation.run();
         in.add(CONNECT_DATABASE_DATA);
         in.add("clear|car");
         in.add("car");
@@ -705,7 +680,7 @@ public class IntegrationTest {
 
     @Test
     public void testUpdate_WithCorrectData() {
-        cleanDatabase();
+        preparation.run();
         in.add(CONNECT_DATABASE_DATA);
         in.add("update|car|id|1|name|mercedes");
         in.add("exit");
