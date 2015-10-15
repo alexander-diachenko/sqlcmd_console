@@ -1,6 +1,5 @@
 package ua.com.juja.positiv.sqlcmd.integretion;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -11,7 +10,7 @@ public class ConfigurableInputStream extends InputStream {
     private String line;
 
     @Override
-    public int read() throws IOException {
+    public int read() {
         if(line.length() == 0){
             return -1;
         }
@@ -31,7 +30,7 @@ public class ConfigurableInputStream extends InputStream {
     }
 
     @Override
-    public synchronized void reset() throws IOException {
+    public synchronized void reset() {
         line = null;
     }
 }
