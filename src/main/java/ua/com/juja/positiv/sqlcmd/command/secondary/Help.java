@@ -23,15 +23,15 @@ public class Help extends NullFormat implements Command {
 
     @Override
     public void process(String command) {
-      for(Command comm : commands){
-          if(comm.format() != null) {
-              view.write(comm.format());
-              view.write("\t " + comm.description());
-          }
-      }
+        for (Command comm : commands) {
+            if (comm.format() != null) {
+                view.write(comm.format());
+                view.write("\t " + comm.description());
+            }
+        }
     }
 
-    public void setCommands(Command[] commands){
+    public void setCommands(Command[] commands) {
         this.commands = commands;
     }
 }
