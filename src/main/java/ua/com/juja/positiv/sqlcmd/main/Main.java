@@ -41,7 +41,6 @@ public class Main {
                 new Unsupported(view)};
 
         Controller controller = new Controller(view, commands);
-
         controller.run();
     }
 }
