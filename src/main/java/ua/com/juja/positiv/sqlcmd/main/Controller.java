@@ -1,17 +1,8 @@
 package ua.com.juja.positiv.sqlcmd.main;
 
 import ua.com.juja.positiv.sqlcmd.command.*;
-import ua.com.juja.positiv.sqlcmd.command.connect.Connect;
-import ua.com.juja.positiv.sqlcmd.command.connect.isConnected;
-import ua.com.juja.positiv.sqlcmd.command.show.Find;
-import ua.com.juja.positiv.sqlcmd.command.show.List;
 import ua.com.juja.positiv.sqlcmd.command.secondary.Exit;
 import ua.com.juja.positiv.sqlcmd.command.secondary.ExitException;
-import ua.com.juja.positiv.sqlcmd.command.secondary.Help;
-import ua.com.juja.positiv.sqlcmd.command.secondary.Unsupported;
-import ua.com.juja.positiv.sqlcmd.command.update.database.CreateBase;
-import ua.com.juja.positiv.sqlcmd.command.update.database.DropBase;
-import ua.com.juja.positiv.sqlcmd.command.update.table.*;
 import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;
 import ua.com.juja.positiv.sqlcmd.view.View;
 
@@ -20,24 +11,9 @@ public class Controller {
     private Command[] commands;
     private View view;
 
-    public Controller(View view, DatabaseManager manager) {
+    public Controller(View view, Command[] commands) {
         this.view = view;
-        this.commands = new Command[]{
-                new Exit(view),
-                new Help(view),
-                new Connect(manager, view),
-                new isConnected(manager, view),
-                new CreateBase(manager, view),
-                new DropBase(manager, view),
-                new Table(manager, view),
-                new List(view, manager),
-                new Find(manager, view),
-                new Create(manager, view),
-                new Update(manager, view),
-                new Delete(manager, view),
-                new Clear(manager, view),
-                new Drop(manager, view),
-                new Unsupported(view)};
+        this.commands = commands;
     }
 
     public void run() {
