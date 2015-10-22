@@ -27,6 +27,17 @@ public class Create implements Command {
     }
 
     @Override
+    public String format() {
+        return "create|tableName|column1Name|column1Value|...|" +
+                "columnNName|columnNValue";
+    }
+
+    @Override
+    public String description() {
+        return "создание поля";
+    }
+
+    @Override
     public void process(String command) {
         String[] data = command.split("\\|");
         if (!isCorrect(command, data)) {

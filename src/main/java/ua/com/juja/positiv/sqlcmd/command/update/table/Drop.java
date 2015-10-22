@@ -25,6 +25,16 @@ public class Drop implements Command {
     }
 
     @Override
+    public String format() {
+        return "drop|tableName";
+    }
+
+    @Override
+    public String description() {
+        return "удаление таблицы";
+    }
+
+    @Override
     public void process(String command) {
         String[] data = command.split("\\|");
         if (!isCorrect(command, data)) {

@@ -25,6 +25,16 @@ public class CreateBase implements Command {
     }
 
     @Override
+    public String format() {
+        return "createbase|databaseName";
+    }
+
+    @Override
+    public String description() {
+        return "создание базы";
+    }
+
+    @Override
     public void process(String command) {
         String[] data = command.split("\\|");
         if (!isCorrect(command, data)) {

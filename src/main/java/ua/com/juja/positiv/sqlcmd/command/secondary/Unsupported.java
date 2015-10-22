@@ -1,9 +1,10 @@
 package ua.com.juja.positiv.sqlcmd.command.secondary;
 
 import ua.com.juja.positiv.sqlcmd.command.Command;
+import ua.com.juja.positiv.sqlcmd.command.NullFormat;
 import ua.com.juja.positiv.sqlcmd.view.View;
 
-public class Unsupported implements Command {
+public class Unsupported extends NullFormat implements Command {
 
     private View view;
 

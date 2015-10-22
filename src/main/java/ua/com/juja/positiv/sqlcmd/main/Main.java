@@ -23,13 +23,13 @@ public class Main {
     public static void main(String[] args) {
         View view = new Console();
         DatabaseManager manager = new JDBCDatabaseManager();
-        Command[] commands =  new Command[]{
+        Help help = new Help(view);
+        Command[] commands = new Command[]{
                 new Exit(view),
-                new Help(view),
+                help,
                 new Connect(manager, view),
                 new isConnected(manager, view),
                 new CreateBase(manager, view),
-                new DropBase(manager, view),
                 new Table(manager, view),
                 new List(view, manager),
                 new Find(manager, view),
@@ -38,7 +38,9 @@ public class Main {
                 new Delete(manager, view),
                 new Clear(manager, view),
                 new Drop(manager, view),
+                new DropBase(manager, view),
                 new Unsupported(view)};
+        help.setCommands(commands);
 
         Controller controller = new Controller(view, commands);
         controller.run();

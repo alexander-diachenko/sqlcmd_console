@@ -20,6 +20,16 @@ public class Exit implements Command {
     }
 
     @Override
+    public String format() {
+        return "exit";
+    }
+
+    @Override
+    public String description() {
+        return "выход из програмы";
+    }
+
+    @Override
     public void process(String command) {
         view.write("До свидания!");
         throw new ExitException();

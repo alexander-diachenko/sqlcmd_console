@@ -27,6 +27,18 @@ public class Update implements Command {
     }
 
     @Override
+    public String format() {
+        return "update|tableName|primaryKeyColumnName|primaryKeyValue|" +
+                "column1Name|column1NewValue|...|" +
+                "columnNName|columnNNewValue";
+    }
+
+    @Override
+    public String description() {
+        return "обновление поля";
+    }
+
+    @Override
     public void process(String command) {
         String[] data = command.split("\\|");
         if (!isCorrect(command, data)) {

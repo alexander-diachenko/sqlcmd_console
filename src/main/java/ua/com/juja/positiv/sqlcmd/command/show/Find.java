@@ -26,6 +26,16 @@ public class Find implements Command {
     }
 
     @Override
+    public String format() {
+        return "find|tableName или find|tableName|limit|offset";
+    }
+
+    @Override
+    public String description() {
+        return "вывод всей таблицы или вывод части таблицы";
+    }
+
+    @Override
     public void process(String command) {
         String[] data = command.split("\\|");
         if (!isCorrect(command, data)) {

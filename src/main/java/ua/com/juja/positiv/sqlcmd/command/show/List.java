@@ -25,6 +25,16 @@ public class List implements Command {
     }
 
     @Override
+    public String format() {
+        return "list";
+    }
+
+    @Override
+    public String description() {
+        return "вывод списка всех таблиц";
+    }
+
+    @Override
     public void process(String command) {
         try {
             view.write(manager.getTableNames().toString());

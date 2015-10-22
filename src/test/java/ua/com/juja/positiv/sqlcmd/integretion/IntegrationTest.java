@@ -108,33 +108,35 @@ public class IntegrationTest {
 
         assertEquals("Добро пожаловать!\r\n" +
                 "Введите команду или help для помощи:\r\n" +
-                "connect|database|user|password\n" +
-                "\t подключение к базе\r\n" +
-                "list\n" +
-                "\t вывод списка всех таблиц\r\n" +
-                "createbase|databaseName\n" +
-                "\t создание базы\r\n" +
-                "table|tableName|primaryKeyName|column1Name|column1Type|...|columnNName|columnNType\n" +
-                "\t создание таблицы\r\n" +
-                "find|tableName\n" +
-                "\t вывод всей таблицы\r\n" +
-                "find|tableName|limit|offset\n" +
-                "\t вывод части таблицы\r\n" +
-                "create|tableName|column1Name|column1Value|...|columnNName|columnNValue\n" +
-                "\t создание поля\r\n" +
-                "update|tableName|primaryKeyColumnName|primaryKeyValue|column1Name|column1NewValue|...|columnNName|columnNNewValue\n" +
-                "\t обновление поля\r\n" +
-                "delete|tableName|primaryKeyColumnName|primaryKeyValue\n" +
-                "\t удаление поля\r\n" +
-                "clear|tableName\n" +
-                "\t очистка таблицы\r\n" +
-                "drop|tableName\n" +
-                "\t удаление таблицы\r\n" +
-                "dropbase|databaseName\n" +
-                "\t удаление базы\r\n" +
-                "exit\n" +
+                //help
+                "exit\r\n" +
                 "\t выход из програмы\r\n" +
+                "connect|database|user|password\r\n" +
+                "\t подключение к базе\r\n" +
+                "createbase|databaseName\r\n" +
+                "\t создание базы\r\n" +
+                "table|tableName|primaryKeyName|column1Name|column1Type" +
+                "|...|columnNName|columnNType\r\n" +
+                "\t создание таблицы\r\n" +
+                "list\r\n" +
+                "\t вывод списка всех таблиц\r\n" +
+                "find|tableName или find|tableName|limit|offset\r\n" +
+                "\t вывод всей таблицы или вывод части таблицы\r\n" +
+                "create|tableName|column1Name|column1Value|...|columnNName|columnNValue\r\n" +
+                "\t создание поля\r\n" +
+                "update|tableName|primaryKeyColumnName|primaryKeyValue" +
+                "|column1Name|column1NewValue|...|columnNName|columnNNewValue\r\n" +
+                "\t обновление поля\r\n" +
+                "delete|tableName|primaryKeyColumnName|primaryKeyValue\r\n" +
+                "\t удаление поля\r\n" +
+                "clear|tableName\r\n" +
+                "\t очистка таблицы\r\n" +
+                "drop|tableName\r\n" +
+                "\t удаление таблицы\r\n" +
+                "dropbase|databaseName\r\n" +
+                "\t удаление базы\r\n" +
                 "Введите команду или help для помощи:\r\n" +
+                //exit
                 "До свидания!\r\n", getData());
     }
 

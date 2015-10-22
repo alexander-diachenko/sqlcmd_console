@@ -25,6 +25,16 @@ public class Clear implements Command {
     }
 
     @Override
+    public String format() {
+        return "clear|tableName";
+    }
+
+    @Override
+    public String description() {
+        return "очистка таблицы";
+    }
+
+    @Override
     public void process(String command) {
         String[] data = command.split("\\|");
         if (!isCorrect(command, data)) {

@@ -1,13 +1,14 @@
 package ua.com.juja.positiv.sqlcmd.command.connect;
 
 import ua.com.juja.positiv.sqlcmd.command.Command;
+import ua.com.juja.positiv.sqlcmd.command.NullFormat;
 import ua.com.juja.positiv.sqlcmd.databasemanager.DatabaseManager;
 import ua.com.juja.positiv.sqlcmd.view.View;
 
 /**
  * Created by POSITIV on 16.09.2015.
  */
-public class isConnected implements Command {
+public class isConnected extends NullFormat implements Command {
     private DatabaseManager manager;
     private View view;
 

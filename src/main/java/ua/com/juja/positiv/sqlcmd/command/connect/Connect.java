@@ -25,6 +25,16 @@ public class Connect implements Command {
     }
 
     @Override
+    public String format() {
+        return "connect|database|user|password";
+    }
+
+    @Override
+    public String description() {
+        return "подключение к базе";
+    }
+
+    @Override
     public void process(String command) {
         String[] data = command.split("\\|");
         if (!isCorrect(command, data)) {

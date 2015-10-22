@@ -25,6 +25,16 @@ public class Delete implements Command {
     }
 
     @Override
+    public String format() {
+        return "delete|tableName|primaryKeyColumnName|primaryKeyValue";
+    }
+
+    @Override
+    public String description() {
+        return "удаление поля";
+    }
+
+    @Override
     public void process(String command) {
         String[] data = command.split("\\|");
         if (!isCorrect(command, data)) {

@@ -25,6 +25,16 @@ public class DropBase implements Command {
     }
 
     @Override
+    public String format() {
+        return "dropbase|databaseName";
+    }
+
+    @Override
+    public String description() {
+        return "удаление базы";
+    }
+
+    @Override
     public void process(String command) {
         String[] data = command.split("\\|");
         if (!isCorrect(command, data)) {

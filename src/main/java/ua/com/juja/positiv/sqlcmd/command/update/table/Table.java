@@ -27,6 +27,17 @@ public class Table implements Command {
     }
 
     @Override
+    public String format() {
+        return "table|tableName|primaryKeyName|column1Name|column1Type|...|" +
+                "columnNName|columnNType";
+    }
+
+    @Override
+    public String description() {
+        return "создание таблицы";
+    }
+
+    @Override
     public void process(String command) {
         String[] data = command.split("\\|");
 
